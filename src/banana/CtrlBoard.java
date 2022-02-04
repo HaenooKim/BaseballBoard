@@ -115,6 +115,25 @@ public class CtrlBoard {
 		return mnv;
 	}
 	
+	@RequestMapping("/showContent.pknu")
+	public ModelAndView showContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String no = request.getParameter("no");
+		System.out.println(no);
+		
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		
+		BoardVO po = new BoardVO();
+		po.setNo(Integer.parseInt(no));
+		BoardVO vo = dao.findByPK(po);
+		int uc = dao.viewCount(vo);
+		
+		ModelAndView mnv = new ModelAndView();
+		mnv.setViewName("showContent");
+		mnv.addObject("content", vo);
+		return mnv;
+	}
+	
+	
 	@RequestMapping("/add.pknu")
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO dao = new BoardDAO_MariaImpl();
