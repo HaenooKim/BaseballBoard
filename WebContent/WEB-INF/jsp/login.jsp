@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<form method="POST" action="loginCheck.pknu">
+	<input type="text" name="id"/>
+	<input type="password" name="password"/>
+	<input type="submit"/>
+</form>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
-    import="banana.BoardVO, java.util.List"%><%
-List<BoardVO> ls = (List<BoardVO>)request.getAttribute("rList");
-%><%--
+    import="banana.BoardVO, java.util.List"%>
+    <%@taglib prefix="q" uri="http://java.sun.com/jsp/jstl/core"%>
+<%--
 
 --%><!DOCTYPE html>
 <html>
@@ -12,18 +12,16 @@ List<BoardVO> ls = (List<BoardVO>)request.getAttribute("rList");
 
 </head>
 <body>
-	<table> <%
-		for(BoardVO t : ls) {
-			%><tr>
-			<td><%=t.getNo() %></td>
-			<td><a><%=t.getTitle() %></a></td>
-			<td><%=t.getAuthor()%></td>
-			<td><%=t.getTime() %></td>
-			<td><%=t.getView() %></td>
-			<%
-		}
-	
-	%>
+
+	${name}
+
+	<table>	
+		<q:forEach items="${rList}" var="t">
+			<tr>
+				<td>${t.no}</td>
+				<td>${t.author}</td>
+			</tr>
+		</q:forEach>
 	</table>
 	
 	<a href="write.pknu"><button>±Û¾²±â</button></a>

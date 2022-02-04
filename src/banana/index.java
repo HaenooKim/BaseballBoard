@@ -1,6 +1,7 @@
 package banana;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Map;
@@ -73,7 +74,6 @@ public class index extends HttpServlet{
 		String prefix = "/WEB-INF/jsp/";
 		String suffix = ".jsp";
 		
-		//--------------
 		if (mnt!=null) {
 			System.out.println(mnt.method);
 			System.out.println(mnt.target);
@@ -99,6 +99,41 @@ public class index extends HttpServlet{
 						}
 						
 					}
+					
+					
+					else if( obj instanceof String ) 
+					{
+						ResponseBody annot3 = mnt.method.getAnnotation( ResponseBody.class );
+						if( annot3 != null ) {
+							System.out.println("annot3 != null");
+							
+							String l = obj.toString();
+							if( l != null ) 
+							{
+								//	한글 깨짐을 해결키 위해 utf-8 로 변환시켜서 내보낸다.
+								response.setContentType("text/plain;charset=utf-8");
+								
+								OutputStream out = response.getOutputStream();
+								out.write( l.getBytes("utf-8") ); 
+								out.flush();
+								out.close();
+							}
+						}
+						else
+						{
+							String res = (String)obj;
+							if( res.startsWith("redirect:") ) {
+								response.sendRedirect( res.substring(9) );
+							}
+							else {
+								RequestDispatcher rd = request.getRequestDispatcher( res );
+								rd.forward( request, response );
+							}
+						}
+					}
+					
+					
+					
 				}
 			}
 			catch(Exception e) {
