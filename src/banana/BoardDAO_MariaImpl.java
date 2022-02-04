@@ -1,7 +1,8 @@
-package orange;
+package banana;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 public class BoardDAO_MariaImpl implements BoardDAO{
 
 	@Override
-	public List<BoardDAO> findAll() throws Exception {
+	public List<BoardVO> findAll() throws Exception {
 		List<BoardVO> ls = new ArrayList<BoardVO>();
 		Connection conn = null;
 		Statement stmt = null;
@@ -24,8 +25,20 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select * from board ORDER BY no DESC");
 			
+			
 			while(rs.next()) {
+				BoardVO vo = new BoardVO();
 				
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				
+				ls.add( vo );
 			}
 			
 		}
@@ -38,9 +51,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			if (stmt !=null) stmt.close();
 			if (rs != null) rs.close();
 		}
-		
-		
-		return null;
+		return ls;
 	}
 
 	@Override
@@ -57,7 +68,6 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 
 	@Override
 	public int add(BoardVO pvo) throws Exception {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

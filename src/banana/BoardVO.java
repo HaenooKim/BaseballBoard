@@ -1,21 +1,7 @@
-package orange;
+package banana;
 
 public class BoardVO {
 	private Integer no = null; // 게시물 번호
-	private String title = null; //게시물 제목
-	private String content = null; // 게시물 내용
-	private String author = null; //작성자
-	private String ofn = null; // 파일 이름
-	private String fsn = null;
-	private Integer view = null; //조회수
-	private String time = null; // 작성 시간
-	
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
 	public Integer getNo() {
 		return no;
 	}
@@ -58,4 +44,17 @@ public class BoardVO {
 	public void setView(Integer view) {
 		this.view = view;
 	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	private String title = null; //게시물 제목
+	private String content = null; // 게시물 내용
+	private String author = null; //작성자
+	private String ofn = null; // 파일 이름
+	private String fsn = null;
+	private Integer view = null; //조회수
+	private String time = null; // 작성 시간
 }

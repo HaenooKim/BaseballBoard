@@ -4,6 +4,14 @@
   <servlet>
     <servlet-name>xyzz</servlet-name>
     <servlet-class>banana.index</servlet-class>
+    
+    <init-param>
+    	<param-name>controller</param-name>
+    	<param-value>
+    		banana.CtrlList, banana.CtrlAdd, banana.CtrlWrite
+    	</param-value>
+    </init-param>
+    
   </servlet>
   
   
