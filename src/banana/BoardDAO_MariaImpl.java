@@ -68,6 +68,36 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 
 	@Override
 	public int add(BoardVO pvo) throws Exception {
-		return 0;
+		int uc = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+//	INSERT INTO bang_06_T VALUES ( default, '내용', 'null','null', '강사') <- 방지하자!!			
+//			String sql = "INSERT INTO bang_06_T VALUES ( default, '"+ 
+//				pvo.getContent() +"', '"+pvo.getFsn() +"','"+
+//				pvo.getOfn() + "', '"+ pvo.getAuthor() + "')";
+
+			String sql = "INSERT INTO board VALUES (default,?,?,?,?,?,?,NOW())";
+			stmt = conn.prepareStatement( sql );
+
+			stmt.setString(1, pvo.getTitle() );
+			stmt.setString(2, pvo.getContent() );
+			stmt.setString(3, pvo.getAuthor() );
+			stmt.setString(4, pvo.getOfn() );
+			stmt.setString(5,  pvo.getFsn());
+			stmt.setInt(6, pvo.getView());
+
+			uc = stmt.executeUpdate();
+		}
+		catch( Exception e ) { throw e; }
+		finally {
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return uc;
 	}
 }

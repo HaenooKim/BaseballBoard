@@ -1,10 +1,14 @@
 package banana;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
 
 import orange.UserDAO;
 import orange.UserDAO_MariaImpl;
@@ -58,10 +62,53 @@ public class CtrlBoard {
 		
 	}
 	
+	
+	@RequestMapping("/logout.pknu")
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "redirect:login.pknu";
+		
+	}
+	
 	@RequestMapping("/add.pknu")
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		ModelAndView mnv = new ModelAndView();
 		
-	return null;
+		String title = request.getParameter("title");
+		System.out.println(title);
+		if (title==null || title.equals("")) {
+			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		String content = request.getParameter("content");
+		System.out.println(content);
+		if (content==null || content.equals("")) {
+			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		String author = request.getParameter("author");
+		System.out.println(content);
+		if (content==null || content.equals("")) {
+			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		BoardVO po = new BoardVO();
+		po.setTitle(title);
+		po.setContent(content);
+		po.setAuthor(author);
+		po.setOfn("2");
+		po.setFsn("3");
+		po.setView(4);
+		dao.add(po);
+		
+		mnv.setViewName("redirect:list.pknu"); 
+		return mnv;
+	
 	}
 	
 	@RequestMapping("/write.pknu")
