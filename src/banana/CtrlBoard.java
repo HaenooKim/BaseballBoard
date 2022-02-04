@@ -1,6 +1,7 @@
 package banana;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,15 +18,47 @@ import orange.UserVO;
 @Control
 public class CtrlBoard {
 	
-	@RequestMapping("/list.pknu")
-	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		BoardDAO dao = new BoardDAO_MariaImpl();
-		List<BoardVO> rl = dao.findAll();
+//-----------------회원가입 및 로그인-----------------------------
+	
+	@RequestMapping("/signin.pknu")
+	public ModelAndView signin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		UserDAO dao = new UserDAO_MariaImpl();
+		List<UserVO> rl = dao.findAll();
 		
 		ModelAndView mnv = new ModelAndView();
-		mnv.setViewName("list");
+		mnv.setViewName("signin");
 		mnv.addObject("rList", rl);
 		return mnv;
+	}
+	
+	@RequestMapping("/signinCheck.pknu")
+	public String signinCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		
+	
+	
+		UserDAO dao = new UserDAO_MariaImpl();
+		List<UserVO> rl = dao.findAll();
+		
+		for (UserVO t : rl) {
+			if (t.getId().equals(id)) {
+				System.out.println("이미 존재하는 id");
+				return "redirect:signin.pknu";
+			}
+		}
+		
+		UserVO po = new UserVO();
+		po.setId(id);
+		po.setName(name);
+		po.setPassword(password);
+		po.setPhone(phone);
+		dao.add(po);
+		
+		return "redirect:login.pknu";
+		
 	}
 	
 	@RequestMapping("/login.pknu")
@@ -37,7 +70,6 @@ public class CtrlBoard {
 		mnv.setViewName("login");
 		mnv.addObject("rList", rl);
 		return mnv;
-		
 	}
 	
 	@RequestMapping("/loginCheck.pknu")
@@ -69,6 +101,18 @@ public class CtrlBoard {
 		session.invalidate();
 		return "redirect:login.pknu";
 		
+	}
+	
+	//---------------------------게시판----------------------------------------
+	@RequestMapping("/list.pknu")
+	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		List<BoardVO> rl = dao.findAll();
+		
+		ModelAndView mnv = new ModelAndView();
+		mnv.setViewName("list");
+		mnv.addObject("rList", rl);
+		return mnv;
 	}
 	
 	@RequestMapping("/add.pknu")

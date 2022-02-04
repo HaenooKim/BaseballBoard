@@ -2,6 +2,7 @@ package orange;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -59,8 +60,37 @@ public class UserDAO_MariaImpl implements UserDAO{
 
 	@Override
 	public int add(UserVO pvo) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int uc = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+/*
+ * id VARCHAR(10) NOT NULL PRIMARY KEY,
+password VARCHAR(16) NOT NULL,
+name VARCHAR(10) NOT NULL,
+phone VARCHAR(20) NOT NULL
+ */
+
+			String sql = "INSERT INTO user VALUES (?, ?, ?, ?)";
+			stmt = conn.prepareStatement( sql );
+
+			stmt.setString(1, pvo.getId() );
+			stmt.setString(2, pvo.getPassword());
+			stmt.setString(3, pvo.getName());
+			stmt.setString(4, pvo.getPhone());
+
+			uc = stmt.executeUpdate();
+		}
+		catch( Exception e ) { throw e; }
+		finally {
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return uc;
 	}
 
 }

@@ -10,7 +10,9 @@
 <form method="POST" action="loginCheck.pknu">
 	<input type="text" name="id"/>
 	<input type="password" name="password"/>
-	<input type="submit"/>
+	<input type="submit" value="로그인"/>
 </form>
+
+<a href="signin.pknu"><button>회원가입</button></a>
 </body>
 </html>

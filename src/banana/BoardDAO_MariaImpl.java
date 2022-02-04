@@ -76,11 +76,6 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-//	INSERT INTO bang_06_T VALUES ( default, '내용', 'null','null', '강사') <- 방지하자!!			
-//			String sql = "INSERT INTO bang_06_T VALUES ( default, '"+ 
-//				pvo.getContent() +"', '"+pvo.getFsn() +"','"+
-//				pvo.getOfn() + "', '"+ pvo.getAuthor() + "')";
-
 			String sql = "INSERT INTO board VALUES (default,?,?,?,?,?,?,NOW())";
 			stmt = conn.prepareStatement( sql );
 
