@@ -8,7 +8,7 @@
     <init-param>
     	<param-name>controller</param-name>
     	<param-value>
-    		banana.CtrlList, banana.CtrlAdd, banana.CtrlWrite
+    		banana.CtrlList, banana.CtrlAdd, banana.CtrlWrite, banana.CtrlLogin
     	</param-value>
     </init-param>
     
