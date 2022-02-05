@@ -14,5 +14,7 @@
 </form>
 
 <a href="signin.pknu"><button>회원가입</button></a>
+
+<a href="list.pknu"><button>게시판으로 가기</button></a>
 </body>
 </html>

@@ -16,5 +16,7 @@
 	<input type="submit" value="회원가입"/>
 </form>
 
+<a href="list.pknu"><button>게시판으로 가기</button></a>
+
 </body>
 </html>

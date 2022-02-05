@@ -154,4 +154,125 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		}
 		return uc;
 	}
+
+	@Override
+	public List<BoardVO> findByAuthor(BoardVO pvo) throws Exception {
+		List <BoardVO> ls =new ArrayList<BoardVO>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("SELECT * FROM board WHERE author = ? ORDER BY no DESC");
+			stmt.setString( 1, pvo.getAuthor() );
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				
+				ls.add( vo );
+			}
+		}
+		catch( Exception e ) {
+			throw e; 
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return ls;
+	}
+
+	@Override
+	public List<BoardVO> findByTitle(BoardVO pvo) throws Exception {
+		List <BoardVO> ls =new ArrayList<BoardVO>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("SELECT * FROM board WHERE title = ? ORDER BY no DESC");
+			stmt.setString( 1, pvo.getTitle() );
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				
+				ls.add( vo );
+			}
+		}
+		catch( Exception e ) {
+			throw e; 
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return ls;
+	}
+
+	@Override
+	public List<BoardVO> findByTitlecontent(BoardVO pvo) throws Exception {
+		List <BoardVO> ls =new ArrayList<BoardVO>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("select * from board where title=? or content=? ORDER BY no DESC");
+			stmt.setString( 1, pvo.getTitle() );
+			stmt.setString( 2, pvo.getContent() );
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				
+				ls.add( vo );
+			}
+		}
+		catch( Exception e ) {
+			throw e; 
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return ls;
+	}
 }

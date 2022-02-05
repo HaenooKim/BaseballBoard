@@ -5,13 +5,14 @@
     
     <%
     	List<BoardVO> ls = (List<BoardVO>)request.getAttribute("rList");
-    	String name = (String)session.getAttribute("name");
-    	String a= null;
-    	String btnName = null;
+    	String name = (String)session.getAttribute("name"); //세션에 저장된 이름 값 가져오기
+    	String a= null; //a태그에 들어갈 값
+    	String btnName = null; //로그인이냐 로그아웃버튼이냐 선택
     	
     	if (name == null) {
-    		name=Util.getRemoteAddr(request);
-    		a = "login.pknu";
+    		String ip = Util.getRemoteAddr(request);
+    		name=ip.substring(0, 7); //6자리까지만 공개한다.
+    		a = "login.pknu"; // a태그에 들어갈 주소. 로그인이 안 되어있으면 로그인 버튼으로, 되어있으면 로그아웃 버튼이 뜨도록 함
     		btnName = "로그인";
     	}
     	else {
@@ -31,9 +32,16 @@
 </head>
 <body>
 
-	<%=name %>
-
+	<span><%=name %>님 안녕하세요</span>
+	
+	<%
+		if (ls.isEmpty()) {
+			%>조회하는 결과가 없습니다.<% 
+		}
+	%>
+	
 	<table> <% 	
+	if (ls != null) {
 		for (BoardVO t : ls) {
 			%>
 			
@@ -47,12 +55,23 @@
 			
 			<%
 		}
-	
+	}
 	%>
 	</table>
 	
 	<a href="write.pknu"><button>글쓰기</button></a>
 	<a href=<%=a%>><button><%=btnName %></button></a>
+	
+	
+	<form method="GET" action="listSearch.pknu">
+		<select name="search">
+		    <option value="author">글쓴이</option>
+		    <option value="title">제목</option>
+		    <option value="titlecontent">제목+내용</option>
+		    <input type="text" name="target" required minlength='2'/>
+		    <input type="submit" value="검색"/> 
+  		</select>
+	</form>
 
 </body>
 </html>    

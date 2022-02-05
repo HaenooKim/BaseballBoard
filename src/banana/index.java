@@ -131,9 +131,6 @@ public class index extends HttpServlet{
 							}
 						}
 					}
-					
-					
-					
 				}
 			}
 			catch(Exception e) {
