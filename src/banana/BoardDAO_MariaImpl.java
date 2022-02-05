@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDAO_MariaImpl implements BoardDAO{
-
+	
 	@Override
 	public List<BoardVO> findAll() throws Exception {
 		List<BoardVO> ls = new ArrayList<BoardVO>();
@@ -37,7 +37,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setFsn(rs.getString("fsn"));
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
-				
+				vo.setCategory(rs.getString("category"));
 				ls.add( vo );
 			}
 			
@@ -54,6 +54,53 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		return ls;
 	}
 
+	
+	/*
+	@Override
+	public List<BoardVO> findAll() throws Exception {
+		List<BoardVO> ls = new ArrayList<BoardVO>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select * from board ORDER BY no DESC");
+			
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				vo.setCategory(rs.getString("category"));
+				ls.add( vo );
+			}
+			
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		
+		finally {
+			if (conn !=null) conn.close();
+			if (stmt !=null) stmt.close();
+			if (rs != null) rs.close();
+		}
+		return ls;
+	}
+	*/
+	
 	@Override
 	public BoardVO findByPK(BoardVO pvo) throws Exception {
 		BoardVO vo = null;
@@ -80,6 +127,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setFsn(rs.getString("fsn"));
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
+				vo.setCategory(rs.getString("category"));
 			}
 		}
 		catch( Exception e ) {
@@ -109,7 +157,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-			String sql = "INSERT INTO board VALUES (default,?,?,?,?,?,?,NOW())";
+			String sql = "INSERT INTO board VALUES (default,?,?,?,?,?,?,NOW(),?)";
 			stmt = conn.prepareStatement( sql );
 
 			stmt.setString(1, pvo.getTitle() );
@@ -118,6 +166,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			stmt.setString(4, pvo.getOfn() );
 			stmt.setString(5,  pvo.getFsn());
 			stmt.setInt(6, pvo.getView());
+			stmt.setString(7, pvo.getCategory());
 
 			uc = stmt.executeUpdate();
 		}
@@ -180,7 +229,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setFsn(rs.getString("fsn"));
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
-				
+				vo.setCategory(rs.getString("category"));
 				ls.add( vo );
 			}
 		}
@@ -220,7 +269,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setFsn(rs.getString("fsn"));
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
-				
+				vo.setCategory(rs.getString("category"));
 				ls.add( vo );
 			}
 		}
@@ -261,7 +310,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setFsn(rs.getString("fsn"));
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
-				
+				vo.setCategory(rs.getString("category"));
 				ls.add( vo );
 			}
 		}

@@ -162,35 +162,6 @@ public class CtrlBoard {
 		mnv.setViewName("list");
 		mnv.addObject("rList", rl);
 		return mnv;
-		/*
-		 * 
-		 * 	BoardDAO dao = new BoardDAO_MariaImpl();
-		List<BoardVO> rl = dao.findAll();
-		
-		ModelAndView mnv = new ModelAndView();
-		mnv.setViewName("list");
-		mnv.addObject("rList", rl);
-		return mnv;
-		
-		--------------
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		HttpSession session = request.getSession();
-		
-		UserDAO dao = new UserDAO_MariaImpl();
-		List<UserVO> rl = dao.findAll();
-		
-		for (UserVO t : rl) {
-			if (t.getId().equals(id) && t.getPassword().equals(password)) {
-				session.setAttribute("name", t.getName());
-				System.out.println("로그인 성공");
-				
-				return "redirect:list.pknu";
-			}
-		}
-		
-		return "redirect:login.pknu?ecode=login_fail";
-		*/
 		
 	}
 	

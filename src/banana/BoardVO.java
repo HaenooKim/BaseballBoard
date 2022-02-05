@@ -50,6 +50,12 @@ public class BoardVO {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	private String title = null; //게시물 제목
 	private String content = null; // 게시물 내용
 	private String author = null; //작성자
@@ -57,4 +63,5 @@ public class BoardVO {
 	private String fsn = null;
 	private Integer view = null; //조회수
 	private String time = null; // 작성 시간
+	private String category = null; //팀선택
 }
