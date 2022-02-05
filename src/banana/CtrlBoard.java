@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import orange.BoardAndReplyVO;
 import orange.UserDAO;
 import orange.UserDAO_MariaImpl;
 import orange.UserVO;
@@ -106,7 +107,7 @@ public class CtrlBoard {
 	@RequestMapping("/list.pknu")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO dao = new BoardDAO_MariaImpl();
-		List<BoardVO> rl = dao.findAll();
+		List<BoardAndReplyVO> rl = dao.findAll();
 		
 		ModelAndView mnv = new ModelAndView();
 		mnv.setViewName("list");

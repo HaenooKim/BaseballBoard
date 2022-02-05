@@ -2,8 +2,10 @@ package banana;
 
 import java.util.List;
 
+import orange.BoardAndReplyVO;
+
 public interface BoardDAO {
-	public List<BoardVO> findAll() throws Exception;
+	public List<BoardAndReplyVO> findAll() throws Exception;
 	public BoardVO findByPK(BoardVO pvo) throws Exception;
 	public int delByPK(BoardVO pvo) throws Exception; 
 	public int add(BoardVO pvo) throws Exception; //±Û¾²±â

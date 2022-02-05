@@ -8,11 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import orange.BoardAndReplyVO;
+
 public class BoardDAO_MariaImpl implements BoardDAO{
 	
 	@Override
-	public List<BoardVO> findAll() throws Exception {
-		List<BoardVO> ls = new ArrayList<BoardVO>();
+	public List<BoardAndReplyVO> findAll() throws Exception {
+		List<BoardAndReplyVO> ls = new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -23,11 +25,11 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from board ORDER BY no DESC");
+			rs = stmt.executeQuery("select * from board natural join reply ORDER BY no DESC");
 			
 			
 			while(rs.next()) {
-				BoardVO vo = new BoardVO();
+				BoardAndReplyVO vo = new BoardAndReplyVO();
 				
 				vo.setNo(rs.getInt("no"));
 				vo.setTitle(rs.getString("title"));
@@ -38,6 +40,12 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
 				vo.setCategory(rs.getString("category"));
+				
+				vo.setReplyAuthor(rs.getString("replyAuthor"));
+				vo.setReplyContent(rs.getString("replyContent"));
+				vo.setReplyNo(rs.getInt("replyNo"));
+				vo.setReplyTime(rs.getString("replyTime"));
+				
 				ls.add( vo );
 			}
 			

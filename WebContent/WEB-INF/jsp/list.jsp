@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
-    import="banana.BoardVO, banana.Util, java.util.List"%>
+    import="banana.BoardVO, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
     <%@taglib prefix="q" uri="http://java.sun.com/jsp/jstl/core"%>
     
     <%
-    	List<BoardVO> ls = (List<BoardVO>)request.getAttribute("rList");
+    	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList");
     	String name = (String)session.getAttribute("name"); //세션에 저장된 이름 값 가져오기
     	String a= null; //a태그에 들어갈 값
     	String btnName = null; //로그인이냐 로그아웃버튼이냐 선택
@@ -42,7 +42,7 @@
 	
 	<table> <% 	
 	if (ls != null) {
-		for (BoardVO t : ls) {
+		for (BoardAndReplyVO t : ls) {
 			%>
 			
 			<tr>
