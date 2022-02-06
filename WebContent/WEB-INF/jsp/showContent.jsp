@@ -18,6 +18,11 @@
 </head>
 <body>
 
+<%if(vo.get(0).getAuthor().equals(name)) {
+	%><button>수정하기</button><%
+}
+%>
+
 <div>
 	<span><%=vo.get(0).getTitle() %></span>
 	<span><%=vo.get(0).getAuthor()%></span>
