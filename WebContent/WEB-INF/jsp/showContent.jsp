@@ -15,14 +15,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+
+<script>
+	function handleBtn() {
+		if (confirm("정말 삭제하시겠습니까?")==true) {
+			document.form.submit();
+		}
+		else {
+			return;
+		}
+	}
+</script>
+
+
 </head>
 <body>
 
 <%if(vo.get(0).getAuthor().equals(name)) {
-	%><button>수정하기</button><%
+	%><button>수정하기</button>
+		<a href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button onclick="handleBtn();">삭제하기</button></a>
+	<% 
 }
 %>
-
 <div>
 	<span><%=vo.get(0).getTitle() %></span>
 	<span><%=vo.get(0).getAuthor()%></span>

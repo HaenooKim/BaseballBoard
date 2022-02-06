@@ -121,7 +121,6 @@ public class CtrlBoard {
 	@RequestMapping("/showContent.pknu")
 	public ModelAndView showContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String no = request.getParameter("no");
-		System.out.println("이게 널인가?" + no);
 		ModelAndView mnv = new ModelAndView();
 		if (no==null || no.equals("")) {
 			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
@@ -183,7 +182,7 @@ public class CtrlBoard {
 		
 		
 		MultipartRequest mpr = new MultipartRequest( request , Util.uploadDir(), 
-				1024*1024*16 , "utf-8", null ); //request, 파일저장경로, 파일크기, 인코딩, ?
+				1024*1024*16 , "utf-8", null ); //request, 파일저장경로, 파일크기, 인코딩, 정책(null)
 		
 		ModelAndView mnv = new ModelAndView();
 		System.out.println("테스트");
@@ -226,51 +225,6 @@ public class CtrlBoard {
 		dao.add(po);
 		mnv.setViewName("redirect:list.pknu");
 		return mnv;
-		
-		
-		
-		/*
-		 * 
-		 *함수 리턴타입이 ModelAndView였는데 새로짜는건 String임
-		BoardDAO dao = new BoardDAO_MariaImpl();
-		ModelAndV
-		iew mnv = new ModelAndView();
-		
-		String title = request.getParameter("title");
-		System.out.println(title);
-		if (title==null || title.equals("")) {
-			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
-			return mnv;
-		}
-		
-		String content = request.getParameter("content");
-		System.out.println(content);
-		if (content==null || content.equals("")) {
-			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
-			return mnv;
-		}
-		
-		String author = request.getParameter("author");
-		System.out.println(content);
-		if (author==null || author.equals("")) {
-			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
-			return mnv;
-		}
-		
-		BoardVO po = new BoardVO();
-		po.setTitle(title);
-		po.setContent(content);
-		po.setAuthor(author);
-		po.setOfn("2");
-		po.setFsn("3");
-		po.setView(4);
-		dao.add(po);
-		
-		mnv.setViewName("redirect:list.pknu"); 
-		return mnv;
-		
-		*/
-	
 	}
 	
 	@RequestMapping("/write.pknu") // 게시글 선택했을 때 내용 보여주는 기능
@@ -289,49 +243,63 @@ public class CtrlBoard {
 	@RequestMapping("/writeReply.pknu")
 	public String writeReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ReplyDAO dao = new ReplyDAO_MariaImpl();
-		//ModelAndView mnv = new ModelAndView();
 		
 		String no = request.getParameter("no");
 		System.out.println("댓글" + no);
 		
 		String replyContent = request.getParameter("replyContent");
 		String replyAuthor = request.getParameter("replyAuthor");
-		
-		/*
-		if (replyContent==null || replyContent.equals("")) {
-			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
-			return mnv;
-		}
-		
-		
-		if (replyAuthor==null || replyAuthor.equals("")) {
-			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
-			return mnv;
-		}
-		
-		*/
 		ReplyVO po = new ReplyVO();
 		po.setNo(Integer.parseInt(no));
 		po.setReplyContent(replyContent);
 		po.setReplyAuthor(replyAuthor);
 		dao.writeReply(po);
 		
-
-		/*
-		BoardVO po = new BoardVO();
-		po.setTitle(title);
-		po.setContent(content);
-		po.setAuthor(author);
-		po.setOfn("2");
-		po.setFsn("3");
-		po.setView(4);
-		dao.add(po);
-		*/
-		
-		
 		return "showContent.pknu";
 	
 	}
+	
+	//----------------게시글 수정 및 삭제--------------------
 
-
+	@RequestMapping("/deleteBoard.pknu")
+	public ModelAndView deleteBoard(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		ModelAndView mnv = new ModelAndView();
+		
+		String no = request.getParameter("no");
+		System.out.println(no);
+		
+		if( no == null || no.equals("")) {
+			mnv.setViewName("redirect:list.do?ecode=invalid_no");
+			return mnv;
+		}
+		
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		
+		BoardVO po = new BoardVO();
+		po.setNo(Integer.parseInt(no));
+		BoardVO vo = dao.findByPK2(po);
+		int uc = dao.delByPK(po);
+		
+		if( uc > 0 && vo.getFsn() != null ) {
+			File file = new File( Util.uploadDir() + vo.getFsn() );
+			if( file.exists() ) {
+				file.delete();
+			}
+		}
+		mnv.setViewName("redirect:list.pknu");
+		return mnv;
+		
+	}
 }
+
+		
+	
+
+
+
+
+
+
+
+

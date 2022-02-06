@@ -119,6 +119,51 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 	}
 	*/
 	
+	public BoardVO findByPK2( BoardVO pvo ) throws Exception
+	{
+		BoardVO vo = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("SELECT * FROM board WHERE no = ?");
+			stmt.setInt( 1, pvo.getNo() );
+			rs = stmt.executeQuery();
+			
+			if( rs.next() ) {
+				vo = new BoardVO();
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				vo.setCategory(rs.getString("category"));
+				
+			}
+		}
+		catch( Exception e ) {
+			throw e; 
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return vo;
+	}
+
+	
+
+	
+	
+	
 	@Override
 	public List<BoardAndReplyVO> findByPK(BoardAndReplyVO pvo) throws Exception {
 		List<BoardAndReplyVO> ls = new ArrayList<BoardAndReplyVO>();
@@ -168,8 +213,26 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 
 	@Override
 	public int delByPK(BoardVO pvo) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int uc = 0;
+		Connection conn = null;
+		Statement stmt = null;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.createStatement();
+			String sql  = "DELETE FROM board where no = " + pvo.getNo();
+			uc = stmt.executeUpdate(sql);
+					
+		}
+		catch(Exception e) {throw e;}
+		finally {
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return uc;
 	}
 
 	@Override
