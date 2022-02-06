@@ -180,7 +180,61 @@ public class CtrlBoard {
 	@RequestMapping("/add.pknu")
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO dao = new BoardDAO_MariaImpl();
+		
+		
+		MultipartRequest mpr = new MultipartRequest( request , Util.uploadDir(), 
+				1024*1024*16 , "utf-8", null ); //request, 파일저장경로, 파일크기, 인코딩, ?
+		
 		ModelAndView mnv = new ModelAndView();
+		System.out.println("테스트");
+		String category = mpr.getParameter("category");
+		System.out.println("카테고리" + category);
+		
+		String title = mpr.getParameter("title");
+		if (title == null || title.equals("")) {
+			return mnv;
+		}
+		System.out.println("제목" + title);
+		
+		String content = mpr.getParameter("content");
+		if (content == null || content.equals("")) {
+			return mnv;
+		}
+		System.out.println("내용" + content);
+		
+		String author = mpr.getParameter("author");
+		if (author == null || author.equals("")) {
+			return mnv;
+		}
+		
+		BoardVO po = new BoardVO();
+		po.setCategory(category);
+		po.setTitle(title);
+		po.setContent(content);
+		po.setAuthor(author);
+		
+		String ofn = mpr.getOriginalFileName("apple");
+		if (ofn != null) {
+			File file = mpr.getFile("apple");
+			String fsn = UUID.randomUUID().toString();
+			file.renameTo(new File(Util.uploadDir()+fsn));
+			
+			po.setOfn(ofn);
+			po.setFsn(fsn);
+		}
+		
+		dao.add(po);
+		mnv.setViewName("redirect:list.pknu");
+		return mnv;
+		
+		
+		
+		/*
+		 * 
+		 *함수 리턴타입이 ModelAndView였는데 새로짜는건 String임
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		ModelAndV
+		iew mnv = new ModelAndView();
 		
 		String title = request.getParameter("title");
 		System.out.println(title);
@@ -214,6 +268,8 @@ public class CtrlBoard {
 		
 		mnv.setViewName("redirect:list.pknu"); 
 		return mnv;
+		
+		*/
 	
 	}
 	

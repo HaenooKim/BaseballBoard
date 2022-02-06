@@ -190,7 +190,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			stmt.setString(3, pvo.getAuthor() );
 			stmt.setString(4, pvo.getOfn() );
 			stmt.setString(5,  pvo.getFsn());
-			stmt.setInt(6, pvo.getView());
+			stmt.setInt(6, 0);
 			stmt.setString(7, pvo.getCategory());
 
 			uc = stmt.executeUpdate();

@@ -18,12 +18,29 @@ List<UserVO> ls = (List<UserVO>)request.getAttribute("rList");
 </head>
 <body>
 	
-	<form method="GET" action="add.pknu" enctype="multipart/form-data">
+	<form method="POST" action="add.pknu" enctype="multipart/form-data">
+		<select name="category">
+			<option value="kbo">KBO</option>
+		    <option valu"WebContent/WEB-INF/jsp/login.jsp"e="lotte">·Ôµ¥</option>
+		    <option value="lg">¿¤Áö</option>
+		    <option value="doosan">µÎ»ê</option>
+ 			<option value="hanhwa">ÇÑÈ­</option>
+		    <option value="kia">±â¾Æ</option>
+		    <option value="samsung">»ï¼º</option>
+ 			<option value="kt">KT</option>
+		    <option value="ssg">SSG</option>
+		    <option value="nc">NC</option>
+			<option value="kiwoom">Å°¿ò</option>
+  		</select>
+		
+	
+	
+	
 		<input type="text" value="<%=name%>" name="author" readonly/>
-		<input type="text" name="title" required/>
-		<input type="text" name="content" requried/>
-		<input type="file" name="apple"/>
-		<input type="submit"/>
+		<input type="text" name="title" required />
+		<input type="text" name="content" requried />
+		<input type="file" name="apple" />
+		<input type="submit" />
 	</form>
 	
 </body>
