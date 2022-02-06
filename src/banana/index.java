@@ -37,7 +37,7 @@ public class index extends HttpServlet{
 					}
 				}
 				else {
-					System.out.println("@Control이 명시되지 않음");
+					//System.out.println("@Control이 명시되지 않음");
 				}
 				
 			}
@@ -75,8 +75,8 @@ public class index extends HttpServlet{
 		String suffix = ".jsp";
 		
 		if (mnt!=null) {
-			System.out.println(mnt.method);
-			System.out.println(mnt.target);
+			//System.out.println(mnt.method);
+			//System.out.println(mnt.target);
 			
 			try {
 				
@@ -105,7 +105,7 @@ public class index extends HttpServlet{
 					{
 						ResponseBody annot3 = mnt.method.getAnnotation( ResponseBody.class );
 						if( annot3 != null ) {
-							System.out.println("annot3 != null");
+							//System.out.println("annot3 != null");
 							
 							String l = obj.toString();
 							if( l != null ) 
@@ -148,7 +148,7 @@ public class index extends HttpServlet{
 			
 		}
 		else {
-			System.out.println(uri2 + "에 지정된 컨트롤러 함수가 없습니다.");
+			//System.out.println(uri2 + "에 지정된 컨트롤러 함수가 없습니다.");
 		}
 	}
 }

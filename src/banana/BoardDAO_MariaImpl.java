@@ -25,12 +25,22 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from board natural join reply ORDER BY no DESC");
+			//rs = stmt.executeQuery("select * from board natural join reply ");
+			rs = stmt.executeQuery("select * from board order by no desc");
 			
 			
 			while(rs.next()) {
 				BoardAndReplyVO vo = new BoardAndReplyVO();
 				
+				vo.setNo(rs.getInt("no"));
+				vo.setCategory(rs.getString("category"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				
+				/*
 				vo.setNo(rs.getInt("no"));
 				vo.setTitle(rs.getString("title"));
 				vo.setContent(rs.getString("content"));
@@ -45,7 +55,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setReplyContent(rs.getString("replyContent"));
 				vo.setReplyNo(rs.getInt("replyNo"));
 				vo.setReplyTime(rs.getString("replyTime"));
-				
+				*/
 				ls.add( vo );
 			}
 			
@@ -110,8 +120,8 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 	*/
 	
 	@Override
-	public BoardVO findByPK(BoardVO pvo) throws Exception {
-		BoardVO vo = null;
+	public List<BoardAndReplyVO> findByPK(BoardAndReplyVO pvo) throws Exception {
+		List<BoardAndReplyVO> ls = new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -120,13 +130,13 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-			stmt = conn.prepareStatement("SELECT * FROM board WHERE no = ?");
+			stmt = conn.prepareStatement("select * from board left join reply on board.no=reply.no where board.no=?");
 			stmt.setInt( 1, pvo.getNo() );
 			rs = stmt.executeQuery();
 			
-			if( rs.next() ) {
-				vo = new BoardVO();
-				
+			while( rs.next() ) {
+				BoardAndReplyVO vo = new BoardAndReplyVO();
+				//---°Ô½Ã±Û----
 				vo.setNo(rs.getInt("no"));
 				vo.setTitle(rs.getString("title"));
 				vo.setContent(rs.getString("content"));
@@ -136,6 +146,13 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
 				vo.setCategory(rs.getString("category"));
+				//----´ñ±Û-----
+				vo.setReplyAuthor(rs.getString("replyAuthor"));
+				vo.setReplyContent(rs.getString("replyContent"));
+				vo.setReplyNo(rs.getInt("replyNo"));
+				vo.setReplyTime(rs.getString("replyTime"));
+				ls.add(vo);
+				
 			}
 		}
 		catch( Exception e ) {
@@ -146,7 +163,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			if( stmt != null ) stmt.close();
 			if( conn != null ) conn.close();
 		}
-		return vo;
+		return ls;
 	}
 
 	@Override
@@ -187,7 +204,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 	}
 
 	@Override
-	public int viewCount(BoardVO pvo) throws Exception {
+	public int viewCount(BoardAndReplyVO pvo) throws Exception {
 		int uc = 0;
 		Connection conn = null;
 		PreparedStatement stmt = null;

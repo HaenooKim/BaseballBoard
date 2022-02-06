@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 
 import orange.BoardAndReplyVO;
+import orange.ReplyDAO;
+import orange.ReplyDAO_MariaImpl;
+import orange.ReplyVO;
 import orange.UserDAO;
 import orange.UserDAO_MariaImpl;
 import orange.UserVO;
@@ -118,16 +121,20 @@ public class CtrlBoard {
 	@RequestMapping("/showContent.pknu")
 	public ModelAndView showContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String no = request.getParameter("no");
-		System.out.println(no);
+		System.out.println("이게 널인가?" + no);
+		ModelAndView mnv = new ModelAndView();
+		if (no==null || no.equals("")) {
+			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
+			return mnv;
+		}
 		
 		BoardDAO dao = new BoardDAO_MariaImpl();
 		
-		BoardVO po = new BoardVO();
+		BoardAndReplyVO po = new BoardAndReplyVO();
 		po.setNo(Integer.parseInt(no));
-		BoardVO vo = dao.findByPK(po);
-		int uc = dao.viewCount(vo); //조회수 증가
+		List<BoardAndReplyVO> vo = dao.findByPK(po);
+		int uc = dao.viewCount(vo.get(0)); //조회수 증가
 		
-		ModelAndView mnv = new ModelAndView();
 		mnv.setViewName("showContent");
 		mnv.addObject("content", vo);
 		return mnv;
@@ -191,7 +198,7 @@ public class CtrlBoard {
 		
 		String author = request.getParameter("author");
 		System.out.println(content);
-		if (content==null || content.equals("")) {
+		if (author==null || author.equals("")) {
 			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
 			return mnv;
 		}
@@ -219,6 +226,55 @@ public class CtrlBoard {
 		mnv.setViewName("write");
 		mnv.addObject("rList", rl);
 		return mnv;
+	}
+	
+	//----------------댓글달기
+	
+	@RequestMapping("/writeReply.pknu")
+	public String writeReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ReplyDAO dao = new ReplyDAO_MariaImpl();
+		//ModelAndView mnv = new ModelAndView();
+		
+		String no = request.getParameter("no");
+		System.out.println("댓글" + no);
+		
+		String replyContent = request.getParameter("replyContent");
+		String replyAuthor = request.getParameter("replyAuthor");
+		
+		/*
+		if (replyContent==null || replyContent.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		
+		if (replyAuthor==null || replyAuthor.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		*/
+		ReplyVO po = new ReplyVO();
+		po.setNo(Integer.parseInt(no));
+		po.setReplyContent(replyContent);
+		po.setReplyAuthor(replyAuthor);
+		dao.writeReply(po);
+		
+
+		/*
+		BoardVO po = new BoardVO();
+		po.setTitle(title);
+		po.setContent(content);
+		po.setAuthor(author);
+		po.setOfn("2");
+		po.setFsn("3");
+		po.setView(4);
+		dao.add(po);
+		*/
+		
+		
+		return "showContent.pknu";
+	
 	}
 
 
