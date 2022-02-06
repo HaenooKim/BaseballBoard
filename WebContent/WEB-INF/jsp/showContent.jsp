@@ -3,8 +3,9 @@
     import="orange.UserVO, banana.BoardVO, orange.BoardAndReplyVO, banana.Util, java.util.List"%><%
     		List<BoardAndReplyVO> vo = (List<BoardAndReplyVO>)request.getAttribute("content");
     String name = (String)session.getAttribute("name");
+    String ip = null;
 	if (name == null) {
-		String ip = Util.getRemoteAddr(request);
+		ip = Util.getRemoteAddr(request);
 		name=ip.substring(0, 7); //6자리까지만 공개한다.
 	}
 %>
@@ -31,7 +32,7 @@
 </head>
 <body>
 
-<%if(vo.get(0).getAuthor().equals(name)) {
+<%if(vo.get(0).getAuthor().equals(name) ) {
 	%><button>수정하기</button>
 		<a href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button onclick="handleBtn();">삭제하기</button></a>
 	<% 
@@ -58,7 +59,16 @@
 			for(BoardAndReplyVO t : vo) {
 				%><tr>			
 				<td><%=t.getReplyAuthor() %></td>
-				<td><%=t.getReplyContent()%></td>
+				<td><%=t.getReplyContent()%>
+					<%if(t.getReplyAuthor().equals(name) ) {
+						%><button>수정하기</button>
+							<a href="deleteReply.pknu?replyNo=<%=t.getReplyNo()%>"><button onclick="handleBtn();">[X]</button></a>
+					<% 
+				}
+			%>
+					
+				
+				</td>
 				</tr><%
 				
 			}

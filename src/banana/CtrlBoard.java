@@ -267,7 +267,6 @@ public class CtrlBoard {
 		ModelAndView mnv = new ModelAndView();
 		
 		String no = request.getParameter("no");
-		System.out.println(no);
 		
 		if( no == null || no.equals("")) {
 			mnv.setViewName("redirect:list.do?ecode=invalid_no");
@@ -289,6 +288,40 @@ public class CtrlBoard {
 		}
 		mnv.setViewName("redirect:list.pknu");
 		return mnv;
+		
+	}
+	
+	
+	
+	
+	@RequestMapping("/deleteReply.pknu")
+	public String deleteReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String replyNo = request.getParameter("replyNo");
+		System.out.println("´ñ±Û¹øÈ£"+Integer.parseInt(replyNo));
+		
+		if( replyNo == null || replyNo.equals("")) {
+			return "redirect:showContent.pknu?ecode=invalid_no";
+		}
+		
+		ReplyDAO dao = new ReplyDAO_MariaImpl();
+		
+		ReplyVO po = new ReplyVO();
+		po.setReplyNo(Integer.parseInt(replyNo));
+		ReplyVO vo = dao.findByPK(po);
+		int uc = dao.delByPK(po);
+		System.out.println("¿ì¾¾" + uc);
+		/*
+		 * 
+		 * 	BoardVO po = new BoardVO();
+		po.setNo(Integer.parseInt(no));
+		BoardVO vo = dao.findByPK2(po);
+		int uc = dao.delByPK(po);
+		 */
+		
+		
+		
+		return "showContent.pknu?no="+vo.getNo();
 		
 	}
 }
