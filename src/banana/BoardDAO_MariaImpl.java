@@ -193,8 +193,40 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		}
 		return uc;
 	}
+	
+	
+	@Override //업데이트
+	public int update(BoardVO pvo) throws Exception {
+		int uc = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			String sql = "update board set title=?, content=?, category=?, ofn=?, fsn=?, time=NOW() where no=?";
+			
+			stmt = conn.prepareStatement( sql );
+			
+			stmt.setString(1, pvo.getTitle());
+			stmt.setString(2, pvo.getContent());
+			stmt.setString(3, pvo.getCategory());
+			stmt.setString(4, pvo.getOfn());
+			stmt.setString(5,  pvo.getFsn());
+			stmt.setInt(6,  pvo.getNo());
+			
+			uc = stmt.executeUpdate();
+		}
+		catch( Exception e ) { throw e; }
+		finally {
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return uc;
+	}
 
-	@Override
+	@Override //조회수 증가
 	public int viewCount(BoardAndReplyVO pvo) throws Exception {
 		int uc = 0;
 		Connection conn = null;
@@ -216,8 +248,10 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		}
 		return uc;
 	}
+	
+	//-----------------------------검색기능------------------------------------
 
-	@Override
+	@Override //글쓴이로 검색
 	public List<BoardAndReplyVO> findByAuthor(BoardVO pvo) throws Exception {
 		List <BoardAndReplyVO> ls =new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
@@ -337,4 +371,44 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		}
 		return ls;
 	}
+	
+	@Override
+	public List<BoardAndReplyVO> findByCategory(BoardVO pvo) throws Exception {
+		List <BoardAndReplyVO> ls =new ArrayList<BoardAndReplyVO>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("select * from board where category=?");
+			stmt.setString( 1, pvo.getCategory());
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardAndReplyVO vo = new BoardAndReplyVO();
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				vo.setCategory(rs.getString("category"));
+				ls.add( vo );
+			}
+		}
+		catch( Exception e ) {
+			throw e; 
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return ls;
+	}	
 }

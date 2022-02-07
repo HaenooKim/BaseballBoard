@@ -92,9 +92,7 @@ public class CtrlBoard {
 				return "redirect:list.pknu";
 			}
 		}
-		
 		return "redirect:login.pknu?ecode=login_fail";
-		
 	}
 	
 	
@@ -102,8 +100,7 @@ public class CtrlBoard {
 	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "redirect:login.pknu";
-		
+		return "redirect:login.pknu";	
 	}
 	
 	//---------------------------게시판 조회--------------------------------------
@@ -152,7 +149,6 @@ public class CtrlBoard {
 		if (search.equals("author")) {
 			po.setAuthor(target);
 			rl = dao.findByAuthor(po);
-			
 		}
 		else if (search.equals("title")) {
 			po.setTitle(target);
@@ -170,6 +166,29 @@ public class CtrlBoard {
 		return mnv;
 	}
 	
+	@RequestMapping("/categorySearch.pknu")
+	public ModelAndView categorySearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String category = request.getParameter("category");
+		
+		ModelAndView mnv = new ModelAndView();
+		
+		if (category == null || category.equals("")) {
+			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		List<BoardAndReplyVO> rl = null;
+		
+		BoardVO po = new BoardVO();
+		po.setCategory(category);
+		rl=dao.findByCategory(po);
+		
+		mnv.setViewName("list");
+		mnv.addObject("rList", rl);
+		return mnv;
+	}
+	
 	//---------------------------쓰기 관련--------------------------------------
 	
 	@RequestMapping("/add.pknu")
@@ -180,24 +199,28 @@ public class CtrlBoard {
 				1024*1024*16 , "utf-8", null ); //request, 파일저장경로, 파일크기, 인코딩, 정책(null)
 		
 		ModelAndView mnv = new ModelAndView();
-		System.out.println("테스트");
+
 		String category = mpr.getParameter("category");
-		System.out.println("카테고리" + category);
-		
-		String title = mpr.getParameter("title");
-		if (title == null || title.equals("")) {
+		if (category == null || category.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
 			return mnv;
 		}
-		System.out.println("제목" + title);
+
+		String title = mpr.getParameter("title");
+		if (title == null || title.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
 		
 		String content = mpr.getParameter("content");
 		if (content == null || content.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
 			return mnv;
 		}
-		System.out.println("내용" + content);
 		
 		String author = mpr.getParameter("author");
 		if (author == null || author.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
 			return mnv;
 		}
 		
@@ -233,6 +256,100 @@ public class CtrlBoard {
 		return mnv;
 	}
 	
+	
+	//-------------------수정------------------------
+	@RequestMapping("/showUpdate.pknu") // 게시물 수정페이지 이동
+	public ModelAndView showUpdateContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String no = request.getParameter("no");
+		ModelAndView mnv = new ModelAndView();
+		
+		if (no==null || no.equals("")) {
+			mnv.setViewName("redirect:showContent.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		BoardVO vo = new BoardVO();
+		vo.setNo(Integer.parseInt(no));
+		
+		BoardVO po = new BoardVO();
+		po = dao.findByPK2(vo);
+		
+		mnv.setViewName("update");
+		mnv.addObject("content", po);		
+		return mnv;
+	}
+	
+	@RequestMapping("/update.pknu")
+	public ModelAndView update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		BoardDAO dao = new BoardDAO_MariaImpl();
+	
+		
+
+		
+		MultipartRequest mpr = new MultipartRequest( request , Util.uploadDir(), 
+				1024*1024*16 , "utf-8", null ); //request, 파일저장경로, 파일크기, 인코딩, 정책(null)
+		
+		ModelAndView mnv = new ModelAndView();
+		
+		String no = mpr.getParameter("no");
+		if (no == null || no.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		String category = mpr.getParameter("category");
+		if (category == null || category.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
+
+		String title = mpr.getParameter("title");
+		if (title == null || title.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		System.out.println("제목" + title);
+		
+		String content = mpr.getParameter("content");
+		if (content == null || content.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		System.out.println("내용" + content);
+		
+		String author = mpr.getParameter("author");
+		if (author == null || author.equals("")) {
+			mnv.setViewName("redirect:write.pknu?ecode=invalid_content");
+			return mnv;
+		}
+		
+		BoardVO po = new BoardVO();
+		po.setNo(Integer.parseInt(no));
+		po.setCategory(category);
+		po.setTitle(title);
+		po.setContent(content);
+		po.setAuthor(author);
+		
+		String ofn = mpr.getOriginalFileName("apple");
+		if (ofn != null) {
+			File file = mpr.getFile("apple");
+			String fsn = UUID.randomUUID().toString();
+			file.renameTo(new File(Util.uploadDir()+fsn));
+			
+			po.setOfn(ofn);
+			po.setFsn(fsn);
+		}
+		
+		dao.update(po); 
+		mnv.setViewName("redirect:list.pknu");
+		return mnv;
+		
+	}
+	
+	
+	
+	
 	//----------------댓글달기
 	
 	@RequestMapping("/writeReply.pknu")
@@ -240,7 +357,9 @@ public class CtrlBoard {
 		ReplyDAO dao = new ReplyDAO_MariaImpl();
 		
 		String no = request.getParameter("no");
-		System.out.println("댓글" + no);
+		if (no==null || no.equals("")) {
+			return "redirect:showContent.pknu?ecode=invalid_content";
+		}
 		
 		String replyContent = request.getParameter("replyContent");
 		String replyAuthor = request.getParameter("replyAuthor");

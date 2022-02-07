@@ -38,7 +38,6 @@ public class index extends HttpServlet{
 				else {
 					System.out.println("@Control이 명시되지 않음");
 				}
-				
 			}
 			catch(Exception e) {e.printStackTrace();}		
 		}

@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
-    import="orange.UserVO, banana.Util, java.util.List"%><%
-List<UserVO> ls = (List<UserVO>)request.getAttribute("rList");
+    import="banana.BoardVO, banana.Util, java.util.List"%><%
+
+    
+    BoardVO vo = (BoardVO)request.getAttribute("content");
     String name = (String)session.getAttribute("name");
 	if (name == null) { // 비 로그인 상태일 경우
 		String ip = Util.getRemoteAddr(request);
@@ -18,7 +20,7 @@ List<UserVO> ls = (List<UserVO>)request.getAttribute("rList");
 </head>
 <body>
 	
-	<form method="POST" action="add.pknu" enctype="multipart/form-data">
+	<form method="POST" action="update.pknu" enctype="multipart/form-data">
 		<select name="category">
 			<option value="kbo">KBO</option>
 		    <option value="롯데">롯데</option>
@@ -34,10 +36,11 @@ List<UserVO> ls = (List<UserVO>)request.getAttribute("rList");
   		</select>
 		
 		<input type="text" value="<%=name%>" name="author" readonly/>
-		<input type="text" name="title" required />
-		<input type="text" name="content" requried />
-		<input type="file" name="apple" />
-		<input type="submit" value="등록"/>
+		<input type="text" value="<%=vo.getTitle()%>" name="title" required />
+		<input type="text" value="<%=vo.getContent()%>" name="content" requried />
+		<input type="file" value="<%=vo.getOfn() %>" name="apple" />
+		<input type="hidden" value="<%=vo.getNo()%>"  name="no"/>
+		<input type="submit" value="수정" />
 	</form>
 	
 </body>

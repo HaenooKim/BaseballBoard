@@ -11,10 +11,12 @@ public interface BoardDAO {
 	public int delByPK(BoardVO pvo) throws Exception; 
 	public int add(BoardVO pvo) throws Exception; //글쓰기
 	public int viewCount(BoardAndReplyVO pvo) throws Exception; //클릭할때마다 조회수 증가
+	public int update(BoardVO pvo) throws Exception;
 	//---검색기능---------
 	public  List<BoardAndReplyVO> findByAuthor(BoardVO pvo) throws Exception; 
 	public List<BoardAndReplyVO> findByTitle(BoardVO pvo) throws Exception; 
 	public List<BoardAndReplyVO> findByTitlecontent(BoardVO pvo) throws Exception; 
+	public List<BoardAndReplyVO> findByCategory(BoardVO pvo) throws Exception; 
 	//---------------------
 	
 }

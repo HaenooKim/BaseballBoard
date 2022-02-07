@@ -33,7 +33,7 @@
 <body>
 
 <%if(vo.get(0).getAuthor().equals(name) ) {
-	%><button>수정하기</button>
+	%><a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button>수정하기</button></a>
 		<a href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button onclick="handleBtn();">삭제하기</button></a>
 	<% 
 }
@@ -61,7 +61,7 @@
 				<td><%=t.getReplyAuthor() %></td>
 				<td><%=t.getReplyContent()%>
 					<%if(t.getReplyAuthor().equals(name) ) {
-						%><button>수정하기</button>
+						%>
 							<a href="deleteReply.pknu?replyNo=<%=t.getReplyNo()%>"><button onclick="handleBtn();">[X]</button></a>
 					<% 
 				}

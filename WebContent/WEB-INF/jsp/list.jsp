@@ -46,7 +46,7 @@
 			
 			<tr>
 			<td><%=t.getNo() %></td>
-			<td><%=t.getCategory() %></td>
+			<td><a href="categorySearch.pknu?category=<%=t.getCategory()%>"><%=t.getCategory() %></a></td>
 			<td><a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a></td>
 			<td><%=t.getAuthor() %></td>
 			<td><%=t.getTime().substring(0, 16) %></td>
