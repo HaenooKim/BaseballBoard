@@ -13,6 +13,51 @@ import orange.BoardAndReplyVO;
 public class BoardDAO_MariaImpl implements BoardDAO{
 	
 	@Override
+	public List<BoardAndReplyVO> findAll(int pageCount) throws Exception {
+		List<BoardAndReplyVO> ls = new ArrayList<BoardAndReplyVO>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("select * from board order by no desc limit ?, 10");
+			
+			int startCount = (pageCount-1) * 10;
+			stmt.setInt( 1,  startCount);
+			rs = stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				BoardAndReplyVO vo = new BoardAndReplyVO();
+				//일단 보여줄것들만 적느라 이것만 넣은거임. fsn, ofn은 게시판에 바로 안 보이므로 안 적음.
+				vo.setNo(rs.getInt("no"));
+				vo.setCategory(rs.getString("category"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+			
+				ls.add( vo );
+			}
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		
+		finally {
+			if (conn !=null) conn.close();
+			if (stmt !=null) stmt.close();
+			if (rs != null) rs.close();
+		}
+		return ls;
+	}
+	
+	@Override
 	public List<BoardAndReplyVO> findAll() throws Exception {
 		List<BoardAndReplyVO> ls = new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;

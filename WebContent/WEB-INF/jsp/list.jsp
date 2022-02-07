@@ -1,11 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
-    import="banana.BoardVO, banana.BoardDAO_MariaImpl, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
+    import="banana.BoardVO, banana.BoardDAO, banana.BoardDAO_MariaImpl, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
     
     <%
     	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList");
     
-    	int totalRows = ls.size(); //현재 게시판의 총 row개수 (레코드 수)
+    	BoardDAO dao = new BoardDAO_MariaImpl();
+    	
+    	int totalRows = dao.getTotalRows(); //현재 게시판의 총 row개수 (레코드 수)
+    	
     	int ArticlesPerPage = 10; //페이지당 글 수 (한페이지당 10개씩 보여줄거임)
     	int pageCount = ((totalRows-1)/ArticlesPerPage) + 1; //페이지 수 
     	//[페이지수] = ( ( [레코드 수] - 1 ) / [페이지당 글 수] ) + 1;
@@ -38,7 +41,6 @@
 
 </head>
 <body>
-
 
 	<span><%=name %>님 안녕하세요</span>
 	
@@ -84,7 +86,7 @@
 	<ul class="pagination">
 		<%
 			for (int i=1; i<=pageCount; i++) {
-				%><li><a href="list.pknu?pageCount=<%=pageCount%>"><%=i%></a></li><%
+				%><li><a href="list.pknu?pageCount=<%=i%>"><%=i%></a></li><%
 			}
 		%>
 	</ul>

@@ -106,6 +106,30 @@ public class CtrlBoard {
 	//---------------------------게시판 조회--------------------------------------
 	@RequestMapping("/list.pknu")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String pageCount = request.getParameter("pageCount");
+		int pageCount2 = 0;
+		
+		if (pageCount==null || pageCount.equals("")) {
+			pageCount2 = 1;
+		}
+		else {
+			pageCount2 = Integer.parseInt(pageCount);
+		}
+		System.out.println("현재페이지 번호"+pageCount2);
+		
+		BoardDAO dao = new BoardDAO_MariaImpl();
+		List<BoardAndReplyVO> rl = dao.findAll(pageCount2);
+		
+		ModelAndView mnv = new ModelAndView();
+		mnv.setViewName("list");
+		mnv.addObject("rList", rl);
+		return mnv;
+	}
+	
+	/*
+	 * @RequestMapping("/list.pknu")
+	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO dao = new BoardDAO_MariaImpl();
 		List<BoardAndReplyVO> rl = dao.findAll();
 		
@@ -114,6 +138,7 @@ public class CtrlBoard {
 		mnv.addObject("rList", rl);
 		return mnv;
 	}
+	 */
 	
 	@RequestMapping("/showContent.pknu")
 	public ModelAndView showContent(HttpServletRequest request, HttpServletResponse response) throws Exception {

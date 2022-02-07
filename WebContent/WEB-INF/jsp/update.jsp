@@ -16,7 +16,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>게시글 수정</title>
+<script>
+	function handleBtn() {
+		if (confirm("수정하시겠습니까?")==true) {
+			document.form.submit();
+		}
+		else {
+			return;
+		}
+	}
+</script>
+
 </head>
 <body>
 	
@@ -40,7 +51,7 @@
 		<input type="text" value="<%=vo.getContent()%>" name="content" requried />
 		<input type="file" value="<%=vo.getOfn() %>" name="apple" />
 		<input type="hidden" value="<%=vo.getNo()%>"  name="no"/>
-		<input type="submit" value="수정" />
+		<input type="submit" value="수정" onclick="handleBtn()"/>
 	</form>
 	
 </body>
