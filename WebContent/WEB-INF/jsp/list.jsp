@@ -1,9 +1,17 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
-    import="banana.BoardVO, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
+    import="banana.BoardVO, banana.BoardDAO_MariaImpl, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
     
     <%
     	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList");
+    
+    	int totalRows = ls.size(); //현재 게시판의 총 row개수 (레코드 수)
+    	int ArticlesPerPage = 10; //페이지당 글 수 (한페이지당 10개씩 보여줄거임)
+    	int pageCount = ((totalRows-1)/ArticlesPerPage) + 1; //페이지 수 
+    	//[페이지수] = ( ( [레코드 수] - 1 ) / [페이지당 글 수] ) + 1;
+    	
+    	
+    			
     	String name = (String)session.getAttribute("name"); //세션에 저장된 이름 값 가져오기
     	String a= null; //a태그에 들어갈 값
     	String btnName = null; //로그인이냐 로그아웃버튼이냐 선택
@@ -30,6 +38,7 @@
 
 </head>
 <body>
+
 
 	<span><%=name %>님 안녕하세요</span>
 	
@@ -71,5 +80,14 @@
 		    <input type="submit" value="검색"/> 
   		</select>
 	</form>
+	
+	<ul class="pagination">
+		<%
+			for (int i=1; i<=pageCount; i++) {
+				%><li><a href="list.pknu?pageCount=<%=pageCount%>"><%=i%></a></li><%
+			}
+		%>
+	</ul>
+
 </body>
 </html>    

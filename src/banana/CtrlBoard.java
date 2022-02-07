@@ -284,9 +284,6 @@ public class CtrlBoard {
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO dao = new BoardDAO_MariaImpl();
 	
-		
-
-		
 		MultipartRequest mpr = new MultipartRequest( request , Util.uploadDir(), 
 				1024*1024*16 , "utf-8", null ); //request, 파일저장경로, 파일크기, 인코딩, 정책(null)
 		
@@ -346,9 +343,6 @@ public class CtrlBoard {
 		return mnv;
 		
 	}
-	
-	
-	
 	
 	//----------------댓글달기
 	

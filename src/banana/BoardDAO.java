@@ -18,5 +18,6 @@ public interface BoardDAO {
 	public List<BoardAndReplyVO> findByTitlecontent(BoardVO pvo) throws Exception; 
 	public List<BoardAndReplyVO> findByCategory(BoardVO pvo) throws Exception; 
 	//---------------------
+	public int getTotalRows() throws Exception;
 	
 }

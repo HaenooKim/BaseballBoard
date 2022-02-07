@@ -4,19 +4,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>회원가입</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<link rel="stylesheet" href="css/signup.css" />
 </head>
 <body>
 
-<form method="GET" action="signinCheck.pknu">
-	<input type="text" name="id" placeholder="ID"  maxlength='10' required/>
+<header class="welcome-header">
+    <a href="list.pknu">
+    <h1 class="welcome-header__title">
+    	<i class="fas fa-baseball-ball"></i>
+    		Baseball Park
+    	<i class="fas fa-baseball-ball"></i>
+    </h1>
+    </a>
+ </header>
+
+<form method="GET" action="signinCheck.pknu" class="signup-form">
+
+	<input type="text" name="id" placeholder="ID"  maxlength='10' required />
 	<input type="password" name="password" placeholder="Password" maxlength='16' required/>
 	<input type="text" name="name" placeholder="이름"  maxlength='10' required/>
 	<input type="text" name="phone" placeholder="휴대전화번호" maxlength='20' required/>
 	<input type="submit" value="회원가입"/>
 </form>
-
-<a href="list.pknu"><button>게시판으로 가기</button></a>
+<div class="back-to-login">
+	<a href="login.pknu">로그인 화면으로 돌아가기</a>
+</div>
 
 </body>
 </html>

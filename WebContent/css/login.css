@@ -1,0 +1,79 @@
+@charset "EUC-KR";
+@import "reset.css";
+@import "variables.css";
+
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap");
+
+.welcome-header{
+	margin-top:145px;
+	text-align : center;
+}
+
+.welcome-header__title {
+	margin-bottom:40px;
+	font-size:30px;
+	font-weight:600;
+	color:var(--own-blue);
+}
+
+.login-form {
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	margin : 0px 50px;
+}
+
+.login-form  input {
+	border:none;
+	padding: 15px 0px;
+	font-size : 22px;
+
+	width :500px;
+	margin-bottom:25px;
+}
+
+.login-form input::placeholder {
+	color:rgba(0, 0, 0, 0.3);
+}
+
+.login-form input:not([type="submit"]) {
+	border-bottom:1.3px solid rgba(0, 0, 0, 0.3);
+	transition : border-color 0.3s linear;
+}
+.login-form input:focus {
+	border-color : var(--own-blue);
+}
+
+.login-form input[type="submit"] {
+	background-color : var(--own-blue);
+	color:white;
+	font-weight:bold;
+	cursor:pointer;
+	border-radius : 6px;
+	transition: background-color 0.5s ease;
+}
+
+.login-form input[type="submit"]:hover {
+	background-color:#4f8df0;
+}
+
+
+
+.find-wrap {
+	display : flex;
+	justify-content:center;
+	color: rgba(0, 0, 0, 0.5);
+}
+.find-wrap a:hover {
+	text-decoration : underline;
+}
+
+.find-wrap .divider {
+	width : 2px;
+	height : 20px;
+	background-color: rgba(0, 0, 0, 0.3);
+	margin : 0px 15px;
+}
+
+
+
