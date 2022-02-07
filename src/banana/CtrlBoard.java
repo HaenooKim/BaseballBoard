@@ -107,19 +107,19 @@ public class CtrlBoard {
 	@RequestMapping("/list.pknu")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String pageCount = request.getParameter("pageCount");
-		int pageCount2 = 0;
+		String currentPage = request.getParameter("currentPage");
+		int currentPage2 = 0;
 		
-		if (pageCount==null || pageCount.equals("")) {
-			pageCount2 = 1;
+		if (currentPage==null || currentPage.equals("")) {
+			currentPage2 = 1;
 		}
 		else {
-			pageCount2 = Integer.parseInt(pageCount);
+			currentPage2 = Integer.parseInt(currentPage);
 		}
-		System.out.println("현재페이지 번호"+pageCount2);
+		System.out.println("현재페이지 번호"+currentPage2);
 		
 		BoardDAO dao = new BoardDAO_MariaImpl();
-		List<BoardAndReplyVO> rl = dao.findAll(pageCount2);
+		List<BoardAndReplyVO> rl = dao.findAll(currentPage2);
 		
 		ModelAndView mnv = new ModelAndView();
 		mnv.setViewName("list");
