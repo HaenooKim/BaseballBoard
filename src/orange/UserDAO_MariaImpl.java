@@ -68,12 +68,6 @@ public class UserDAO_MariaImpl implements UserDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-/*
- * id VARCHAR(10) NOT NULL PRIMARY KEY,
-password VARCHAR(16) NOT NULL,
-name VARCHAR(10) NOT NULL,
-phone VARCHAR(20) NOT NULL
- */
 
 			String sql = "INSERT INTO user VALUES (?, ?, ?, ?)";
 			stmt = conn.prepareStatement( sql );
@@ -92,5 +86,4 @@ phone VARCHAR(20) NOT NULL
 		}
 		return uc;
 	}
-
 }

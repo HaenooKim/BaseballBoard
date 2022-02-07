@@ -139,14 +139,13 @@ public class CtrlBoard {
 		return mnv;
 	}
 	
-	
 	@RequestMapping("/listSearch.pknu")
 	public ModelAndView listSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String search = request.getParameter("search"); // 검색주제가 뭔지 알아내는 코드(글쓴이 or 제목 or 제목+내용)
 		String target = request.getParameter("target"); // 뭘 검색했는지 알아내는 코드
 		
 		BoardDAO dao = new BoardDAO_MariaImpl();
-		List<BoardVO> rl = null;
+		List<BoardAndReplyVO> rl = null;
 		
 		BoardVO po = new BoardVO();
 			
@@ -169,17 +168,13 @@ public class CtrlBoard {
 		mnv.setViewName("list");
 		mnv.addObject("rList", rl);
 		return mnv;
-		
 	}
-	
-	
 	
 	//---------------------------쓰기 관련--------------------------------------
 	
 	@RequestMapping("/add.pknu")
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO dao = new BoardDAO_MariaImpl();
-		
 		
 		MultipartRequest mpr = new MultipartRequest( request , Util.uploadDir(), 
 				1024*1024*16 , "utf-8", null ); //request, 파일저장경로, 파일크기, 인코딩, 정책(null)
@@ -256,7 +251,6 @@ public class CtrlBoard {
 		dao.writeReply(po);
 		
 		return "showContent.pknu";
-	
 	}
 	
 	//----------------게시글 수정 및 삭제--------------------
@@ -274,7 +268,6 @@ public class CtrlBoard {
 		}
 		
 		BoardDAO dao = new BoardDAO_MariaImpl();
-		
 		BoardVO po = new BoardVO();
 		po.setNo(Integer.parseInt(no));
 		BoardVO vo = dao.findByPK2(po);
@@ -291,48 +284,19 @@ public class CtrlBoard {
 		
 	}
 	
-	
-	
-	
 	@RequestMapping("/deleteReply.pknu")
 	public String deleteReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		String replyNo = request.getParameter("replyNo");
-		System.out.println("댓글번호"+Integer.parseInt(replyNo));
-		
+		String replyNo = request.getParameter("replyNo");		
 		if( replyNo == null || replyNo.equals("")) {
 			return "redirect:showContent.pknu?ecode=invalid_no";
 		}
 		
 		ReplyDAO dao = new ReplyDAO_MariaImpl();
-		
 		ReplyVO po = new ReplyVO();
 		po.setReplyNo(Integer.parseInt(replyNo));
 		ReplyVO vo = dao.findByPK(po);
 		int uc = dao.delByPK(po);
-		System.out.println("우씨" + uc);
-		/*
-		 * 
-		 * 	BoardVO po = new BoardVO();
-		po.setNo(Integer.parseInt(no));
-		BoardVO vo = dao.findByPK2(po);
-		int uc = dao.delByPK(po);
-		 */
-		
-		
 		
 		return "showContent.pknu?no="+vo.getNo();
-		
 	}
 }
-
-		
-	
-
-
-
-
-
-
-
-

@@ -7,5 +7,4 @@ public interface UserDAO {
 	public UserVO findByPK(UserVO pvo) throws Exception;
 	public int delByPK(UserVO pvo) throws Exception;
 	public int add(UserVO pvo) throws Exception;
-
 }

@@ -14,12 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class index extends HttpServlet{
-	//0113_1 - Test526
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		String l = config.getInitParameter("controller");
-		
 		String[] l2 = l.split(",");
+		
 		for (String l3 : l2) {
 			try {
 				Class<?> cls = Class.forName(l3.trim()); //banana.CtrlList banana.CtrlAdd
@@ -37,14 +36,12 @@ public class index extends HttpServlet{
 					}
 				}
 				else {
-					//System.out.println("@Control이 명시되지 않음");
+					System.out.println("@Control이 명시되지 않음");
 				}
 				
 			}
-			catch(Exception e) {e.printStackTrace();}
-				
+			catch(Exception e) {e.printStackTrace();}		
 		}
-		
 	}
 	
 	private static class MethodAndTarget {
@@ -97,16 +94,12 @@ public class index extends HttpServlet{
 							mnv.plant(request);
 							rd.forward(request, response);
 						}
-						
 					}
-					
 					
 					else if( obj instanceof String ) 
 					{
 						ResponseBody annot3 = mnt.method.getAnnotation( ResponseBody.class );
 						if( annot3 != null ) {
-							//System.out.println("annot3 != null");
-							
 							String l = obj.toString();
 							if( l != null ) 
 							{
@@ -145,10 +138,9 @@ public class index extends HttpServlet{
 				rd.forward(request, response);
 				
 			}
-			
 		}
 		else {
-			//System.out.println(uri2 + "에 지정된 컨트롤러 함수가 없습니다.");
+			System.out.println(uri2 + "에 지정된 컨트롤러 함수가 없습니다.");
 		}
 	}
 }

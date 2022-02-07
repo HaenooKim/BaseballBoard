@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
 public class ReplyDAO_MariaImpl implements ReplyDAO{
 
 	@Override
@@ -32,9 +31,6 @@ public class ReplyDAO_MariaImpl implements ReplyDAO{
 			if(conn!=null) conn.close();
 			if(stmt!=null) stmt.close();
 		}
-		
-		
-		
 		return uc;
 	}
 
@@ -60,7 +56,6 @@ public class ReplyDAO_MariaImpl implements ReplyDAO{
 				vo.setReplyContent(rs.getString("replyContent"));
 				vo.setReplyNo(rs.getInt("replyNo"));
 				vo.setReplyTime(rs.getString("replyTime"));
-				
 			}
 		}
 		catch( Exception e ) {
@@ -88,7 +83,6 @@ public class ReplyDAO_MariaImpl implements ReplyDAO{
 			stmt = conn.createStatement();
 			String sql  = "DELETE FROM reply where replyNo = " + pvo.getReplyNo();
 			uc = stmt.executeUpdate(sql);
-					
 		}
 		catch(Exception e) {throw e;}
 		finally {
@@ -97,5 +91,4 @@ public class ReplyDAO_MariaImpl implements ReplyDAO{
 		}
 		return uc;
 	}
-
 }

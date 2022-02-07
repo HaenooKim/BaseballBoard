@@ -30,5 +30,4 @@ public class UserVO {
 	private String password = null;
 	private String name = null;
 	private String phone = null;
-	
 }

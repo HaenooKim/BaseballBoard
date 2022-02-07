@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
     import="banana.BoardVO, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
-    <%@taglib prefix="q" uri="http://java.sun.com/jsp/jstl/core"%>
     
     <%
     	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList");
@@ -63,7 +62,6 @@
 	<a href="write.pknu"><button>글쓰기</button></a>
 	<a href=<%=a%>><button><%=btnName %></button></a>
 	
-	
 	<form method="GET" action="listSearch.pknu">
 		<select name="search">
 		    <option value="author">글쓴이</option>
@@ -73,6 +71,5 @@
 		    <input type="submit" value="검색"/> 
   		</select>
 	</form>
-
 </body>
 </html>    
