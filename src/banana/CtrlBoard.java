@@ -166,14 +166,15 @@ public class CtrlBoard {
 		String search = request.getParameter("search"); // 검색주제가 뭔지 알아내는 코드(글쓴이 or 제목 or 제목+내용)
 		String target = request.getParameter("target"); // 뭘 검색했는지 알아내는 코드
 		
-		String currentPage = request.getParameter("currentPage"); //현재 페이지 (string)
+		String searchCurrentPage = request.getParameter("searchCurrentPage"); //현재 페이지 (string)
 		int currentPage2 = 0; //현재 페이지(int)
+		System.out.println("검색" + searchCurrentPage);
 		
-		if (currentPage==null || currentPage.equals("")) {
+		if (searchCurrentPage==null || searchCurrentPage.equals("")) {
 			currentPage2 = 1;
 		}
 		else {
-			currentPage2 = Integer.parseInt(currentPage);
+			currentPage2 = Integer.parseInt(searchCurrentPage);
 		}
 	
 		BoardDAO dao = new BoardDAO_MariaImpl();
@@ -205,14 +206,14 @@ public class CtrlBoard {
 	public ModelAndView categorySearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String category = request.getParameter("category");
 		
-		String currentPage = request.getParameter("currentPage"); //현재 페이지 (string)
+		String searchCurrentPage = request.getParameter("searchCurrentPage"); //현재 페이지 (string)
 		int currentPage2 = 0; //현재 페이지(int)
 		
-		if (currentPage==null || currentPage.equals("")) {
+		if (searchCurrentPage==null || searchCurrentPage.equals("")) {
 			currentPage2 = 1;
 		}
 		else {
-			currentPage2 = Integer.parseInt(currentPage);
+			currentPage2 = Integer.parseInt(searchCurrentPage);
 		}
 		
 		ModelAndView mnv = new ModelAndView();

@@ -21,5 +21,6 @@ public interface BoardDAO {
 	public List<BoardAndReplyVO> findByCategory(BoardVO pvo, int currentPage) throws Exception; 
 	//---------------------
 	public int getTotalRows() throws Exception;
+	public int getTotalRows(String search, String target) throws Exception;
 	
 }

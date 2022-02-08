@@ -487,6 +487,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		return ls;
 	}
 
+	//-----------------------테이블 레코드 수 가져오기---------------------------
 	@Override
 	public int getTotalRows() throws Exception {
 		int count = 0;
@@ -501,6 +502,54 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				"pukyung21","pukyung00!!1");
 			
 			stmt = conn.prepareStatement("select count(*) from board");
+			rs = stmt.executeQuery();
+			
+			int index=0;
+			if (rs.next()) {
+				count = rs.getInt(++index);
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		
+		return count;
+	}
+
+	@Override
+	public int getTotalRows(String search, String target) throws Exception {
+		int count = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			
+			if (search.equals("title")) {
+				stmt = conn.prepareStatement("SELECT count(*) FROM board WHERE title like ?");
+				stmt.setString( 1, '%' + target + '%');
+			}
+			else if (search.equals("author")) {
+				stmt = conn.prepareStatement("select count(*) from board where author = ?");
+				stmt.setString(1, target);
+			}
+			else if (search.equals("titlecontent")) {
+				stmt = conn.prepareStatement("select count(*) from board where title like ? or content like ?");
+				stmt.setString( 1, '%' + target + '%' );
+				stmt.setString( 2, '%' + target + '%');
+				
+			}
+			
 			rs = stmt.executeQuery();
 			
 			int index=0;

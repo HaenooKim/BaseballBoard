@@ -5,11 +5,25 @@
     <%
     	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList");
     
+	    BoardDAO dao = new BoardDAO_MariaImpl();
+		
+		int totalRows = dao.getTotalRows(); //현재 게시판의 총 row개수 (레코드 수)
+    
+    //------------만약 검색된 값을 받는 거라면...?
+    	String searchCurrentPage = request.getParameter("searchCurrentPage");
+    	Boolean checkSearch = false; //이 페이지가 검색된 페이지에서 넘어온건지 그냥 전체 리스트 페이지인지 확인
+    	String search = null;
+		String target = null;
+    	if (searchCurrentPage != null) {
+    		checkSearch = true;
+    		search = request.getParameter("search"); // 검색주제가 뭔지 알아내는 코드(글쓴이 or 제목 or 제목+내용)
+    		target = request.getParameter("target"); // 뭘 검색했는지 알아내는 코드
+    		totalRows=dao.getTotalRows(search, target); //만약 검색한 결과를 가져오는 거라면 여기서 찾아야 한다!!
+    	}
+    	
     	//-------테이블 페이지네이션을 몇번까지 만들지 정하는 코드--------	
     
-    	BoardDAO dao = new BoardDAO_MariaImpl();
     	
-    	int totalRows = dao.getTotalRows(); //현재 게시판의 총 row개수 (레코드 수)
     	
     	int ArticlesPerPage = 10; //페이지당 글 수 (한페이지당 10개씩 보여줄거임) -> 변경하고 싶으면 BoardDAO_MariaImpl에 가서 showingNumber도 같은 숫자로 바꿔줘야 함
     	int pageCount = ((totalRows-1)/ArticlesPerPage) + 1; //페이지 수 
@@ -17,7 +31,14 @@
     	
     	   
      	// -----블록을 보여준 후 >표시를 언제 보여줄지 정하는 코드---
-        	String CP = request.getParameter("currentPage"); 
+        	String CP=null;
+     		if (checkSearch) {
+     			CP = searchCurrentPage;
+     		}
+     		else {     			
+     			CP = request.getParameter("currentPage"); 
+     		}
+     		
         	int currentPage = 0;
         	if (CP==null || CP.equals("")) {
         		currentPage = 1;
@@ -69,7 +90,7 @@
 
 </head>
 <body>
-
+	검색한거냐?<%=checkSearch %>
 	
 	
 	<span><%=name %>님 안녕하세요</span>
@@ -103,18 +124,44 @@
 	<a href="write.pknu"><button>글쓰기</button></a>
 	<a href=<%=a%>><button><%=btnName %></button></a>
 	
-	<form method="GET" action="listSearch.pknu?currentPage=<%=currentPage %>">
+	<form method="GET" action="listSearch.pknu">
 		<select name="search">
 		    <option value="author">글쓴이</option>
 		    <option value="title">제목</option>
 		    <option value="titlecontent">제목+내용</option>
-		    <input type="text" name="target" required minlength='2'/>
-		    <input type="submit" value="검색"/> 
   		</select>
+		<input type="text" name="target" required minlength='2'/>
+		<input type="hidden" name="searchCurrentPage" value=<%=currentPage %> />
+		<input type="submit" value="검색"/> 
 	</form>
 	
 	<ul class="pagination">
 	<%
+	if (checkSearch) {
+		
+		if (blockBegin != 1) {
+			%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockBegin-1 %>">이전</a></li><%
+		}
+	%>
+	
+	
+		<%
+			for (int i=blockBegin; i<=blockEnd; i++) {
+				%><li><a href="listSearch.pknu?searchCurrentPage=<%=i%>&target=<%=target%>&search=<%=search%>"><%=i%></a></li>
+			<%
+			}
+		%>
+		
+		<%
+			if (blockEnd != pageCount) {
+				%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockEnd+1%>">다음</a></li><%
+			}
+		
+		
+	}
+	else {
+	
+	
 		if (blockBegin != 1) {
 			%><li><a href="list.pknu?currentPage=<%=blockBegin-1 %>">이전</a></li><%
 		}
@@ -132,6 +179,7 @@
 			if (blockEnd != pageCount) {
 				%><li><a href="list.pknu?currentPage=<%=blockEnd+1%>">다음</a></li><%
 			}
+		}
 		%>
 		
 	</ul>
