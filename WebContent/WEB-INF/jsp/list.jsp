@@ -81,7 +81,6 @@
     	
     %>
 <%--
-
 --%><!DOCTYPE html>
 <html>
 <head>
@@ -131,16 +130,16 @@
 		    <option value="titlecontent">제목+내용</option>
   		</select>
 		<input type="text" name="target" required minlength='2'/>
-		<input type="hidden" name="searchCurrentPage" value=<%=currentPage %> />
+		<input type="hidden" name="searchCurrentPage" value="1" />
 		<input type="submit" value="검색"/> 
 	</form>
 	
 	<ul class="pagination">
 	<%
-	if (checkSearch) {
+	if (checkSearch) {//검색한 경우
 		
 		if (blockBegin != 1) {
-			%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockBegin-1 %>">이전</a></li><%
+			%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockBegin-1%>&target=<%=target%>&search=<%=search%>">이전</a></li><%
 		}
 	%>
 	
@@ -154,7 +153,7 @@
 		
 		<%
 			if (blockEnd != pageCount) {
-				%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockEnd+1%>">다음</a></li><%
+				%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockEnd+1%>&target=<%=target%>&search=<%=search%>">다음</a></li><%
 			}
 		
 		
