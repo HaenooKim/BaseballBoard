@@ -15,7 +15,7 @@
     <a href="list.pknu">
     <h1 class="welcome-header__title">
     	<i class="fas fa-baseball-ball"></i>
-    		이름 추천 바씁니다...
+    		Baseball Park
     	<i class="fas fa-baseball-ball"></i>
     </h1>
     </a>

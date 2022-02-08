@@ -6,6 +6,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+thead {
+	color:var(--own-blue-hover);
+	font-weight : bold;
+}
+
 section.notice {
   padding: 80px 0;
 }
@@ -30,7 +36,6 @@ section.notice {
 .board-table th {
   text-align: center;
 }
-
 
 .board-table .th-num {
   width: 50px;
@@ -88,6 +93,7 @@ section.notice {
   color : white;
   font-size:20px;
   font-weight : bold;
+
 }
 
 .header__logo{
@@ -164,26 +170,54 @@ section.notice {
 	background-color : var(--own-blue-hover);
 }
 
+.header__toggleBtn {
+	position:absolute;
+	right : 32px;
+	top : 20px;
+	font-size : 30px;
+	color : white;
+	display : none;
+}
+
+
 @media screen and (max-width:768px) {
 	.header {
 		flex-direction:column;
 		align-items : flex-start;
+		position:fixed;
+		width : 100%;
+		padding:10px;
 	}
 	
 	.header__menu {
 		flex-direction:column;
 		align-items : center;
 		width : 100%;
+		display : none;
 	}
 	.header__user {
 		align-items : center;
 		text-align : center;
 		width : 100%;
+		display:none;
 	}
 	.header__menu li {
 		width : 100%;
 		text-align : center;
 		cursor:pointer;
+	}
+	
+	.header__toggleBtn {
+		display : block;
+		color:white;
+	}
+	
+	.header__toggleBtn:hover{
+		color:white;
+	}
+	
+	.header__menu.active, .header__user.active {
+		display : flex;
 	}
 	
 
