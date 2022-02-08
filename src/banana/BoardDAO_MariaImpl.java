@@ -12,8 +12,10 @@ import orange.BoardAndReplyVO;
 
 public class BoardDAO_MariaImpl implements BoardDAO{
 	
+	public int showingNumber = 10; //한 페이지에 보여줄 게시글 갯수 -> 만약 변경하고 싶다면 이걸 바꾸고 list.jsp에가서 ArticlesPerPage도 똑같이 숫자를 맞춰서 바꿔줄것.
+	
 	@Override
-	public List<BoardAndReplyVO> findAll(int pageCount) throws Exception {
+	public List<BoardAndReplyVO> findAll(int currentPage) throws Exception {
 		List<BoardAndReplyVO> ls = new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -24,10 +26,13 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-			stmt = conn.prepareStatement("select * from board order by no desc limit ?, 10");
 			
-			int startCount = (pageCount-1) * 10;
+			stmt = conn.prepareStatement("select * from board order by no desc limit ?, ?");
+			
+			int startCount = (currentPage-1) * showingNumber; //예를들어 현재 페이지(cuurentPage)가 2번이면  (2 - 1 ) * 10 = 10
+			// select * from board order by no desc limit 10, 10 이 되므로 10번째부터 다시 보여준다.
 			stmt.setInt( 1,  startCount);
+			stmt.setInt(2,  showingNumber);
 			rs = stmt.executeQuery();
 			
 			
@@ -297,7 +302,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 	//-----------------------------검색기능------------------------------------
 
 	@Override //글쓴이로 검색
-	public List<BoardAndReplyVO> findByAuthor(BoardVO pvo) throws Exception {
+	public List<BoardAndReplyVO> findByAuthor(BoardVO pvo, int currentPage) throws Exception {
 		List <BoardAndReplyVO> ls =new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -307,8 +312,14 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-			stmt = conn.prepareStatement("SELECT * FROM board WHERE author = ? ORDER BY no DESC");
-			stmt.setString( 1, pvo.getAuthor() );
+			stmt = conn.prepareStatement("SELECT * FROM board WHERE author = ? ORDER BY no DESC limit ?, ?");
+			
+			int startCount = (currentPage-1) * showingNumber; //보여줄 레코드(게시글) 시작지점
+			
+			stmt.setString(1, pvo.getAuthor());
+			stmt.setInt( 2, startCount );
+			stmt.setInt(3, showingNumber);
+			
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -337,7 +348,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardAndReplyVO> findByTitle(BoardVO pvo) throws Exception {
+	public List<BoardAndReplyVO> findByTitle(BoardVO pvo, int currentPage) throws Exception {
 		List <BoardAndReplyVO> ls =new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -347,8 +358,15 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-			stmt = conn.prepareStatement("SELECT * FROM board WHERE title like ? ORDER BY no DESC");
+			stmt = conn.prepareStatement("SELECT * FROM board WHERE title like ? ORDER BY no DESC limit ?, ?");
+			//stmt = conn.prepareStatement("SELECT * FROM board WHERE author = ? ORDER BY no DESC limit ?, ?");
 			stmt.setString( 1, '%' + pvo.getTitle() + '%');
+			
+			int startCount = (currentPage-1) * showingNumber; //보여줄 레코드(게시글) 시작지점
+			
+			stmt.setInt( 2, startCount );
+			stmt.setInt(3, showingNumber);
+			
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -377,7 +395,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardAndReplyVO> findByTitlecontent(BoardVO pvo) throws Exception {
+	public List<BoardAndReplyVO> findByTitlecontent(BoardVO pvo, int currentPage) throws Exception {
 		List <BoardAndReplyVO> ls =new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -387,9 +405,15 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-			stmt = conn.prepareStatement("select * from board where title like ? or content like ? ORDER BY no DESC");
+			stmt = conn.prepareStatement("select * from board where title like ? or content like ? ORDER BY no DESC limit ?, ?");
 			stmt.setString( 1, '%' + pvo.getTitle() + '%' );
 			stmt.setString( 2, '%' + pvo.getContent() + '%');
+			
+			int startCount = (currentPage-1) * showingNumber; //보여줄 레코드(게시글) 시작지점
+			
+			stmt.setInt( 3, startCount );
+			stmt.setInt(4, showingNumber);
+			
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -418,7 +442,7 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 	}
 	
 	@Override
-	public List<BoardAndReplyVO> findByCategory(BoardVO pvo) throws Exception {
+	public List<BoardAndReplyVO> findByCategory(BoardVO pvo, int currentPage) throws Exception {
 		List <BoardAndReplyVO> ls =new ArrayList<BoardAndReplyVO>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -428,8 +452,14 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 			conn = DriverManager.getConnection(
 				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
 				"pukyung21","pukyung00!!1");
-			stmt = conn.prepareStatement("select * from board where category=?");
+			stmt = conn.prepareStatement("select * from board where category=? order by no desc limit ?, ?");
 			stmt.setString( 1, pvo.getCategory());
+			
+			
+			int startCount = (currentPage-1) * showingNumber; //보여줄 레코드(게시글) 시작지점
+			
+			stmt.setInt( 2, startCount );
+			stmt.setInt(3, showingNumber);
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {

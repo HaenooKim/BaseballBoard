@@ -166,6 +166,16 @@ public class CtrlBoard {
 		String search = request.getParameter("search"); // 검색주제가 뭔지 알아내는 코드(글쓴이 or 제목 or 제목+내용)
 		String target = request.getParameter("target"); // 뭘 검색했는지 알아내는 코드
 		
+		String currentPage = request.getParameter("currentPage"); //현재 페이지 (string)
+		int currentPage2 = 0; //현재 페이지(int)
+		
+		if (currentPage==null || currentPage.equals("")) {
+			currentPage2 = 1;
+		}
+		else {
+			currentPage2 = Integer.parseInt(currentPage);
+		}
+	
 		BoardDAO dao = new BoardDAO_MariaImpl();
 		List<BoardAndReplyVO> rl = null;
 		
@@ -173,16 +183,16 @@ public class CtrlBoard {
 			
 		if (search.equals("author")) {
 			po.setAuthor(target);
-			rl = dao.findByAuthor(po);
+			rl = dao.findByAuthor(po, currentPage2);
 		}
 		else if (search.equals("title")) {
 			po.setTitle(target);
-			rl=dao.findByTitle(po);
+			rl=dao.findByTitle(po, currentPage2);
 		}
 		else if (search.equals("titlecontent")) {
 			po.setTitle(target);
 			po.setContent(target);
-			rl=dao.findByTitlecontent(po);
+			rl=dao.findByTitlecontent(po, currentPage2);
 		}
 		
 		ModelAndView mnv = new ModelAndView();
@@ -194,6 +204,16 @@ public class CtrlBoard {
 	@RequestMapping("/categorySearch.pknu")
 	public ModelAndView categorySearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String category = request.getParameter("category");
+		
+		String currentPage = request.getParameter("currentPage"); //현재 페이지 (string)
+		int currentPage2 = 0; //현재 페이지(int)
+		
+		if (currentPage==null || currentPage.equals("")) {
+			currentPage2 = 1;
+		}
+		else {
+			currentPage2 = Integer.parseInt(currentPage);
+		}
 		
 		ModelAndView mnv = new ModelAndView();
 		
@@ -207,7 +227,7 @@ public class CtrlBoard {
 		
 		BoardVO po = new BoardVO();
 		po.setCategory(category);
-		rl=dao.findByCategory(po);
+		rl=dao.findByCategory(po, currentPage2);
 		
 		mnv.setViewName("list");
 		mnv.addObject("rList", rl);

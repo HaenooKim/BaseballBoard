@@ -5,15 +5,13 @@
     <%
     	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList");
     
- 
-    
     	//-------테이블 페이지네이션을 몇번까지 만들지 정하는 코드--------	
     
     	BoardDAO dao = new BoardDAO_MariaImpl();
     	
     	int totalRows = dao.getTotalRows(); //현재 게시판의 총 row개수 (레코드 수)
     	
-    	int ArticlesPerPage = 10; //페이지당 글 수 (한페이지당 10개씩 보여줄거임)
+    	int ArticlesPerPage = 10; //페이지당 글 수 (한페이지당 10개씩 보여줄거임) -> 변경하고 싶으면 BoardDAO_MariaImpl에 가서 showingNumber도 같은 숫자로 바꿔줘야 함
     	int pageCount = ((totalRows-1)/ArticlesPerPage) + 1; //페이지 수 
     	//[페이지수] = ( ( [레코드 수] - 1 ) / [페이지당 글 수] ) + 1;
     	
@@ -89,7 +87,7 @@
 			
 			<tr>
 			<td><%=t.getNo() %></td>
-			<td><a href="categorySearch.pknu?category=<%=t.getCategory()%>"><%=t.getCategory() %></a></td>
+			<td><a href="categorySearch.pknu?category=<%=t.getCategory()%>&currentPage=<%=currentPage%>"><%=t.getCategory() %></a></td>
 			<td><a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a></td>
 			<td><%=t.getAuthor() %></td>
 			<td><%=t.getTime().substring(0, 16) %></td>
@@ -105,7 +103,7 @@
 	<a href="write.pknu"><button>글쓰기</button></a>
 	<a href=<%=a%>><button><%=btnName %></button></a>
 	
-	<form method="GET" action="listSearch.pknu">
+	<form method="GET" action="listSearch.pknu?currentPage=<%=currentPage %>">
 		<select name="search">
 		    <option value="author">글쓴이</option>
 		    <option value="title">제목</option>
