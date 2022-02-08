@@ -25,7 +25,7 @@
     
     	
     	
-    	int ArticlesPerPage = 10; //페이지당 글 수 (한페이지당 10개씩 보여줄거임) -> 변경하고 싶으면 BoardDAO_MariaImpl에 가서 showingNumber도 같은 숫자로 바꿔줘야 함
+    	int ArticlesPerPage = 40; //페이지당 글 수 (한페이지당 10개씩 보여줄거임) -> 변경하고 싶으면 BoardDAO_MariaImpl에 가서 showingNumber도 같은 숫자로 바꿔줘야 함
     	int pageCount = ((totalRows-1)/ArticlesPerPage) + 1; //페이지 수 
     	//[페이지수] = ( ( [레코드 수] - 1 ) / [페이지당 글 수] ) + 1;
     	
@@ -85,43 +85,88 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/list.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
 </head>
 <body>
-	검색한거냐?<%=checkSearch %>
+
+	<nav class="header">
+	    <div class="header__logo">
+	      <i class="fas fa-baseball-ball"></i>
+	      <a href="list.pknu" >BaseBall Park</a>
+	    </div>
 	
-	
-	<span><%=name %>님 안녕하세요</span>
-	
+	    <ul class="header__menu">
+	      <li><a href="">소개글</a></li>
+	      <li><a href="list.pknu">게시판</a></li>
+	      <li><a href="">공지사항</a></li>
+	    </ul>
+
+	    <div class="header__user">
+	      <span><i class="far fa-user"></i><%=name %> 님</span>
+	      <a href=<%=a%>><button class="logBtn"><%=btnName %></button></a>
+	    </div>
+
+  </nav>
+
 	<%
 		if (ls.isEmpty()) {
 			%>조회하는 결과가 없습니다.<% 
 		}
 	%>
+	<section class="notice">
+	 <div class="page-title">
+          <div class="container">
+              <h3>야구 게시판</h3>
+          </div>
+      </div>
+	<div id="board-list">
+		<div class="container">
+			<table class="board-table"> 
+				<thead>
+                  <tr>
+                      <th scope="col" class="th-num">번호</th>
+                      <th scope="col" class="th-title">제목</th>
+                      <th scope="col" class="th-author">글쓴이</th>
+                      <th scope="col" class="th-date">등록일</th>
+                      <th scope="col" class="th-view">조회수</th>
+                  </tr>
+                  </thead>
+				<tbody>
+					<% 	
+					if (ls != null) {
+						for (BoardAndReplyVO t : ls) {
+							%>
+							
+							<tr>
+							<td><%=t.getNo() %></td>
+							<td>
+							<a href="categorySearch.pknu?category=<%=t.getCategory()%>&currentPage=<%=currentPage%>">[<%=t.getCategory() %>]</a>
+							<a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a>
+							</td>
+							<td><%=t.getAuthor() %></td>
+							<td><%=t.getTime().substring(0, 16) %></td>
+							<td><%=t.getView() %>
+							</tr>
+							
+							<%
+						}
+					}
+					%>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	
-	<table> <% 	
-	if (ls != null) {
-		for (BoardAndReplyVO t : ls) {
-			%>
-			
-			<tr>
-			<td><%=t.getNo() %></td>
-			<td><a href="categorySearch.pknu?category=<%=t.getCategory()%>&currentPage=<%=currentPage%>"><%=t.getCategory() %></a></td>
-			<td><a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a></td>
-			<td><%=t.getAuthor() %></td>
-			<td><%=t.getTime().substring(0, 16) %></td>
-			<td>조회수<%=t.getView() %>
-			</tr>
-			
-			<%
-		}
-	}
-	%>
-	</table>
 	
 	<a href="write.pknu"><button>글쓰기</button></a>
-	<a href=<%=a%>><button><%=btnName %></button></a>
+	
 	
 	<form method="GET" action="listSearch.pknu">
 		<select name="search">
@@ -133,6 +178,8 @@
 		<input type="hidden" name="searchCurrentPage" value="1" />
 		<input type="submit" value="검색"/> 
 	</form>
+	</section>
+	
 	
 	<ul class="pagination">
 	<%
@@ -188,5 +235,8 @@
 	블럭 엔드 : <%=blockEnd %>
 	토탈 레코드 : <%=totalRows %>
 
+	검색한거냐?<%=checkSearch %>
+	
+	
 </body>
 </html>    

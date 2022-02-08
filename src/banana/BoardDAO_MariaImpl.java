@@ -12,7 +12,7 @@ import orange.BoardAndReplyVO;
 
 public class BoardDAO_MariaImpl implements BoardDAO{
 	
-	public int showingNumber = 10; //한 페이지에 보여줄 게시글 갯수 -> 만약 변경하고 싶다면 이걸 바꾸고 list.jsp에가서 ArticlesPerPage도 똑같이 숫자를 맞춰서 바꿔줄것.
+	public int showingNumber = 40; //한 페이지에 보여줄 게시글 갯수 -> 만약 변경하고 싶다면 이걸 바꾸고 list.jsp에가서 ArticlesPerPage도 똑같이 숫자를 맞춰서 바꿔줄것.
 	
 	@Override
 	public List<BoardAndReplyVO> findAll(int currentPage) throws Exception {
