@@ -250,7 +250,7 @@
 	검색한거냐?<%=checkSearch %>
 	-->
 	<script>
-
+	/*-------반응형웹 Hamberger bar보이게 하기 ----*/
 		const toggleBtn = document.querySelector(".header__toggleBtn");
 		const menu = document.querySelector(".header__menu");
 		const user = document.querySelector(".header__user");

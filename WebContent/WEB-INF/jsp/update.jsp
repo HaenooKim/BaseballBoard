@@ -65,7 +65,7 @@
 		</a>
   </nav>
 	
-	<!-- 수정하기 -->
+	<!-- 수정창 -->
 	<section class="write">	
 	
 	<div class="back_btn">
@@ -125,6 +125,10 @@
 		const menu = document.querySelector(".header__menu");
 		const user = document.querySelector(".header__user");
 		
+		
+		/*-----------수정시 확인 메세지 창 띄우기-------------------*/
+		//여기서 input 을 submit으로 하니까 취소를 눌러도 수정이 되는 오류가 발생했는데 button으로 바꾸니까 해결되었다.
+		//submit으로 하면 바로 동작이 되어버리지만 버튼으로 하면 확인후 submit을 한다.
 		toggleBtn.addEventListener('click', () => {
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
@@ -140,9 +144,9 @@
 			else {
 				return false;
 			}
-			
 		}
 		
+		/*-----------수정 도중 뒤로갈 때 경고 창 띄우기-------------------*/
 		function confirmBack() {
 			var message;
 			

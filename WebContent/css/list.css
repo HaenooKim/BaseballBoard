@@ -114,7 +114,7 @@ ul.pagination {
 }
 
 .write_btn {
-	border : none;
+	border : 1px solid var(--own-blue);
 	background-color : var(--own-blue);
 	color : white;
 }
@@ -157,6 +157,7 @@ ul.pagination {
 	height:35px;
 	width : 35px;
 	font-size:18px;
+	border-radius:6px;
 }
 
 .alert__search{

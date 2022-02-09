@@ -2,3 +2,213 @@
 @import "variables.css";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import "navbar.css";
+
+
+section.showContent {
+	padding-top:80px;
+	display : flex;
+	justify-content : center;
+}
+
+.showContent_wrap {
+	width: 65%;
+}
+
+.showContent_information {
+	display : flex;
+	justify-content : space-between;
+	padding-bottom : 25px;
+	margin-bottom : 25px;
+	border-bottom : 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.showContent_information_column1 {
+	display : flex;
+	flex-direction : column;
+}
+
+.showContent_information_column2 {
+	display : flex;
+	align-items : flex-end;
+	font-size:16px;
+	color:rgba(0, 0, 0, 0.5)
+}
+
+.showContent_information_title {
+	text-align : left;
+	font-size : 22px;
+	font-weight : bold;
+}
+
+.showContent_information_author {
+	font-size:16px;
+	color:rgba(0, 0, 0, 0.5)
+}
+
+
+.showContent_information_content {
+	text-align : left;
+	margin-bottom : 350px;
+
+}
+
+.showContent_information_footer {
+	display : flex;
+	justify-content : space-between;
+	border : 1px solid rgba(0, 0, 0, 0.2);
+	padding : 20px;
+	font-size:15px;
+}
+
+
+
+.reply_title {
+	width : 45%;
+	text-align : center;
+	font-size : 20px;
+	font-weight: bold;
+	margin-top : 40px;
+}
+
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+.board-table {
+  font-size: 14px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+.board-table a:hover {
+  text-decoration: underline;
+}
+
+
+.board-table th,
+.board-table td {
+  padding: 14px 0;
+}
+
+.board-table tbody td {
+  border-top: 1px solid #e7e7e7;
+}
+
+.board-table tbody .replyTime {
+	text-align : right;
+}
+
+
+
+.board-table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+
+.board-table tbody th p {
+  display: none;
+}
+
+ul.pagination {
+	width : 100%;
+	text-align : center;
+	display : flex;
+	justify-content : center;
+}
+
+.board_update {
+	margin-top : 20px;
+	width : 82%;
+	display : flex;
+	justify-content : flex-end;
+}
+
+.modify_btn {
+		outline : none;
+	color : var(--own-blue);
+	border : 2px solid var(--own-blue);
+	background-color:transparent;
+	padding:10px 20px;	
+	border-radius : 6px;
+	font-weight:bold;
+	margin-right : 5px;
+	font-size:15px;
+}
+
+.delete_btn {
+	outline:none;
+	border:1px solid var(--own-blue);
+	padding:10px 20px;
+	background-color : var(--own-blue);
+	border-radius:6px;
+	color:white;
+	font-weight : bold;
+	font-size:15px;
+}
+
+.write_reply {
+	display : flex;
+	justify-content : center;
+}
+
+.wrtie_reply_form {
+	display : flex;
+	flex-direction : column;
+	padding : 30px 20px;
+	margin-bottom : 60px;
+	width : 60%;
+	margin-top : 50px;
+	text-align : center;
+	border-top : 2.5px solid var(--own-blue);
+	background-color : #FAFAFA;
+	border-bottom : 2.5px solid var(--own-blue);
+}
+
+.write_reply_author{
+	display :flex;
+	flex-direction : column;
+}
+
+
+.write_reply_content{
+	display :flex;
+	flex-direction : column;
+	font-size : 16px;
+	margin-bottom : 15px;
+}
+
+.reply_enroll_btn{
+	width : 20%;
+	background-color : var(--own-blue);
+	border-radius : 25px;
+	outline : none;
+	color:white;
+	border : 1px solid var(--own-blue);
+	padding : 15px 0;
+	font-size: 16px;
+	font-weight : bold;
+	transition : all 0.3s ease;
+}
+
+.reply_enroll_btn:hover {
+	background-color : var(--own-blue-hover);
+}
+
+.reply_enroll_btn_wrap {
+	align-items : center;
+}
+
