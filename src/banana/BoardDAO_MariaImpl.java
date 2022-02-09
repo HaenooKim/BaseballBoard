@@ -46,6 +46,8 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 				vo.setAuthor(rs.getString("author"));
 				vo.setView(rs.getInt("view"));
 				vo.setTime(rs.getString("time"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
 			
 				ls.add( vo );
 			}

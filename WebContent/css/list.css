@@ -1,5 +1,7 @@
 @import "reset.css";
 @import "variables.css";
+@import "footer.css";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 
 table {
@@ -13,11 +15,11 @@ thead {
 }
 
 section.notice {
-  padding: 80px 0;
+  padding: 80px 0 0 0;
 }
 
 .board-table {
-  font-size: 13px;
+  font-size: 18px;
   width: 100%;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -124,7 +126,7 @@ section.notice {
 .header__menu {
 	display : flex;
 	align-items:center;
-	
+
 }
 
 .header__menu li a {
@@ -160,7 +162,7 @@ section.notice {
 	border:none;
 	background-color : transparent;
 	color:white;
-	padding:5px;
+	padding:5px 15px;
 	border-radius : 6px;
 	border : solid 2px white;
 	transition : all 0.4s ease-in;
@@ -181,6 +183,9 @@ section.notice {
 
 
 @media screen and (max-width:768px) {
+	.board-table {
+		font-size:18px;
+	}
 	.header {
 		flex-direction:column;
 		align-items : flex-start;
@@ -196,7 +201,9 @@ section.notice {
 		display : none;
 	}
 	.header__user {
+		flex-direction : row;
 		align-items : center;
+		justify-content : space-around;
 		text-align : center;
 		width : 100%;
 		display:none;
@@ -220,37 +227,119 @@ section.notice {
 		display : flex;
 	}
 	
-
-.board-table {
-  font-size: 13px;
-  width: 50%;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
+	.board-table {
+	  font-size: 13px;
+	  width: 50%;
+	  border-top: 1px solid #ccc;
+	  border-bottom: 1px solid #ccc;
+	}
 	.board-table .th-num {
-  		width: 20px;
- 		text-align: center;
+	  	width: 20px;
+	 	text-align: center;
 	}
 
+	
+	.board-table .th-title {
+		width : 70px;
+		text-align : center;
+	}
+	
+	.board-table .th-author {
+		width : 30px;
+		text-algin : center;
+	}
+	
+	
+	.board-table .th-date {
+	  width: 3px;
+	  text-algin : center;
+	}
+	
+	.board-table .th-view {
+		width : 20px;
+	}
+}
 
-.board-table .th-title {
-	width : 70px;
+ul.pagination {
+	width : 100%;
 	text-align : center;
+	display : flex;
+	justify-content : center;
 }
 
-.board-table .th-author {
-	width : 30px;
-	text-algin : center;
+.search {
+	text-align : center;
+	padding:20px 0 50px 0;
+}
+
+.btn-wrap {
+	margin-top :15px;
+	display : flex;
+	justify-content:flex-end;
+	width:80%;
+}
+
+.btn-wrap button{
+	
+	margin-left : 5px;
+	border-radius : 6px;
+	padding : 10px 20px;
+	font-weight : bold;
+	font-size : 15px;
+}
+
+.write_btn {
+	border : none;
+	background-color : var(--own-blue);
+	color : white;
+}
+
+.list_btn {
+	background-color : transparent;
+	border : 1.5px solid  var(--own-blue);
+	color : var(--own-blue);
 }
 
 
-.board-table .th-date {
-  width: 3px;
-  text-algin : center;
+.search__select {
+	padding:5px;
+	border : 3px solid var(--own-blue);
+	border-radius:6px;
+	color:var(--own-blue);
+	cursor:pointer;
 }
 
-.board-table .th-view {
-	width : 20px;
+
+.search__text {
+	padding:5px 0px;
+	width : 300px;
+	font-size:18px;
+	border : none;
+	border-radius : 8px;
+	background-color:transparent;
+	border-bottom:1.3px solid rgba(0, 0, 0, 0.3);
+	transition : border-color 0.3s linear;
 }
 
+.search__text:focus {
+	border-color : var(--own-blue);
 }
+
+.search__btn {
+	color:white;
+	border:none;
+	background-color : var(--own-blue);
+	height:35px;
+	width : 35px;
+	font-size:18px;
+}
+
+.alert__search{
+	color:red;
+	font-size:18px;
+}
+
+.pagination {
+	font-size:20px;
+}
+

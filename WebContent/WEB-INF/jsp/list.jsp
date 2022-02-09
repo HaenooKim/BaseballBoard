@@ -86,11 +86,13 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/list.css">
+
 	
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
 
 </head>
 <body>
@@ -108,7 +110,12 @@
 	    </ul>
 
 	    <div class="header__user">
-	      <span><i class="far fa-user"></i><%=name %> 님</span>
+	    <%
+	    	if(session.getAttribute("name") != null) {
+	    		%><span><i class="far fa-user"></i>&nbsp;<%=name %> 님</span><%
+	    	}
+	    %>
+	 
 	      <a href=<%=a%>><button class="logBtn"><%=btnName %></button></a>
 	    </div>
 
@@ -116,12 +123,7 @@
 			<i class="fas fa-bars"></i>
 		</a>
   </nav>
-
-	<%
-		if (ls.isEmpty()) {
-			%>조회하는 결과가 없습니다.<% 
-		}
-	%>
+  
 	<section class="notice">
 	 <div class="page-title">
           <div class="container">
@@ -142,14 +144,31 @@
                   </thead>
 				<tbody>
 					<% 	
-					if (ls != null) {
+					if (ls.isEmpty() || ls==null){
+						%><span class="alert__search">조회결과가 없습니다.</span><%
+					}
+					
+					else{
+						
+						if (checkSearch) {
+							%><span class="alert__search"><%=totalRows%>건이 검색되었습니다.<span><%
+						}
+						
 						for (BoardAndReplyVO t : ls) {
 							%>
 							
 							<tr>
 							<td><%=t.getNo() %></td>
-							<td>
-							<a href="categorySearch.pknu?category=<%=t.getCategory()%>&currentPage=<%=currentPage%>">[<%=t.getCategory() %>]</a>
+							<td style="text-align:left">
+							<%
+								if (t.getOfn() !=null) {
+									%><span style="color:#418f33;)"><i class="fas fa-image"></i></span><%
+								}
+								else if (t.getOfn() == null) {
+									%><span style="color:rgba(0, 0, 0, 0.4);)"><i class="far fa-comment-dots"></i></span><%
+								}
+							%>
+							<a style="color:#4a3dff" href="categorySearch.pknu?category=<%=t.getCategory()%>&currentPage=<%=currentPage%>"><%=t.getCategory() %></a>
 							<a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a>
 							</td>
 							<td><%=t.getAuthor() %></td>
@@ -166,89 +185,85 @@
 		</div>
 	</div>
 	
-	
-	<a href="write.pknu"><button>글쓰기</button></a>
-	
-	
-	<form method="GET" action="listSearch.pknu">
-		<select name="search">
-		    <option value="author">글쓴이</option>
-		    <option value="title">제목</option>
-		    <option value="titlecontent">제목+내용</option>
-  		</select>
-		<input type="text" name="target" required minlength='2'/>
-		<input type="hidden" name="searchCurrentPage" value="1" />
-		<input type="submit" value="검색"/> 
-	</form>
+
 	</section>
+		<div class="btn-wrap">
+		<a href="list.pknu"><button class="list_btn">전체글</button></a>
+		<a href="write.pknu"><button class="write_btn">글쓰기</button></a>
+	</div>
 	
-	
-	<ul class="pagination">
+	<ul class="pagination my">
 	<%
 	if (checkSearch) {//검색한 경우
 		
 		if (blockBegin != 1) {
 			%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockBegin-1%>&target=<%=target%>&search=<%=search%>">이전</a></li><%
 		}
-	%>
-	
-	
-		<%
+	%><%
 			for (int i=blockBegin; i<=blockEnd; i++) {
 				%><li><a href="listSearch.pknu?searchCurrentPage=<%=i%>&target=<%=target%>&search=<%=search%>"><%=i%></a></li>
 			<%
 			}
-		%>
-		
-		<%
+		%><%
 			if (blockEnd != pageCount) {
 				%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockEnd+1%>&target=<%=target%>&search=<%=search%>">다음</a></li><%
 			}
-		
-		
 	}
-	else {
 	
-	
+	else { //검색이 아닌 그냥 리스트를 불러올 경우
 		if (blockBegin != 1) {
 			%><li><a href="list.pknu?currentPage=<%=blockBegin-1 %>">이전</a></li><%
 		}
 	%>
-	
-	
 		<%
 			for (int i=blockBegin; i<=blockEnd; i++) {
 				%><li><a href="list.pknu?currentPage=<%=i%>"><%=i%></a></li>
 			<%
 			}
-		%>
-		
-		<%
+		%><%
 			if (blockEnd != pageCount) {
 				%><li><a href="list.pknu?currentPage=<%=blockEnd+1%>">다음</a></li><%
 			}
 		}
 		%>
-		
 	</ul>
 	
-	페이지 카운트 : <%=pageCount %> 현재페이지 : <%=currentPage %>
+	
+	<section class="search">
+		<form method="GET" action="listSearch.pknu">
+			<select class="search__select" name="search">
+			    <option value="author">글쓴이</option>
+			    <option value="title">제목</option>
+			    <option value="titlecontent">제목+내용</option>
+	  		</select>
+			<input class="search__text" type="text" name="target" required minlength='2' placeholder="검색어를 입력해주세요"/>
+			<input type="hidden" name="searchCurrentPage" value="1" />
+			 <button type="submit" class="search__btn">
+	        	 <i class="fa fa-search"></i>
+	    	  </button>
+		</form>
+	</section>
+	
+	
+	
+	<!-- 
+	페이지 카운트 : <%=pageCount %> 현재페이지 : <span class="current_page"><%=currentPage %></span>
 	블럭사이즈 : <%=blockSize %> 블럭비긴 : <%=blockBegin %>
 	블럭 엔드 : <%=blockEnd %>
 	토탈 레코드 : <%=totalRows %>
-
 	검색한거냐?<%=checkSearch %>
+	-->
 	
 	<script>
 		const toggleBtn = document.querySelector(".header__toggleBtn");
 		const menu = document.querySelector(".header__menu");
 		const user = document.querySelector(".header__user");
 		
-		toggleBtn.addEventListener('click', () =>{
+		toggleBtn.addEventListener('click', () => {
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
-		
+
 	
 	</script>
 	
