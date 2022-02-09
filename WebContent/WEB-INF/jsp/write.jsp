@@ -105,7 +105,7 @@
 			</div>
 			
 			<div class="filebox">
-			    <input class="upload-name" value="梅何颇老" placeholder="梅何颇老">
+			    <input class="upload-name" placeholder="梅何颇老">
 			    <label for="file">颇老茫扁</label> 
 			    <input type="file" id="file" name="apple">
 			</div>

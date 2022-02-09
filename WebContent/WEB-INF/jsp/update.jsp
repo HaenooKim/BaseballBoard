@@ -75,9 +75,77 @@
 		</a>
   </nav>
 	
+	<!-- 수정하기 -->
+	<section class="write">	
+	
+	<div class="back_btn">
+		<a href="javascript:history.back();">
+			<button>뒤로가기</button>
+		</a>
+	</div>
+	
+		<form class="write_form" method="POST" action="update.pknu" enctype="multipart/form-data">
+			
+			<div class="write_form_author">
+				<h4>작성자</h4>
+				<input type="text" value="<%=name%>" name="author" readonly/>
+			</div>
+			
+			<div class="write_form_title">
+				<h4>제목</h4>
+				<div class="write_form_title_input">
+					<select name="category">
+						<option value="kbo">KBO</option>
+					    <option value="롯데">롯데</option>
+					    <option value="엘지">엘지</option>
+					    <option value="두산">두산</option>
+			 			<option value="한화">한화</option>
+					    <option value="기아">기아</option>
+					    <option value="삼성">삼성</option>
+			 			<option value="KI">KT</option>
+					    <option value="SSG">SSG</option>
+					    <option value="NC">NC</option>
+						<option value="키움">키움</option>
+		  			</select>
+					<input value="<%=vo.getTitle()%>" type="text" name="title" required placeholder="제목을 입력해주세요" maxlength='20'/>
+				</div>
+			</div>
+			
+			<div class="wrtie_Form_content">
+				<textarea name="content" placeholder="내용을 입력해주세요" maxlength='500'><%=vo.getContent()%></textarea>
+				<!--<input type="text" name="content" requried placeholder="내용을 입력해주세요" maxlength='500'/>  -->
+			</div>
+			
+			<div class="filebox">
+			    <input class="upload-name"  placeholder="파일을 다시 올려주세요">
+			    <label for="file">파일찾기</label> 
+			    <input type="file" id="file" name="apple">
+			</div>
+			
+			<input type="hidden" value="<%=vo.getNo()%>"  name="no"/>
+			
+			
+			<div class="btn_wrap">
+				<input class="enroll_btn" type="submit" value="수정"/>
+			</div>
+		</form>
+	</section>
 	
 	
-
+	<script>
+		const toggleBtn = document.querySelector(".header__toggleBtn");
+		const menu = document.querySelector(".header__menu");
+		const user = document.querySelector(".header__user");
+		
+		toggleBtn.addEventListener('click', () => {
+			menu.classList.toggle('active');
+			user.classList.toggle('active');
+		});
+		
+		
+	</script>
+	
+<!-- 백업 
 	<form method="POST" action="update.pknu" enctype="multipart/form-data">
 		<select name="category">
 			<option value="kbo">KBO</option>
@@ -100,6 +168,8 @@
 		<input type="hidden" value="<%=vo.getNo()%>"  name="no"/>
 		<input type="submit" value="수정" onclick="handleBtn()"/>
 	</form>
+	
+-->
 	
 </body>
 </html>
