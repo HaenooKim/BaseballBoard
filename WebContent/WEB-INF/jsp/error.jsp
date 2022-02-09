@@ -12,6 +12,6 @@
 	for( StackTraceElement ste : stes ) {
 		%><%=ste.toString()%><br/><%
 	}
-	
-%></body>
+	%>
+</body>
 </html>

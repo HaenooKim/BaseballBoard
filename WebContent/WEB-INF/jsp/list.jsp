@@ -3,13 +3,13 @@
     import="banana.BoardVO, banana.BoardDAO, banana.BoardDAO_MariaImpl, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
     
     <%
-    	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList");
+    	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList"); // 게시판 정보를 받는다.
     
 	    BoardDAO dao = new BoardDAO_MariaImpl();
 		
 		int totalRows = dao.getTotalRows(); //현재 게시판의 총 row개수 (레코드 수)
     
-    //------------만약 검색된 값을 받는 거라면...?
+    //------------만약 검색된 값을 받는 거라면...? ---------------------
     	String searchCurrentPage = request.getParameter("searchCurrentPage");
     	Boolean checkSearch = false; //이 페이지가 검색된 페이지에서 넘어온건지 그냥 전체 리스트 페이지인지 확인
     	String search = null;
@@ -23,8 +23,6 @@
     	
     	//-------테이블 페이지네이션을 몇번까지 만들지 정하는 코드--------	
     
-    	
-    	
     	int ArticlesPerPage = 40; //페이지당 글 수 (한페이지당 10개씩 보여줄거임) -> 변경하고 싶으면 BoardDAO_MariaImpl에 가서 showingNumber도 같은 숫자로 바꿔줘야 함
     	int pageCount = ((totalRows-1)/ArticlesPerPage) + 1; //페이지 수 
     	//[페이지수] = ( ( [레코드 수] - 1 ) / [페이지당 글 수] ) + 1;
@@ -77,7 +75,7 @@
     		btnName = "로그아웃";
     	}
     	
-    	//--------------------------------------------------------------------
+    	//----------------------------- html ---------------------------------------
     	
     %>
 <%--
@@ -86,17 +84,15 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/list.css">
-
-	
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-
-
+<title>게시판</title>
 </head>
 <body>
 
+<!------------- nav bar ------------->
 	<nav class="header">
 	    <div class="header__logo">
 	      <i class="fas fa-baseball-ball"></i>
@@ -124,10 +120,11 @@
 		</a>
   </nav>
   
+  <!------------- board ------------->
 	<section class="notice">
 	 <div class="page-title">
           <div class="container">
-              <h3>야구 게시판</h3>
+              <h2>야구 게시판</h2>
           </div>
       </div>
 	<div id="board-list">
@@ -155,9 +152,7 @@
 						}
 						
 						for (BoardAndReplyVO t : ls) {
-							%>
-							
-							<tr>
+							%><tr>
 							<td><%=t.getNo() %></td>
 							<td style="text-align:left">
 							<%
@@ -174,9 +169,7 @@
 							<td><%=t.getAuthor() %></td>
 							<td><%=t.getTime().substring(0, 16) %></td>
 							<td><%=t.getView() %>
-							</tr>
-							
-							<%
+							</tr><%
 						}
 					}
 					%>
@@ -185,13 +178,15 @@
 		</div>
 	</div>
 	
-
+  	<!------------- 글쓰기, 전체글 버튼 ------------->
 	</section>
 		<div class="btn-wrap">
 		<a href="list.pknu"><button class="list_btn">전체글</button></a>
 		<a href="write.pknu"><button class="write_btn">글쓰기</button></a>
 	</div>
 	
+	
+	  <!------------- 페이지네이션 ------------->
 	<ul class="pagination my">
 	<%
 	if (checkSearch) {//검색한 경우
@@ -229,6 +224,7 @@
 	</ul>
 	
 	
+	  <!------------- 검색창 ------------->
 	<section class="search">
 		<form method="GET" action="listSearch.pknu">
 			<select class="search__select" name="search">
@@ -244,8 +240,6 @@
 		</form>
 	</section>
 	
-	
-	
 	<!-- 
 	페이지 카운트 : <%=pageCount %> 현재페이지 : <span class="current_page"><%=currentPage %></span>
 	블럭사이즈 : <%=blockSize %> 블럭비긴 : <%=blockBegin %>
@@ -253,8 +247,8 @@
 	토탈 레코드 : <%=totalRows %>
 	검색한거냐?<%=checkSearch %>
 	-->
-	
 	<script>
+
 		const toggleBtn = document.querySelector(".header__toggleBtn");
 		const menu = document.querySelector(".header__menu");
 		const user = document.querySelector(".header__user");
@@ -263,10 +257,8 @@
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
-
-	
 	</script>
-	
-	
+
+
 </body>
 </html>    

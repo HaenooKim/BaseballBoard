@@ -15,13 +15,11 @@
     <h1 class="welcome-header__title">
     	<i class="fas fa-baseball-ball"></i>
     		Baseball Park
-    	<i class="fas fa-baseball-ball"></i>
     </h1>
     </a>
  </header>
 
 <form method="GET" action="signinCheck.pknu" class="signup-form">
-
 	<input type="text" name="id" placeholder="ID"  maxlength='10' required />
 	<input type="password" name="password" placeholder="Password" maxlength='16' required/>
 	<input type="text" name="name" placeholder="ÀÌ¸§"  maxlength='10' required/>

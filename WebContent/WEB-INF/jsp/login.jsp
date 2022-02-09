@@ -16,7 +16,6 @@
     <h1 class="welcome-header__title">
     	<i class="fas fa-baseball-ball"></i>
     		Baseball Park
-    	<i class="fas fa-baseball-ball"></i>
     </h1>
     </a>
  </header>
@@ -36,6 +35,17 @@
 	<a href="#" >아이디 찾기</a>
 </div>
 	
+	<script>
+		
+		const toggleBtn = document.querySelector(".header__toggleBtn");
+		const menu = document.querySelector(".header__menu");
+		const user = document.querySelector(".header__user");
+		
+		toggleBtn.addEventListener('click', () => {
+			menu.classList.toggle('active');
+			user.classList.toggle('active');
+		});
+	</script>
 
 </body>
 </html>

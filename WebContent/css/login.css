@@ -1,4 +1,4 @@
-@charset "EUC-KR";
+
 @import "reset.css";
 @import "variables.css";
 
@@ -11,7 +11,7 @@
 
 .welcome-header__title {
 	margin-bottom:40px;
-	font-size:30px;
+	font-size:50px;
 	font-weight:600;
 	color:var(--own-blue);
 }
