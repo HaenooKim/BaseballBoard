@@ -168,3 +168,88 @@ ul.pagination {
 	font-size:20px;
 }
 
+
+
+@media screen and (max-width:768px) {
+	.back_btn {
+		margin-top : 65px;
+	}
+	
+	.board-table {
+		font-size:18px;
+	}
+	.header {
+		flex-direction:column;
+		align-items : flex-start;
+		position:fixed;
+		width : 100%;
+		padding:10px;
+		
+	}
+	
+	.header__menu {
+		flex-direction:column;
+		align-items : center;
+		width : 100%;
+		display : none;
+	}
+	.header__user {
+		flex-direction : row;
+		align-items : center;
+		justify-content : space-around;
+		text-align : center;
+		width : 100%;
+		display:none;
+	}
+	.header__menu li {
+		width : 100%;
+		text-align : center;
+		cursor:pointer;
+	}
+	
+	.header__toggleBtn {
+		display : block;
+		color:white;
+	}
+	
+	.header__toggleBtn:hover{
+		color:white;
+	}
+	
+	.header__menu.active, .header__user.active {
+		display : flex;
+	}
+	
+	.board-table {
+	  font-size: 13px;
+	  width: 50%;
+	  border-top: 1px solid #ccc;
+	  border-bottom: 1px solid #ccc;
+	}
+	.board-table .th-num {
+	  	width: 20px;
+	 	text-align: center;
+	}
+
+	
+	.board-table .th-title {
+		width : 70px;
+		text-align : center;
+	}
+	
+	.board-table .th-author {
+		width : 30px;
+		text-algin : center;
+	}
+	
+	
+	.board-table .th-date {
+	  width: 3px;
+	  text-algin : center;
+	}
+	
+	.board-table .th-view {
+		width : 20px;
+	}
+}
+

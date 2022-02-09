@@ -67,9 +67,7 @@
 	<section class="write">	
 	
 	<div class="back_btn">
-		<a href="javascript:history.back();">
-			<button>뒤로가기</button>
-		</a>
+		<button onclick="confirmBack();">뒤로가기</button>
 	</div>
 	
 		<form class="write_form" method="POST" action="add.pknu" enctype="multipart/form-data">
@@ -131,6 +129,19 @@
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
+		
+		function confirmBack() {
+			var message;
+			
+			message = confirm("작성중인 내용은 저장되지 않습니다. 뒤로가시겠습니까?");
+			
+			if (message) {
+				window.history.back();
+			}
+			else {
+				return false;
+			}
+		}
 		
 		
 	</script>

@@ -34,16 +34,6 @@
  
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>게시글 수정</title>
-<script>
-	function handleBtn() {
-		if (confirm("수정하시겠습니까?")==true) {
-			document.form.submit();
-		}
-		else {
-			return;
-		}
-	}
-</script>
 
 </head>
 <body>
@@ -79,12 +69,10 @@
 	<section class="write">	
 	
 	<div class="back_btn">
-		<a href="javascript:history.back();">
-			<button>뒤로가기</button>
-		</a>
+		<button onclick="confirmBack();">뒤로가기</button>
 	</div>
 	
-		<form class="write_form" method="POST" action="update.pknu" enctype="multipart/form-data">
+		<form id="update" class="write_form" method="POST" action="update.pknu" enctype="multipart/form-data">
 			
 			<div class="write_form_author">
 				<h4>작성자</h4>
@@ -126,7 +114,7 @@
 			
 			
 			<div class="btn_wrap">
-				<input class="enroll_btn" type="submit" value="수정"/>
+				<input class="enroll_btn" type="button" value="수정" onclick="confirmUpdate();"/>
 			</div>
 		</form>
 	</section>
@@ -141,6 +129,32 @@
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
+		
+		function confirmUpdate() {
+			var message;
+			
+			message = confirm("수정하시겠습니까?");
+			if (message) {
+				document.getElementById('update').submit();
+			}
+			else {
+				return false;
+			}
+			
+		}
+		
+		function confirmBack() {
+			var message;
+			
+			message = confirm("작성중인 내용은 저장되지 않습니다. 뒤로가시겠습니까?");
+			
+			if (message) {
+				window.history.back();
+			}
+			else {
+				return false;
+			}
+		}
 		
 		
 	</script>
