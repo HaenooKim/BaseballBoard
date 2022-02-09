@@ -97,6 +97,10 @@
 
 
 @media screen and (max-width:768px) {
+	.back_btn {
+		margin-top : 65px;
+	}
+	
 	.board-table {
 		font-size:18px;
 	}
@@ -106,6 +110,7 @@
 		position:fixed;
 		width : 100%;
 		padding:10px;
+		
 	}
 	
 	.header__menu {

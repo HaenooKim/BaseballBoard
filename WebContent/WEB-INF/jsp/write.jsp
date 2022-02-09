@@ -62,47 +62,62 @@
 		</a>
   </nav>
 	
-	
 		<!------------- 글쓰기창 ------------->
 	
-	<section class="write">
+	<section class="write">	
 	
+	<div class="back_btn">
+		<a href="javascript:history.back();">
+			<button>뒤로가기</button>
+		</a>
+	</div>
 	
-		<form method="POST" action="add.pknu" enctype="multipart/form-data">
+		<form class="write_form" method="POST" action="add.pknu" enctype="multipart/form-data">
 			
-			<div class="author_wrap">
-				<span>작성자</span>
+			<div class="write_form_author">
+				<h4>작성자</h4>
 				<input type="text" value="<%=name%>" name="author" readonly/>
 			</div>
 			
-			<div class="title_wrap">
-				<span>제목</span>
-				<select name="category">
-					<option value="kbo">KBO</option>
-				    <option value="롯데">롯데</option>
-				    <option value="엘지">엘지</option>
-				    <option value="두산">두산</option>
-		 			<option value="한화">한화</option>
-				    <option value="기아">기아</option>
-				    <option value="삼성">삼성</option>
-		 			<option value="KI">KT</option>
-				    <option value="SSG">SSG</option>
-				    <option value="NC">NC</option>
-					<option value="키움">키움</option>
-	  			</select>
-				<input type="text" name="title" required placeholder="제목을 입력해주세요" maxlength='20'/>
+			<div class="write_form_title">
+				<h4>제목</h4>
+				<div class="write_form_title_input">
+					<select name="category">
+						<option value="kbo">KBO</option>
+					    <option value="롯데">롯데</option>
+					    <option value="엘지">엘지</option>
+					    <option value="두산">두산</option>
+			 			<option value="한화">한화</option>
+					    <option value="기아">기아</option>
+					    <option value="삼성">삼성</option>
+			 			<option value="KI">KT</option>
+					    <option value="SSG">SSG</option>
+					    <option value="NC">NC</option>
+						<option value="키움">키움</option>
+		  			</select>
+					<input type="text" name="title" required placeholder="제목을 입력해주세요" maxlength='20'/>
+				</div>
 			</div>
 			
-			<div class="content_wrap">
-				<span></span>
-				<input type="text" name="content" requried placeholder="내용을 입력해주세요" maxlength='500'/>
+			<div class="wrtie_Form_content">
+				<textarea name="content" placeholder="내용을 입력해주세요" maxlength='500'></textarea>
+				<!--<input type="text" name="content" requried placeholder="내용을 입력해주세요" maxlength='500'/>  -->
 			</div>
 			
-			<div class="file.wrap">
+			<div class="filebox">
+			    <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+			    <label for="file">파일찾기</label> 
+			    <input type="file" id="file" name="apple">
+			</div>
+			<!-- 
+			<div class="write_form_file">
 				<input type="file" name="apple" />
 			</div>
+			-->
 			
-			<input type="submit" value="등록"/>
+			<div class="btn_wrap">
+				<input class="enroll_btn" type="submit" value="등록"/>
+			</div>
 		</form>
 	</section>
 	
@@ -116,6 +131,8 @@
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
+		
+		
 	</script>
 	
 </body>

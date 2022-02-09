@@ -3,9 +3,133 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import "navbar.css";
 
-.write {
-	text-align : center;
-	padding:80px 0 0 0;
-	color:blue;
+.back_btn {
+	width : 80%;
+	display : flex;
+	justify-content : left;
+	margin-bottom:20px;
 }
 
+.back_btn button {
+	background-color:transparent;
+	outline : none;
+	padding : 5px 10px;
+	border-radius : 30px;
+	border : 2px solid var(--own-blue);
+	color : var(--own-blue);
+}
+.write {
+	text-align : left;
+	padding-top:40px;
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	
+}
+
+.write_form {
+	padding:30px;
+	border : 1px solid rgba(0, 0, 0, 0.3);
+	border-radius : 10px;
+	width : 80%;
+	text-align : center;
+}
+
+.write_form_author {
+	display : flex;
+	flex-direction : column;
+	margin-bottom : 30px;
+	align-items : center;
+}
+
+.write_form_author input {
+	width : 30%;
+	height : 40px;
+	font-size : 20px;
+	border-color : rgba(0, 0, 0, 0.2);
+	outline:none;
+	text-align : center;
+	color : rgba(0, 0, 0, 0.6)
+}
+
+
+.write_form_title {
+	display : flex;
+	flex-direction : column;
+	margin-bottom : 30px;
+}
+
+.write_form_title_input input[type="text"] {
+
+	width : 65%;
+	height : 40px;
+	font-size : 20px;
+	border-color : rgba(0, 0, 0, 0.2);
+	outline:none;
+}
+
+.write_form_title_input select {
+	width : 15%;
+	height : 40px;
+	font-size : 15px;
+	border-color : rgba(0, 0, 0, 0.2);
+	text-align : center;
+}
+	
+.wrtie_Form_content {
+	margin-bottom : 20px;
+}
+
+.wrtie_Form_content textarea {
+	width : 80%;
+	height: 300px;
+	font-size:17px;
+}
+
+
+.filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 73%;
+    color: #999999;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.btn_wrap {
+	margin-top : 30px;
+	display : flex;
+	justify-content : center;
+}
+
+.enroll_btn {
+	border : none;
+	background-color : var(--own-blue);
+	color : white;
+	margin-left : 5px;
+	border-radius : 30px;
+	padding : 10px 40px;
+	font-weight : bold;
+	font-size : 15px;
+}
