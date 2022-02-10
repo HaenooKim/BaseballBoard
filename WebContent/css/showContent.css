@@ -57,7 +57,7 @@ section.showContent {
 	justify-content : space-between;
 	border : 1px solid rgba(0, 0, 0, 0.2);
 	padding : 20px;
-	font-size:15px;
+	font-size:20px;
 }
 
 
@@ -210,5 +210,16 @@ ul.pagination {
 
 .reply_enroll_btn_wrap {
 	align-items : center;
+}
+
+.reply_delete_btn {
+	color:var(--own-blue);
+	background-color : transparent;
+	border:none;
+	outline:none;
+}
+
+.delete_td {
+	text-align : center;
 }
 

@@ -100,15 +100,15 @@
 						String ofn = vo.get(0).getOfn();
 						%>
 								<a href="down.pknu?fsn=<%=vo.get(0).getFsn()%>&ofn<%=ofn%>">
-									<%=vo.get(0).getFsn() %><i class="fa-solid fa-download"></i>
+									<%=vo.get(0).getFsn() %>&nbsp;<i class="fas fa-download"></i>
 								</a>
 						<%
 					}
 			%>
 							</div>
 			<div class="share_layer">
-				<span><i class="fa-solid fa-share"></i>공유</span>
-				&nbsp;<span>스크랩</span>
+				<span><i class="fas fa-share"></i></span>
+				&nbsp;<span><i class="far fa-clone"></i></span>
 			</div>
 		
 		</div>
@@ -119,7 +119,7 @@
 
 <%if(vo.get(0).getAuthor().equals(name) ) {
 	%><div class="board_update"><a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button class="modify_btn">수정하기</button></a>
-		<a href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button class="delete_btn">삭제하기</button></a>
+		<a onclick="return confirm('정말 삭제하시겠습니까?');" href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button class="delete_btn">삭제하기</button></a>
 	</div><% 
 }
 %>
@@ -142,9 +142,13 @@
 				<td class="replyTime"><%=t.getReplyTime().substring(0, 16)%>
 					<%if(t.getReplyAuthor().equals(name) ) {
 						%>
-							<a href="deleteReply.pknu?replyNo=<%=t.getReplyNo()%>"><button onclick="handleBtn();">[X]</button></a>
-					<% 
+							<a onclick="return confirm('정말 삭제하시겠습니까?');" href="deleteReply.pknu?replyNo=<%=t.getReplyNo()%>"><button class="reply_delete_btn" ><i class="fas fa-times-circle"></i></button></a>
+					<%
+				
 				}
+					else {
+						%><button class="reply_delete_btn"  style="visibility: hidden;"><i class="fas fa-times-circle"></i></button><%
+					}
 			%>
 				</td>
 				</tr><%
@@ -176,8 +180,6 @@
 		</form>
 	</section>
 	
-	
-	
 	<script>
 
 		const toggleBtn = document.querySelector(".header__toggleBtn");
@@ -188,7 +190,6 @@
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
-		
 		
 	
 	</script>
