@@ -32,6 +32,21 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <title>환영합니다</title>
+
+<style>
+img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  min-height: 100%;
+  z-index: -5;
+  filter: brightness(50%);
+}
+</style>
+
 </head>
 <body>
 	
@@ -63,7 +78,6 @@
 		</a>
   </nav>
   
-  
   <script>
 	const toggleBtn = document.querySelector(".header__toggleBtn");
 	const menu = document.querySelector(".header__menu");
@@ -74,7 +88,14 @@
 		user.classList.toggle('active');
 	});
   
-  
+	const images=["baseball1.jpg", "baseball2.jpg", "baseball3.jpg", "baseball4.jpg"];
+	
+	const chosenImage = images[Math.floor(Math.random()*images.length)];
+	const bgImage = document.createElement("img");
+	bgImage.src="images/"+chosenImage;
+	document.body.appendChild(bgImage);
+	
+	
   </script>
 </body>
 </html>

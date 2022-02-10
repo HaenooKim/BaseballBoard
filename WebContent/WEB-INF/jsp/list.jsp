@@ -263,6 +263,7 @@
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
+	
 	</script>
 
 
