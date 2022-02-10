@@ -132,14 +132,14 @@ public class index extends HttpServlet{
 				else
 					request.setAttribute("err", e);
 				
-				String view = prefix + "error" + suffix;
-				RequestDispatcher rd = request.getRequestDispatcher(view);
-				rd.forward(request, response);
+					String view = prefix + "error" + suffix;
+					RequestDispatcher rd = request.getRequestDispatcher(view);
+					rd.forward(request, response);
 				
+				}
+			}
+			else {
+			System.out.println(uri2 + "에 지정된 컨트롤러 함수가 없습니다.");
 			}
 		}
-		else {
-			System.out.println(uri2 + "에 지정된 컨트롤러 함수가 없습니다.");
-		}
-	}
 }

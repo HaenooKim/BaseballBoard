@@ -45,7 +45,7 @@
 	    </div>
 	
 	    <ul class="header__menu">
-	      <li><a href="">소개글</a></li>
+	      <li><a href="intro">소개글</a></li>
 	      <li><a href="list.pknu">게시판</a></li>
 	      <li><a href="">공지사항</a></li>
 	    </ul>
@@ -160,34 +160,6 @@
 			}
 		}
 		
-		
 	</script>
-	
-<!-- 백업 
-	<form method="POST" action="update.pknu" enctype="multipart/form-data">
-		<select name="category">
-			<option value="kbo">KBO</option>
-		    <option value="롯데">롯데</option>
-		    <option value="엘지">엘지</option>
-		    <option value="두산">두산</option>
- 			<option value="한화">한화</option>
-		    <option value="기아">기아</option>
-		    <option value="삼성">삼성</option>
- 			<option value="KI">KT</option>
-		    <option value="SSG">SSG</option>
-		    <option value="NC">NC</option>
-			<option value="키움">키움</option>
-  		</select>
-		
-		<input type="text" value="<%=name%>" name="author" readonly/>
-		<input type="text" value="<%=vo.getTitle()%>" name="title" required />
-		<input type="text" value="<%=vo.getContent()%>" name="content" requried />
-		<input type="file" value="<%=vo.getOfn() %>" name="apple" />
-		<input type="hidden" value="<%=vo.getNo()%>"  name="no"/>
-		<input type="submit" value="수정" onclick="handleBtn()"/>
-	</form>
-	
--->
-	
 </body>
 </html>

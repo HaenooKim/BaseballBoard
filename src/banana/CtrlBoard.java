@@ -22,6 +22,19 @@ import orange.UserVO;
 @Control
 public class CtrlBoard {
 	
+//
+	
+	@RequestMapping("/intro.pknu") // 게시글 선택했을 때 내용 보여주는 기능
+	public ModelAndView intro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		UserDAO dao = new UserDAO_MariaImpl();
+		List<UserVO> rl = dao.findAll();
+		
+		ModelAndView mnv = new ModelAndView();
+		mnv.setViewName("intro");
+		mnv.addObject("rList", rl);
+		return mnv;
+	}
+	
 //-----------------회원가입-----------------------------
 	
 	@RequestMapping("/signin.pknu")
@@ -143,6 +156,18 @@ public class CtrlBoard {
 	@RequestMapping("/showContent.pknu")
 	public ModelAndView showContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String no = request.getParameter("no");
+		//System.out.println("에노" + no);
+		String currentPage = request.getParameter("currentPage");
+		int currentPage2=0; //getParamter타입이 string으로 넘어와서 어쩔수없이 얘를 생성함
+		if (currentPage == null) {
+			currentPage2=1;
+		}
+		else {
+			currentPage2 = Integer.parseInt(currentPage);
+		}
+		
+		//System.out.println("쇼컨"+currentPage);
+		
 		ModelAndView mnv = new ModelAndView();
 		if (no==null || no.equals("")) {
 			mnv.setViewName("redirect:list.pknu?ecode=invalid_content");
@@ -153,7 +178,7 @@ public class CtrlBoard {
 		
 		BoardAndReplyVO po = new BoardAndReplyVO();
 		po.setNo(Integer.parseInt(no));
-		List<BoardAndReplyVO> vo = dao.findByPK(po);
+		List<BoardAndReplyVO> vo = dao.findByPK3(po, currentPage2);
 		int uc = dao.viewCount(vo.get(0)); //조회수 증가
 		
 		mnv.setViewName("showContent");

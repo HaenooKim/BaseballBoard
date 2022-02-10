@@ -42,7 +42,7 @@
 	    </div>
 	
 	    <ul class="header__menu">
-	      <li><a href="">소개글</a></li>
+	      <li><a href="intro.pknu">소개글</a></li>
 	      <li><a href="list.pknu">게시판</a></li>
 	      <li><a href="">공지사항</a></li>
 	    </ul>
@@ -142,6 +142,9 @@
 				return false;
 			}
 		}
+		
+		
+		
 		
 		
 	</script>

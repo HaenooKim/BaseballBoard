@@ -145,6 +145,64 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		}
 		return vo;
 	}
+	
+	
+	private int showReplyNumber=10; //한번에 보여줄 댓글 갯수
+	//댓글창 페이지네이션 기법을 위하여 사용할 것임.
+	public List<BoardAndReplyVO> findByPK3(BoardAndReplyVO pvo, int currentPage) throws Exception {
+		List<BoardAndReplyVO> ls = new ArrayList<BoardAndReplyVO>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("select * from board left join reply on board.no=reply.no where board.no=? limit ?, ?");
+			//댓글을 10개씩 보여줄 것이다.
+			stmt.setInt( 1, pvo.getNo() );
+			
+			int startCount = (currentPage-1) * 10; 
+			stmt.setInt(2, startCount);
+			stmt.setInt(3,  showReplyNumber);
+			rs = stmt.executeQuery();
+			
+			while( rs.next() ) {
+				BoardAndReplyVO vo = new BoardAndReplyVO();
+				//---게시글----
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setAuthor(rs.getString("author"));
+				vo.setOfn(rs.getString("ofn"));
+				vo.setFsn(rs.getString("fsn"));
+				vo.setView(rs.getInt("view"));
+				vo.setTime(rs.getString("time"));
+				vo.setCategory(rs.getString("category"));
+				//----댓글-----
+				vo.setReplyAuthor(rs.getString("replyAuthor"));
+				vo.setReplyContent(rs.getString("replyContent"));
+				vo.setReplyNo(rs.getInt("replyNo"));
+				vo.setReplyTime(rs.getString("replyTime"));
+				ls.add(vo);
+			}
+		}
+		catch( Exception e ) {
+			throw e; 
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return ls;
+	}
+	
+	
+	
+	
+	
 
 	@Override
 	public List<BoardAndReplyVO> findByPK(BoardAndReplyVO pvo) throws Exception {

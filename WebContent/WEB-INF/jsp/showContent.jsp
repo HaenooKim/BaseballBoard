@@ -4,6 +4,28 @@
     List<BoardAndReplyVO> vo = (List<BoardAndReplyVO>)request.getAttribute("content");
     BoardDAO dao = new BoardDAO_MariaImpl();	
     
+    
+    // 페이네이션
+    
+    int totalReplyRows = dao.getRelpyCount(vo.get(0).getNo()); //총 레코드 수
+    int ArticlesPerPage = 10; //페이지당 글 수
+    int pageCount = ((totalReplyRows-1) / ArticlesPerPage + 1);
+    
+   	int currentPage = 0;
+    String CP = request.getParameter("currentPage");
+   	
+    if (CP == null) {
+    	currentPage=1;
+    }
+    else {
+    	currentPage = Integer.parseInt(CP);
+    }
+    
+    int blockSize = 5; //블럭사이즈 (한번에 페이지를 몇개까지 보여줄 건지. 나는 5개로 설정함)
+    int blockBegin = ((currentPage-1)/blockSize) * blockSize + 1;
+    int blockEnd = (blockBegin + blockSize-1) < pageCount ? (blockBegin + blockSize-1) : pageCount; 
+    
+    
 	//------------- 세션 관리 (로그인) -----------------------------
 	String name = (String)session.getAttribute("name"); //세션에 저장된 이름 값 가져오기
 	String a= null; //a태그에 들어갈 값
@@ -43,7 +65,7 @@
 	    </div>
 	
 	    <ul class="header__menu">
-	      <li><a href="">소개글</a></li>
+	      <li><a href="intro.pknu">소개글</a></li>
 	      <li><a href="list.pknu">게시판</a></li>
 	      <li><a href="">공지사항</a></li>
 	    </ul>
@@ -63,7 +85,11 @@
 		</a>
   </nav>
 
-
+<!--  
+페이지수 : <%=pageCount %> / 블럭사이즈 <%=blockSize %>
+현재 페이지 : <%=currentPage %> / 블럭시작 : <%=blockBegin %>
+/ 블럭끝 : <%=blockEnd %>
+-->
 
 <section class="showContent">
 	<div class="back_btn">
@@ -86,7 +112,7 @@
 		
 			<div class="showContent_information_column2">
 				<span style="margin-right:5px;">조회 <%=vo.get(0).getView() %></span>
-				<span>댓글 <%=dao.getRelpyCount(vo.get(0).getNo()) %></span>
+				<span>댓글 <%=totalReplyRows %></span>
 			</div>
 		</div>
 		
@@ -96,7 +122,7 @@
 		</div>
 		 
 		
-		<!-- 첨부된 파일이 있으면 div생성 및 footer -->
+		<!-- 첨부된 파일이 있으면 파일이름이 들어간 a태그 생성 -->
 		<div class="showContent_information_footer">
 							<div class="showContent_information_file">
 			<%
@@ -165,7 +191,20 @@
 		</div>
 	</div>
 
-
+<!-- 페이지네이션 -->
+<ul class="pagination">
+<% 
+if (blockBegin != 1) {
+	%><li><a href="showContent.pknu?currentPage=<%=blockBegin-1 %>&no=<%=vo.get(0).getNo()%>">이전</a></li><%
+}
+  for (int i=blockBegin; i<=blockEnd; i++) {
+	  %><li class="page_no"><a href="showContent.pknu?currentPage=<%=i%>&no=<%=vo.get(0).getNo()%>"><%=i%></a><li><%
+  }
+  if (blockEnd != pageCount) {
+		%><li><a href="showContent.pknu?currentPage=<%=blockEnd+1%>&no=<%=vo.get(0).getNo()%>">다음</a></li><%
+	}
+  %>
+</ul>
 
 <!------------- 댓글 등록 ------------->
 
@@ -195,8 +234,19 @@
 			user.classList.toggle('active');
 		});
 		
-
+		const pageNumber = document.querySelectorAll(".page_no");
+		console.log(pageNumber.length);
+		
+	    for (var i=0; i<pageNumber.length; i++) {
+	      pageNumber[i].addEventListener('click', () => {
+	        for (var j=0; j<pageNumber.length; j++) {
+	          pageNumber[j].classList.remove("active");
+	        }
+	        pageNumber[i].classList.add("active");
+	      })
+	    }
 	
+		
 	</script>
 </body>
 </html>
