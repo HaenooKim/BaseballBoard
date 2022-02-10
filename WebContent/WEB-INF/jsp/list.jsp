@@ -169,7 +169,7 @@
 							<a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a>
 							<%
 								if(dao.getRelpyCount(t.getNo()) !=0) {
-									%><a class="reply_count" href="showContent.pknu?no=<%=t.getNo()%>">[<%=dao.getRelpyCount(t.getNo()) %>]</a><%
+									%><a style="color:tomato;" class="reply_count" href="showContent.pknu?no=<%=t.getNo()%>">[<%=dao.getRelpyCount(t.getNo()) %>]</a><%
 								}
 							%>
 							</td>

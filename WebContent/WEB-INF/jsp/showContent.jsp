@@ -66,6 +66,9 @@
 
 
 <section class="showContent">
+	<div class="back_btn">
+		<button onclick="window.history.back();">뒤로가기</button>
+	</div>
 	<div class="showContent_wrap">
 	
 		<!-- 제목, 내용, 작성자 등이 들어간 곳(컨텐트의 헤더) -->
@@ -192,6 +195,7 @@
 			user.classList.toggle('active');
 		});
 		
+
 	
 	</script>
 </body>
