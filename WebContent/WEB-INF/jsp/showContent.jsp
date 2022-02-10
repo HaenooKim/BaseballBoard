@@ -101,7 +101,7 @@
 		<div class="showContent_information">
 			<div class="showContent_information_column1">
 				<div class="showContent_information_title">
-					<span>[<%=vo.get(0).getCategory() %>]</span>
+					[<span style="color:#1c93e8;"><%=vo.get(0).getCategory() %></span>]
 					<span><%=vo.get(0).getTitle() %></span>
 				</div>
 				<div class="showContent_information_author">
@@ -158,7 +158,7 @@
 	
 <!------------- 댓글 테이블 ------------->
 
-<h3 class="reply_title">전체 댓글 <%=dao.getRelpyCount(vo.get(0).getNo()) %></h3>
+<h3 class="reply_title">전체 댓글 <span style="color:tomato;"><%=dao.getRelpyCount(vo.get(0).getNo()) %></span></h3>
 <div id="board-list">
 		<div class="container">
 			<table class="board-table"> 
