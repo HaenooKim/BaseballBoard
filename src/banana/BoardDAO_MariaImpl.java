@@ -571,4 +571,38 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		
 		return count;
 	}
+
+	@Override
+	public int getRelpyCount(int boardNo) throws Exception {
+		int count = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			
+			stmt = conn.prepareStatement(" select count(*) as number from board natural join reply where no= ?");
+			stmt.setInt(1, boardNo);
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				count = rs.getInt("number");
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		
+		return count;
+	}
 }

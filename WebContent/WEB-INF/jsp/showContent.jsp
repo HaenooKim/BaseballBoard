@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
-    import="orange.UserVO, banana.BoardVO, orange.BoardAndReplyVO, banana.Util, java.util.List"%><%
-    		List<BoardAndReplyVO> vo = (List<BoardAndReplyVO>)request.getAttribute("content");
+    import="orange.UserVO, banana.BoardDAO, banana.BoardDAO_MariaImpl, banana.BoardVO, orange.BoardAndReplyVO, banana.Util, java.util.List"%><%
+    List<BoardAndReplyVO> vo = (List<BoardAndReplyVO>)request.getAttribute("content");
+    BoardDAO dao = new BoardDAO_MariaImpl();	
     
 	//------------- 세션 관리 (로그인) -----------------------------
 	String name = (String)session.getAttribute("name"); //세션에 저장된 이름 값 가져오기
@@ -82,7 +83,7 @@
 		
 			<div class="showContent_information_column2">
 				<span style="margin-right:5px;">조회 <%=vo.get(0).getView() %></span>
-				<span>댓글수</span>
+				<span>댓글 <%=dao.getRelpyCount(vo.get(0).getNo()) %></span>
 			</div>
 		</div>
 		
@@ -128,7 +129,7 @@
 	
 <!------------- 댓글 테이블 ------------->
 
-<h3 class="reply_title">전체 댓글</h3>
+<h3 class="reply_title">전체 댓글 <%=dao.getRelpyCount(vo.get(0).getNo()) %></h3>
 <div id="board-list">
 		<div class="container">
 			<table class="board-table"> 

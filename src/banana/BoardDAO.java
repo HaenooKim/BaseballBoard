@@ -19,8 +19,8 @@ public interface BoardDAO {
 	public List<BoardAndReplyVO> findByTitle(BoardVO pvo, int currentPage) throws Exception; 
 	public List<BoardAndReplyVO> findByTitlecontent(BoardVO pvo, int currentPage) throws Exception; 
 	public List<BoardAndReplyVO> findByCategory(BoardVO pvo, int currentPage) throws Exception; 
-	//---------------------
+	//----갯수 출력 기능 count(*)-----------------
 	public int getTotalRows() throws Exception;
 	public int getTotalRows(String search, String target) throws Exception;
-	
+	public int getRelpyCount(int boardNo) throws Exception;
 }

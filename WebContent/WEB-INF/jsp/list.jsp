@@ -167,6 +167,11 @@
 							%>
 							<a style="color:#4a3dff" href="categorySearch.pknu?category=<%=t.getCategory()%>&currentPage=<%=currentPage%>"><%=t.getCategory() %></a>
 							<a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a>
+							<%
+								if(dao.getRelpyCount(t.getNo()) !=0) {
+									%><a class="reply_count" href="showContent.pknu?no=<%=t.getNo()%>">[<%=dao.getRelpyCount(t.getNo()) %>]</a><%
+								}
+							%>
 							</td>
 							<td><%=t.getAuthor() %></td>
 							<td><%=t.getTime().substring(0, 16) %></td>
