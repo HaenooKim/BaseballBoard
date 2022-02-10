@@ -213,13 +213,20 @@ ul.pagination {
 }
 
 .reply_delete_btn {
-	color:var(--own-blue);
+	color:rgba(0, 0, 0, 0.4);
 	background-color : transparent;
 	border:none;
 	outline:none;
 }
 
-.delete_td {
-	text-align : center;
+@media screen and (max-width:768px) {
+	.board-table {
+	  font-size: 13px;
+	  width: 53%;
+	  border-top: 1px solid #ccc;
+	  border-bottom: 1px solid #ccc;
+	}
+
+	
 }
 
