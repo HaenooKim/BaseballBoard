@@ -14,3 +14,7 @@ img {
   z-index: -5;
   filter: brightness(50%);
 }
+
+.intro {
+	color:white;
+}

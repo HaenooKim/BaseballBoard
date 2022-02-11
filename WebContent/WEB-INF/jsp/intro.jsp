@@ -24,29 +24,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-
+ <link rel="icon" type = "images/jpg" href="images/pknu.jpg">
 <link rel="stylesheet" href="css/intro.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-<title>환영합니다</title>
-
-<style>
-img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  max-width: 100%;
-  min-width: 100%;
-  max-height: 100%;
-  min-height: 100%;
-  z-index: -5;
-  filter: brightness(50%);
-}
-</style>
-
+<title>Baseball Park</title>
 </head>
 <body>
 	
@@ -77,6 +62,11 @@ img {
 			<i class="fas fa-bars"></i>
 		</a>
   </nav>
+  
+  <section class="intro">
+  	<h1>Baseball Park에 오신것을 환영합니다.</h1>
+  	<span>이 곳은 야구 커뮤니티 사이트입니다. 야구에 대한 자유로운 토론을 해주세요.</span>
+  </section>
   
   <script>
 	const toggleBtn = document.querySelector(".header__toggleBtn");

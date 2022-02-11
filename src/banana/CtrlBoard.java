@@ -1,6 +1,9 @@
 package banana;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
@@ -483,4 +486,32 @@ public class CtrlBoard {
 		
 		return "showContent.pknu?no="+vo.getNo();
 	}
+	
+	@RequestMapping("/down.pknu")
+	public void down( HttpServletRequest request, HttpServletResponse response ) throws Exception {
+		String fsn = request.getParameter("fsn");
+		String ofn = request.getParameter("ofn");
+		if( fsn == null ) {
+			fsn = "1.png";
+		}
+		System.out.println(fsn);
+		InputStream in = new FileInputStream( Util.uploadDir() + fsn );
+		
+		response.setContentType("application/octet");
+
+		
+		response.setHeader("content-disposition","attachment;filename=" + ofn );
+		
+		OutputStream out2 = response.getOutputStream();
+		int len = 0;
+		byte[] buf = new byte[1024];
+		
+		while( ( len = in.read( buf ) ) != -1 ) {
+			out2.write( buf, 0, len );
+			out2.flush();
+		} 
+		out2.close();
+		in.close();
+	}
+	
 }

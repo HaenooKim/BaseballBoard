@@ -24,6 +24,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+ <link rel="icon" type = "images/jpg" href="images/pknu.jpg">
 <link rel="stylesheet" href="css/write.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -31,7 +32,7 @@
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
  
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>글쓰기</title>
+<title>Baseball Park</title>
 </head>
 <body>
 <!------------- nav bar ------------->
@@ -99,7 +100,6 @@
 			
 			<div class="wrtie_Form_content">
 				<textarea name="content" placeholder="내용을 입력해주세요" maxlength='500'></textarea>
-				<!--<input type="text" name="content" requried placeholder="내용을 입력해주세요" maxlength='500'/>  -->
 			</div>
 			
 			<div class="filebox">

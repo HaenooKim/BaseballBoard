@@ -46,13 +46,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+ <link rel="icon" type = "images/jpg" href="images/pknu.jpg">
 <link rel="stylesheet" href="css/showContent.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>게시글 조회</title>
+<title>Baseball Park</title>
 
 </head>
 <body>
@@ -127,18 +128,17 @@
 							<div class="showContent_information_file">
 			<%
 					if (vo.get(0).getOfn() != null && vo.get(0).getFsn() != null) {
-						String ofn = vo.get(0).getOfn();
 						%>
-								<a href="down.pknu?fsn=<%=vo.get(0).getFsn()%>&ofn<%=ofn%>">
-									<%=vo.get(0).getFsn() %>&nbsp;<i class="fas fa-download"></i>
+								<a href="down.pknu?fsn=<%=vo.get(0).getFsn()%>&ofn=<%=vo.get(0).getOfn()%>">
+									<%=vo.get(0).getOfn() %>&nbsp;<i class="fas fa-download"></i>
 								</a>
 						<%
 					}
 			%>
 							</div>
 			<div class="share_layer">
-				<span><i class="fas fa-share"></i></span>
-				&nbsp;<span><i class="far fa-clone"></i></span>
+				<span style="color:#3266a8;"><i class="fas fa-share"></i></span>
+				&nbsp;<span style="color:#ebeb23;"><i class="far fa-clone"></i></span>
 			</div>
 		
 		</div>
@@ -198,7 +198,14 @@ if (blockBegin != 1) {
 	%><li><a href="showContent.pknu?currentPage=<%=blockBegin-1 %>&no=<%=vo.get(0).getNo()%>">이전</a></li><%
 }
   for (int i=blockBegin; i<=blockEnd; i++) {
-	  %><li class="page_no"><a href="showContent.pknu?currentPage=<%=i%>&no=<%=vo.get(0).getNo()%>"><%=i%></a><li><%
+	  if (currentPage == i) {
+		  %><li class="active"><a href="showContent.pknu?currentPage=<%=i%>&no=<%=vo.get(0).getNo()%>"><%=i%></a><li><%
+	  }
+	  else {
+		  
+		  %><li><a href="showContent.pknu?currentPage=<%=i%>&no=<%=vo.get(0).getNo()%>"><%=i%></a><li><%
+	  }
+	  	  
   }
   if (blockEnd != pageCount) {
 		%><li><a href="showContent.pknu?currentPage=<%=blockEnd+1%>&no=<%=vo.get(0).getNo()%>">다음</a></li><%
@@ -233,19 +240,6 @@ if (blockBegin != 1) {
 			menu.classList.toggle('active');
 			user.classList.toggle('active');
 		});
-		
-		const pageNumber = document.querySelectorAll(".page_no");
-		console.log(pageNumber.length);
-		
-	    for (var i=0; i<pageNumber.length; i++) {
-	      pageNumber[i].addEventListener('click', () => {
-	        for (var j=0; j<pageNumber.length; j++) {
-	          pageNumber[j].classList.remove("active");
-	        }
-	        pageNumber[i].classList.add("active");
-	      })
-	    }
-	
 		
 	</script>
 </body>
