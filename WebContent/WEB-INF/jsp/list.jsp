@@ -204,8 +204,12 @@
 		}
 	%><%
 			for (int i=blockBegin; i<=blockEnd; i++) {
-				%><li><a href="listSearch.pknu?searchCurrentPage=<%=i%>&target=<%=target%>&search=<%=search%>"><%=i%></a></li>
-			<%
+				if (currentPage == i) {
+					%><li class="active"><a href="javascript:void(0);"><%=i%></a></li><%
+				}
+				else {
+					%><li><a href="listSearch.pknu?searchCurrentPage=<%=i%>&target=<%=target%>&search=<%=search%>"><%=i%></a></li>	<%
+				}
 			}
 		%><%
 			if (blockEnd != pageCount) {
@@ -221,7 +225,7 @@
 		<%
 			for (int i=blockBegin; i<=blockEnd; i++) {
 				if (currentPage == i) {
-					%><li class="active"><a href="list.pknu?currentPage=<%=i%>"><%=i%></a></li><%
+					%><li class="active"><a href="javascript:void(0);"><%=i%></a></li><%
 				}
 				else {
 					%><li><a href="list.pknu?currentPage=<%=i%>"><%=i%></a></li>

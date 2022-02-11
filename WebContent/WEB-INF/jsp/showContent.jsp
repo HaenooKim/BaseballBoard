@@ -199,7 +199,7 @@ if (blockBegin != 1) {
 }
   for (int i=blockBegin; i<=blockEnd; i++) {
 	  if (currentPage == i) {
-		  %><li class="active"><a href="showContent.pknu?currentPage=<%=i%>&no=<%=vo.get(0).getNo()%>"><%=i%></a><li><%
+		  %><li class="active"><a href="javascript:void(0);"><%=i%></a><li><%
 	  }
 	  else {
 		  
