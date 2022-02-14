@@ -4,7 +4,6 @@
     List<BoardAndReplyVO> vo = (List<BoardAndReplyVO>)request.getAttribute("content");
     BoardDAO dao = new BoardDAO_MariaImpl();	
     
-    
     // 페이네이션
     
     int totalReplyRows = dao.getRelpyCount(vo.get(0).getNo()); //총 레코드 수
@@ -120,6 +119,11 @@
 		<!-- 내용이 들어간 곳 -->
 		<div class="showContent_information_content">
 			<span><%=vo.get(0).getContent() %></span>
+			<%
+				if (vo.get(0).getOfn() != null && vo.get(0).getFsn() != null ){
+					%><img src="http://pukyung21.cafe24.com/upload/pknu.jpg" /><%
+				}
+			%>
 		</div>
 		 
 		
@@ -148,8 +152,8 @@
 </section>
 
 <%if(vo.get(0).getAuthor().equals(name) ) {
-	%><div class="board_update"><a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button class="modify_btn">수정하기</button></a>
-		<a onclick="return confirm('정말 삭제하시겠습니까?');" href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button class="delete_btn">삭제하기</button></a>
+	%><div class="board_update"><a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button class="modify_btn">수정</button></a>
+		<a onclick="return confirm('정말 삭제하시겠습니까?');" href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button class="delete_btn">삭제</button></a>
 	</div><% 
 }
 %>

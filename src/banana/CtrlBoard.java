@@ -27,7 +27,7 @@ public class CtrlBoard {
 	
 //
 	
-	@RequestMapping("/intro.pknu") // 게시글 선택했을 때 내용 보여주는 기능
+	@RequestMapping("/intro.pknu") 
 	public ModelAndView intro(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		UserDAO dao = new UserDAO_MariaImpl();
 		List<UserVO> rl = dao.findAll();
@@ -39,7 +39,7 @@ public class CtrlBoard {
 	}
 	
 //-----------------회원가입-----------------------------
-	
+	//(SignUp인데 모르고 Signin이라고 씀... ㅈㅅ)
 	@RequestMapping("/signin.pknu")
 	public ModelAndView signin(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		UserDAO dao = new UserDAO_MariaImpl();
@@ -51,13 +51,14 @@ public class CtrlBoard {
 		return mnv;
 	}
 	
+	
 	@RequestMapping("/signinCheck.pknu")
 	public String signinCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
-	
+		
 		UserDAO dao = new UserDAO_MariaImpl();
 		List<UserVO> rl = dao.findAll();
 		
@@ -78,6 +79,10 @@ public class CtrlBoard {
 		return "redirect:login.pknu";
 		
 	}
+	
+	
+
+	
 	//-----------------로그인-----------------------------
 	
 	@RequestMapping("/login.pknu")
@@ -498,8 +503,6 @@ public class CtrlBoard {
 		InputStream in = new FileInputStream( Util.uploadDir() + fsn );
 		
 		response.setContentType("application/octet");
-
-		
 		response.setHeader("content-disposition","attachment;filename=" + ofn );
 		
 		OutputStream out2 = response.getOutputStream();
@@ -513,5 +516,4 @@ public class CtrlBoard {
 		out2.close();
 		in.close();
 	}
-	
 }

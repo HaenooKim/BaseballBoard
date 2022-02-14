@@ -1,6 +1,7 @@
 @import "reset.css";
 @import "variables.css";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import "footer.css";
 @import "navbar.css";
 
 table {
@@ -221,9 +222,17 @@ ul.pagination {
 		display : flex;
 	}
 	
+	
+	
+	.board-list {
+		width:35%;
+		display : flex;
+		justify-content : center;
+	}
+	
 	.board-table {
-	  font-size: 16px;
-	  width: 50%;
+	  font-size: 12px;
+	  width: 33%;
 	  border-top: 1px solid #ccc;
 	  border-bottom: 1px solid #ccc;
 	}

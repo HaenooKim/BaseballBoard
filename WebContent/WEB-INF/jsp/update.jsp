@@ -84,7 +84,7 @@
 				<h4>제목</h4>
 				<div class="write_form_title_input">
 					<select name="category">
-						<option value="kbo">KBO</option>
+						<option value="KBO">KBO</option>
 					    <option value="롯데">롯데</option>
 					    <option value="엘지">엘지</option>
 					    <option value="두산">두산</option>
@@ -100,7 +100,7 @@
 				</div>
 			</div>
 			
-			<div class="wrtie_Form_content">
+			<div class="write_form_content">
 				<textarea name="content" placeholder="내용을 입력해주세요" maxlength='500'><%=vo.getContent()%></textarea>
 				<!--<input type="text" name="content" requried placeholder="내용을 입력해주세요" maxlength='500'/>  -->
 			</div>

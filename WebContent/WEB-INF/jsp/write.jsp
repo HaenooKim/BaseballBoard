@@ -72,7 +72,6 @@
 	</div>
 	
 		<form class="write_form" method="POST" action="add.pknu" enctype="multipart/form-data">
-			
 			<div class="write_form_author">
 				<h4>작성자</h4>
 				<input type="text" value="<%=name%>" name="author" readonly/>
@@ -82,14 +81,14 @@
 				<h4>제목</h4>
 				<div class="write_form_title_input">
 					<select name="category">
-						<option value="kbo">KBO</option>
+						<option value="KBO">KBO</option>
 					    <option value="롯데">롯데</option>
 					    <option value="엘지">엘지</option>
 					    <option value="두산">두산</option>
 			 			<option value="한화">한화</option>
 					    <option value="기아">기아</option>
 					    <option value="삼성">삼성</option>
-			 			<option value="KI">KT</option>
+			 			<option value="KT">KT</option>
 					    <option value="SSG">SSG</option>
 					    <option value="NC">NC</option>
 						<option value="키움">키움</option>
@@ -98,7 +97,7 @@
 				</div>
 			</div>
 			
-			<div class="wrtie_Form_content">
+			<div class="write_form_content">
 				<textarea name="content" placeholder="내용을 입력해주세요" maxlength='500'></textarea>
 			</div>
 			

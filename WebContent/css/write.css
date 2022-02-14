@@ -76,11 +76,11 @@
 	text-align : center;
 }
 	
-.wrtie_Form_content {
+.write_form_content {
 	margin-bottom : 20px;
 }
 
-.wrtie_Form_content textarea {
+.write_form_content textarea {
 	width : 80%;
 	height: 300px;
 	font-size:17px;

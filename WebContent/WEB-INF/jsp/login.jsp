@@ -16,7 +16,7 @@
     <a href="list.pknu">
     <h1 class="welcome-header__title">
     	<i class="fas fa-baseball-ball"></i>
-    		Baseball Park
+    		BaseBall Park
     </h1>
     </a>
  </header>
@@ -31,9 +31,9 @@
 <div class="find-wrap">
 	<a href="signin.pknu" >회원가입</a>
 	<div class="divider"></div>
-	<a href="#" >비밀번호 찾기</a>
-	<div class="divider"></div>
 	<a href="#" >아이디 찾기</a>
+	<div class="divider"></div>
+	<a href="#" >비밀번호 찾기</a>
 </div>
 	
 	<script>

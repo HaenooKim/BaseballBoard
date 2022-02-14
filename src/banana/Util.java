@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Util {
 	public static String uploadDir() {
 		String t = System.getProperty("os.name");
-		String upload = "/pukyung00/upload/";
+		String upload = "/pukyung21/upload/";
 		if( t.indexOf("indows") != -1 ) {
 			upload = "C:\\upload\\";
 		}

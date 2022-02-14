@@ -31,14 +31,15 @@
 <style>
 .intro {
 	color:white;
-	padding-top : 80px;
+	padding-top : 60px;
 	display : flex;
 	justify-content: center;
+	align-items : center;
 }
 
 
 .intro_welcome {
-	margin-top : 40px;
+	margin-top : 5px;
 	padding: 40px 25px;
 	background-color : rgba(0, 0, 0, 0.5);
 	width : 60%;
@@ -110,6 +111,11 @@
 }
 
 
+@media screen and (max-width:768px) {
+	.intro {
+		
+	}
+}
 
 
 

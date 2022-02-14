@@ -258,6 +258,8 @@
 		</form>
 	</section>
 	
+	
+	
 	<!-- 
 	페이지 카운트 : <%=pageCount %> 현재페이지 : <span class="current_page"><%=currentPage %></span>
 	블럭사이즈 : <%=blockSize %> 블럭비긴 : <%=blockBegin %>
