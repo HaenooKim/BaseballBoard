@@ -124,6 +124,36 @@ public class CtrlBoard {
 		return "redirect:login.pknu";	
 	}
 	
+	//--------------------------아이디 / 비번 찾기-------------------------------
+	@RequestMapping("/findPassword.pknu")
+	public ModelAndView findPassword(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		UserDAO dao = new UserDAO_MariaImpl();
+		List<UserVO> rl = dao.findAll();
+		
+		ModelAndView mnv = new ModelAndView();
+		mnv.setViewName("findPassword");
+		mnv.addObject("rList", rl);
+		return mnv;
+	}
+	
+	@RequestMapping("/pwdResult.pknu")
+	public ModelAndView pwdResult(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		UserDAO dao = new UserDAO_MariaImpl();
+		String id = request.getParameter("id");
+		String phone = request.getParameter("phone");
+		UserVO vo = new UserVO();
+		vo.setId(id);
+		vo.setPhone(phone);
+		
+		UserVO pvo = new UserVO();
+		pvo = dao.findPwd(vo);
+		
+		ModelAndView mnv = new ModelAndView();
+		mnv.setViewName("pwdResult");
+		mnv.addObject("pwdResult", pvo);
+		return mnv;
+	}
+	
 	//---------------------------게시판 조회--------------------------------------
 	@RequestMapping("/list.pknu")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -173,8 +203,6 @@ public class CtrlBoard {
 		else {
 			currentPage2 = Integer.parseInt(currentPage);
 		}
-		
-		//System.out.println("쇼컨"+currentPage);
 		
 		ModelAndView mnv = new ModelAndView();
 		if (no==null || no.equals("")) {

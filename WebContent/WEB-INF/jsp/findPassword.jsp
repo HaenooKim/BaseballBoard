@@ -7,7 +7,7 @@
 <title>Baseball Park</title>
  <link rel="icon" type = "images/jpg" href="images/pknu.jpg">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-<link rel="stylesheet" href="css/login.css" />
+<link rel="stylesheet" href="css/findPassword.css" />
 
 </head>
 <body>
@@ -19,21 +19,19 @@
     		BaseBall Park
     </h1>
     </a>
+    
+    <h3>비밀번호 찾기</h3>
  </header>
 
 
-<form method="POST" action="loginCheck.pknu" class="login-form">
+<form method="POST" action="pwdResult.pknu" class="findPassword-form">
 	<input type="text" name="id" placeholder="아이디" required/>
-	<input type="password" name="password" placeholder="패스워드" required/>
-	<input type="submit" value="로그인"/>
+	<input type="text" name="phone" placeholder="전화번호" required/>
+	<input type="submit" value="비밀번호 찾기"/>
 </form>
-
-<div class="find-wrap">
-	<a href="signin.pknu" >회원가입</a>
-	<div class="divider"></div>
-	<a href="#" >아이디 찾기</a>
-	<div class="divider"></div>
-	<a href="findPassword.pknu" >비밀번호 찾기</a>
+ <div class="back-to-login">
+	<a href="login.pknu">로그인 화면으로 돌아가기</a>
 </div>
+
 </body>
 </html>

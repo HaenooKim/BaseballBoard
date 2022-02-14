@@ -86,4 +86,39 @@ public class UserDAO_MariaImpl implements UserDAO{
 		}
 		return uc;
 	}
+
+	@Override
+	public UserVO findPwd(UserVO pvo) throws Exception { //비밀번호 찾기
+		UserVO vo = new UserVO();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			stmt = conn.prepareStatement("select * from user where id=? and phone=?");
+			stmt.setString( 1, pvo.getId() );
+			stmt.setString(2,  pvo.getPhone());
+			rs = stmt.executeQuery();
+			
+			while( rs.next() ) {
+				vo.setId(rs.getString("id"));
+				vo.setName(rs.getString("name"));
+				vo.setPassword(rs.getString("password"));
+				vo.setPhone(rs.getString("phone"));
+			
+			}
+		}
+		catch( Exception e ) {
+			throw e; 
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		return vo;
+	}
 }
