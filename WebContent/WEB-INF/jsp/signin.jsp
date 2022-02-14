@@ -12,7 +12,14 @@
 		uid.append('"').append(ls.get(i).getId()).append('"');
 	} //아이디 값을 버퍼에 넣어서 자바스크립트에 아이디 유효성 검사에 넣을거임.
 	
-	//System.out.println(uid.toString());
+	StringBuffer nickName = new StringBuffer();
+	for (int i=0; i<ls.size(); i++) {
+		if (nickName.length()>0) {
+			nickName.append(',');
+		}
+		nickName.append('"').append(ls.get(i).getName()).append('"');
+	}
+	
 %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -40,10 +47,10 @@
 <form method="GET" action="signinCheck.pknu" class="signup-form">	
 	<input onchange="idCheck();" class="id" type="text" name="id" placeholder="아이디 (영문, 숫자포함 4~10자)" minlength='4'  maxlength='10' required />
 	<span class="idMessage"></span>	
-	<input onchange="pwdCheck();" class="password1"  type="password" name="password" placeholder="비밀번호 (6~16자)" minlength='6' maxlength='16' required/>
+	<input onchange="pwdCheck();" class="password1"  type="password" name="password" placeholder="비밀번호 (영문, 숫자, 특수문자포함 6~16자)" minlength='6' maxlength='16' required/>
 	<input onchange="pwdCheck();" class="password2" type="password" name="passwordCheck" placeholder="비밀번호 확인" minlength='6' maxlength='16' required/>
 	<span class="pwdMessage"></span>
-	<input onchange="nickCheck();" class="nickName" type="text" name="name" placeholder="닉네임"  minlength='2' maxlength='10' required/>
+	<input onchange="nickCheck();" class="nickName" type="text" name="name" placeholder="닉네임 (2자 이상 10자 이내)"  minlength='2' maxlength='10' required/>
 	<span class="nickMessage"></span>
 	<input onchange="phoneCheck();" class="phoneNum" type="text" name="phone" placeholder="휴대전화번호 '-' 없이 입력" maxlength='20' required/>
 	<span style="margin-bottom:10px;" class="phoneMessage"></span>
@@ -78,7 +85,7 @@ function idValidation() {
 			}
 		}
 		if (flag) {
-			idValidationFalg = 1;
+			//idValidationFalg = 1;
 			idMessage.innerHTML = "사용가능한 아이디입니다.";
 			idMessage.style.color="blue";
 		}
@@ -92,11 +99,11 @@ function idValidation() {
 
 //ID 형식에 맞는지 체크
 function idCheck() {
-	var reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/; //ID 정규식 (영문, 숫자 포함 4~10자리)
+	var regId = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/; //ID 정규식 (영문, 숫자 포함 4~10자리)
 	var id = document.querySelector(".id").value;
 	var idMessage = document.querySelector(".idMessage");
 	
-	if( !reg.test(id) ) {
+	if( !regId.test(id) ) {
 	    idMessage.innerHTML = "아이디는 영문과 숫자를 포함하여 4~10자리로 입력해주세요";
 	    idMessage.style.color="tomato";
 	    //document.querySelector(".id").value="";
@@ -124,6 +131,33 @@ function phoneCheck() {
 
 //비밀번호 체크
 function pwdCheck() {
+	var password1 = document.querySelector(".password1").value; //처음 입력한 비밀번호
+	var password2 = document.querySelector(".password2").value; //비밀번호 일치확인 값
+	var pwdMessage = document.querySelector(".pwdMessage");
+	var regPwd =  /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{6,16}$/; //6 ~ 16자 영문, 숫자, 특수문자를 최소 한가지씩 조합
+	
+	if (password1 != '' && password2 != '') {
+		
+		if (!regPwd.test(password1)) {
+			pwdMessage.innerHTML = "비밀번호는 6 ~ 16자 이내 영문, 숫자, 특수문자를 포함해야합니다.";
+			pwdMessage.style.color= "tomato";
+		}
+		else {
+			if (password1 == password2) {
+				pwdMessage.innerHTML = "비밀번호가 일치합니다";
+				pwdMessage.style.color= "blue";
+			}
+			else  {
+				pwdMessage.innerHTML = "비밀번호가 일치하지 않습니다.";
+				pwdMessage.style.color= "tomato";
+			}
+		}
+	}
+}
+
+/*
+//비밀번호 체크
+function pwdCheck() {
 	var password1 = document.querySelector(".password1").value; //
 	var password2 = document.querySelector(".password2").value; //비밀번호 일치확인 값
 	var pwdMessage = document.querySelector(".pwdMessage");
@@ -147,7 +181,9 @@ function pwdCheck() {
 	}
 }
 
+*/
 //닉네임 체크
+/*
 function nickCheck() { 
 	var nickName = document.querySelector(".nickName").value;
 	var nickMessage = document.querySelector(".nickMessage");
@@ -161,7 +197,39 @@ function nickCheck() {
 		nickMessage.style.color="blue";
 	}
 }
+*/
 
+function nickCheck() { 
+	var nickName = document.querySelector(".nickName").value;
+	var flag = true;
+	var list = [<%=nickName.toString()%>];
+	var nickMessage = document.querySelector(".nickMessage");
+	console.log(nickName);
+	
+	
+	if (nickName="" || nickName.length < 2) {
+		nickMessage.innerHTML="사용불가능한 닉네임입니다.";
+		nickMessage.style.color="tomato";
+	}
+	
+	else {
+		for (var i=0; i<list.length; i++) {
+			if (document.querySelector(".nickName").value == list[i]) {
+				flag = false;
+				break;
+			}
+		}
+		
+		if (flag) {
+			nickMessage.innerHTML="사용가능한 닉네임입니다.";
+			nickMessage.style.color="blue";
+		}
+		else {
+			nickMessage.innerHTML="사용불가능한 닉네임입니다.";
+			nickMessage.style.color="tomato";
+		}
+	}
+}
 
 function signupCheck() {
 	//----------유효성 체크-------------
@@ -197,7 +265,7 @@ function signupCheck() {
 			alert("중복체크를 해주세요");			
 		}
 	}
-	else if (nickMessage=="닉네임은 2자 이상 입력해주세요") {
+	else if (nickMessage!="사용가능한 닉네임입니다.") {
 		alert("닉네임을 확인해주세요.");
 	}
 	
