@@ -2,19 +2,17 @@
     pageEncoding="EUC-KR" import="orange.UserVO, java.util.List"%>
     
 <%
-List<UserVO> ls = (List<UserVO>)request.getAttribute("rList");
-
-StringBuffer uid = new StringBuffer();
-for (int i=0; i<ls.size(); i++) {
-	if(uid.length()>0) {
-		uid.append(',');
-	}
-	uid.append('"').append(ls.get(i).getId()).append('"');
-} //아이디 값을 버퍼에 넣어서 자바스크립트에 아이디 유효성 검사에 넣을거임.
-
-//System.out.println(uid.toString());
-
-
+	List<UserVO> ls = (List<UserVO>)request.getAttribute("rList");
+	
+	StringBuffer uid = new StringBuffer();
+	for (int i=0; i<ls.size(); i++) {
+		if(uid.length()>0) {
+			uid.append(',');
+		}
+		uid.append('"').append(ls.get(i).getId()).append('"');
+	} //아이디 값을 버퍼에 넣어서 자바스크립트에 아이디 유효성 검사에 넣을거임.
+	
+	//System.out.println(uid.toString());
 %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -39,10 +37,8 @@ for (int i=0; i<ls.size(); i++) {
  <div class="idValidation-wrap">
 	<button class="idValidation" onclick="idValidation();">ID 중복체크</button> 
  </div>
-<form method="GET" action="signinCheck.pknu" class="signup-form">
-	
+<form method="GET" action="signinCheck.pknu" class="signup-form">	
 	<input onchange="idCheck();" class="id" type="text" name="id" placeholder="아이디 (영문, 숫자포함 4~10자)" minlength='4'  maxlength='10' required />
-
 	<span class="idMessage"></span>	
 	<input onchange="pwdCheck();" class="password1"  type="password" name="password" placeholder="비밀번호 (6~16자)" minlength='6' maxlength='16' required/>
 	<input onchange="pwdCheck();" class="password2" type="password" name="passwordCheck" placeholder="비밀번호 확인" minlength='6' maxlength='16' required/>
@@ -59,8 +55,6 @@ for (int i=0; i<ls.size(); i++) {
 
 <script>
 
-
-
 //아이디 중복체크
 function idValidation() {
 	var id = document.querySelector(".id").value;
@@ -73,20 +67,25 @@ function idValidation() {
 		return ;
 	}
 	
-	for (var i=0; i<list.length; i++) {
-		if ((id==list[i])) {
-			flag=false;
-			break;
-		}
-	}
-	if (flag) {
-		idValidationFalg = 1;
-		idMessage.innerHTML = "사용가능한 아이디입니다.";
-		idMessage.style.color="blue";
+	if (idMessage.innerHTML == "아이디는 영문과 숫자를 포함하여 4~10자리로 입력해주세요") {
+		alert("아이디는 영문과 숫자를 포함하여 4~10자리로 입력해주세요");
 	}
 	else {
-		idMessage.innerHTML = "사용불가능한 아이디입니다.";
-		idMessage.style.color="tomato";
+		for (var i=0; i<list.length; i++) {
+			if ((id==list[i])) {
+				flag=false;
+				break;
+			}
+		}
+		if (flag) {
+			idValidationFalg = 1;
+			idMessage.innerHTML = "사용가능한 아이디입니다.";
+			idMessage.style.color="blue";
+		}
+		else {
+			idMessage.innerHTML = "사용불가능한 아이디입니다.";
+			idMessage.style.color="tomato";
+		}	
 	}
 }
 
@@ -149,7 +148,7 @@ function pwdCheck() {
 }
 
 
-function nickCheck() {
+function nickCheck() { //닉네임 체크
 	var nickName = document.querySelector(".nickName").value;
 	var nickMessage = document.querySelector(".nickMessage");
 	
