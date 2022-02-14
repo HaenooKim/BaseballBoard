@@ -147,8 +147,8 @@ function pwdCheck() {
 	}
 }
 
-
-function nickCheck() { //닉네임 체크
+//닉네임 체크
+function nickCheck() { 
 	var nickName = document.querySelector(".nickName").value;
 	var nickMessage = document.querySelector(".nickMessage");
 	

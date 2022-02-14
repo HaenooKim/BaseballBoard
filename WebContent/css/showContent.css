@@ -49,8 +49,10 @@ section.showContent {
 
 
 .showContent_information_content {
+	display:flex;
+	flex-direction:column;
 	text-align : left;
-	margin-bottom : 350px;
+	padding-bottom : 150px;
 
 }
 
@@ -140,14 +142,14 @@ ul.pagination {
 }
 
 .modify_btn {
-		outline : none;
+	outline : none;
 	color : var(--own-blue);
 	border : 2px solid var(--own-blue);
 	background-color:transparent;
 	padding:10px 20px;	
 	border-radius : 6px;
 	font-weight:bold;
-	margin-right : 5px;
+	margin : 0px 5px;
 	font-size:15px;
 }
 
@@ -232,6 +234,13 @@ ul.pagination {
 		margin-top : 30px;
 	}
 	
+	.content_image{
+		width:350px;
+		height:300px;
+		margin-top:30px;
+	}
+	
+	
 }
 
 .back_btn button {
@@ -248,5 +257,11 @@ ul.pagination {
 	display : flex;
 	justify-content : left;
 	margin-bottom:20px;
+}
+
+.content_image{
+	width:800px;
+	height:600px;
+	margin-top:30px;
 }
 

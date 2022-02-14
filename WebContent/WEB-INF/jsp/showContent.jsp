@@ -121,7 +121,11 @@
 			<span><%=vo.get(0).getContent() %></span>
 			<%
 				if (vo.get(0).getOfn() != null && vo.get(0).getFsn() != null ){
-					%><img src="http://pukyung21.cafe24.com/upload/pknu.jpg" /><%
+					%><img class="content_image" src="image.jsp?fname=<%=vo.get(0).getFsn() %>"/><%
+							//http://pukyung21.cafe24.com/image.jsp?fname=pknu
+								//http://pukyung21.cafe24.com/image.jsp?fname=ce758223-c92a-42f2-8a4a-30935a74f317
+								//루트아래에 있는 거 외엔 가져올 수 없으니 image.jsp를 root아래에 놓고 돌려야한다.
+							
 				}
 			%>
 		</div>
@@ -150,14 +154,16 @@
 	</div>
 		
 </section>
-
+<div class="board_update">
+<a><button onclick="window.history.back();" class="delete_btn">목록</button></a>
 <%if(vo.get(0).getAuthor().equals(name) ) {
-	%><div class="board_update"><a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button class="modify_btn">수정</button></a>
+	%>
+		<a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button class="modify_btn">수정</button></a>
 		<a onclick="return confirm('정말 삭제하시겠습니까?');" href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button class="delete_btn">삭제</button></a>
-	</div><% 
+	<% 
 }
 %>
-
+</div>
 
 	
 <!------------- 댓글 테이블 ------------->
