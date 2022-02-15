@@ -1,0 +1,33 @@
+데이터베이스
+(1) 게시글
+CREATE TABLE board (
+no INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(30),
+content VARCHAR(500),
+author VARCHAR(20),
+ofn VARCHAR(50),
+fsn VARCHAR(50),
+view INT,
+time DATETIME,
+category VARCHAR(10) 
+);
+
+(2) 댓글
+CREATE TABLE reply (
+replyNo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+no INT NOT NULL,
+replyAuthor VARCHAR(20),
+replyContent VARCHAR(200),
+replyTime DATETIME,
+FOREIGN KEY(no) REFERENCES board(no) ON DELETE CASCADE
+);
+
+(3) 유저
+CREATE TABLE user (
+id VARCHAR(10) NOT NULL PRIMARY KEY,
+password VARCHAR(16) NOT NULL,
+name VARCHAR(10) NOT NULL,
+phone VARCHAR(20) NOT NULL
+);
+
+

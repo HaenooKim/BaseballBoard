@@ -31,9 +31,9 @@
 <div class="find-wrap">
 	<a href="signin.pknu" >회원가입</a>
 	<div class="divider"></div>
-	<a href="#" >아이디 찾기</a>
-	<div class="divider"></div>
 	<a href="findPassword.pknu" >비밀번호 찾기</a>
+	<div class="divider"></div>
+	<a href="intro.pknu" >소개글</a>
 </div>
 </body>
 </html>

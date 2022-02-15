@@ -27,13 +27,15 @@
     </a>
  </header>
  
+
+ 
  <div class="result">
   <%
  	if (vo.getPassword()==null) {
  		%><span>조회결과가 없습니다.</span><%
  	}
  	else {
- 		%> <span>회원님의 비밀번호는 <%=vo.getPassword()%>입니다.</span><%
+ 		%> <span>회원님의 비밀번호는 <%=vo.getPassword().substring(0, vo.getPassword().length()-2)%>** 입니다.</span><%
  	}
  %>
  </div>

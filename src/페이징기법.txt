@@ -1,0 +1,19 @@
+https://beaniejoy.tistory.com/25여기 보고 하기
+
+
+1. BoardDAO에서 list.jsp로 열의 개수를 가져온다.
+(BoardDAO에서 SELECT COUNT(*)어쩌구 작성.
+
+2. ul 에 a 링크에 page번호를 넘겨준다.
+ex)2페이지로 이동하면 list.pknu?=2
+3. CtrlBoard에서 getParameter로 2를 받을것이고
+BoardDAO에 findall2(int a)를 이용해서 2를 넘겨준다.
+처음에는 null일 수 있으므로 null일 경우 1로 설정한다.(테스트하기)
+
+4. 그것을 받은 findAll2에서는 2페이지니까 select * from
+~ limit 10, 5 이렇게 해주면 된다(한페이지당 5개씩 보여준다는 가정 하에)
+
+5. 그걸 리턴한 값을 CtrlBoard의 list함수에서 받은다음
+jsp에 그 페이지를 넘겨준다.
+
+6. 그걸 리스트에 보여준다.

@@ -1,14 +1,19 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"
-    import="banana.BoardVO, banana.BoardDAO, banana.BoardDAO_MariaImpl, orange.BoardAndReplyVO, banana.Util, java.util.List"%>
+    import="banana.BoardVO, banana.BoardDAO, banana.BoardDAO_MariaImpl, orange.BoardAndReplyVO, banana.Util, java.util.List,  
+    java.text.SimpleDateFormat"%>
     
     <%
-    	List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList"); // 게시판 정보를 받는다.
-    
+	    List<BoardAndReplyVO> ls = (List<BoardAndReplyVO>)request.getAttribute("rList"); // 게시판 정보를 받는다.
+	    
 	    BoardDAO dao = new BoardDAO_MariaImpl();
+	
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+			
+		String today = format1.format (System.currentTimeMillis()); //오늘날짜 구하기
 		
 		int totalRows = dao.getTotalRows(); //현재 게시판의 총 row개수 (레코드 수)
-    
+	    
     //------------만약 검색된 값을 받는 거라면...? ---------------------
     	String searchCurrentPage = request.getParameter("searchCurrentPage");
     	Boolean checkSearch = false; //이 페이지가 검색된 페이지에서 넘어온건지 그냥 전체 리스트 페이지인지 확인
@@ -175,7 +180,16 @@
 							%>
 							</td>
 							<td><%=t.getAuthor() %></td>
-							<td><%=t.getTime().substring(0, 16) %></td>
+							<%
+								if (today.equals(t.getTime().substring(0, 10))) {
+									%><td><%=t.getTime().substring(11, 16) %></td><%
+								}
+								else {
+									%><td><%=t.getTime().substring(0, 16) %></td><%
+								}
+							
+							%>
+							
 							<td><%=t.getView() %>
 							</tr><%
 						}
@@ -258,8 +272,11 @@
 		</form>
 	</section>
 	
-	
-	
+	<!-- Arrow up -->
+	<button class="arrow-up">
+		<i class="fas fa-arrow-up"></i>
+	</button>
+
 	<!-- 
 	페이지 카운트 : <%=pageCount %> 현재페이지 : <span class="current_page"><%=currentPage %></span>
 	블럭사이즈 : <%=blockSize %> 블럭비긴 : <%=blockBegin %>
@@ -278,6 +295,33 @@
 			user.classList.toggle('active');
 		});
 	
+		
+		/*-------arrow up버튼 스크롤할 때 보이게 하기 ----*/
+		const header = document.querySelector(".header");
+		
+		const headerHeight = header.getBoundingClientRect().height;
+		const arrowUp = document.querySelector(".arrow-up");
+		
+		document.addEventListener('scroll', ()=> {
+			if (window.scrollY > headerHeight / 2) {
+				arrowUp.classList.add("visible");
+			}
+			else {
+				arrowUp.classList.remove("visible");
+			}
+		});
+		
+		
+		arrowUp.addEventListener('click', ()=> {
+			scrollIntoView('.header');
+		});
+		
+		function scrollIntoView(selector) {
+			const scrollTo = document.querySelector(selector);
+			scrollTo.scrollIntoView({behavior:'smooth'});
+		}
+		
+		
 	</script>
 
 

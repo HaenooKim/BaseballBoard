@@ -25,8 +25,8 @@
 
 
 <form method="POST" action="pwdResult.pknu" class="findPassword-form">
-	<input type="text" name="id" placeholder="아이디" required/>
-	<input type="text" name="phone" placeholder="전화번호" required/>
+	<input type="text" name="id" placeholder="아이디를 입력해주세요" required/>
+	<input type="text" name="phone" placeholder="전화번호를 입력해주세요" required/>
 	<input type="submit" value="비밀번호 찾기"/>
 </form>
  <div class="back-to-login">
