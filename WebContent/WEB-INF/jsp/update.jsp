@@ -2,7 +2,6 @@
     pageEncoding="EUC-KR"
     import="banana.BoardVO, banana.Util, java.util.List"%><%
 
-    
     BoardVO vo = (BoardVO)request.getAttribute("content");
    
 	//------------- 세션 관리 (로그인) -----------------------------
@@ -21,7 +20,6 @@
 		btnName = "로그아웃";
 	}
 %>
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -66,7 +64,7 @@
 		</a>
   </nav>
 	
-	<!-- 수정창 -->
+	<!-------- 수정창 -------->
 	<section class="write">	
 	
 	<div class="back_btn">
@@ -120,9 +118,8 @@
 		</form>
 	</section>
 	
-	
-	
-<footer>
+	<!------------- footer ------------->
+	<footer>
 	    <nav>
 	        <a href='https://www.instagram.com/haenoo._/' target='_blank'>Instagram</a> |
 	        <a href='https://github.com/HaenooKim' target='_blank'>Github</a>
@@ -133,8 +130,6 @@
 	        <span> &copy; Copyright 2022. BaseBall Park. All Rights Reserved.</span>
 	    </p>
 	</footer>
-	
-	
 	
 	<script>
 		const toggleBtn = document.querySelector(".header__toggleBtn");
@@ -175,7 +170,6 @@
 				return false;
 			}
 		}
-		
 	</script>
 </body>
 </html>

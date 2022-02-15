@@ -11,30 +11,27 @@
 
 </head>
 <body>
-
-<header class="welcome-header">
-    <a href="list.pknu">
-    <h1 class="welcome-header__title">
-    	<i class="fas fa-baseball-ball"></i>
-    		BaseBall Park
-    </h1>
-    </a>
- </header>
-
-
-<form method="POST" action="loginCheck.pknu" class="login-form">
-	<input type="text" name="id" placeholder="아이디" required/>
-	<input type="password" name="password" placeholder="패스워드" required/>
-	<input type="submit" value="로그인"/>
-</form>
-
-<div class="find-wrap">
-	<a href="signin.pknu" >회원가입</a>
-	<div class="divider"></div>
-	<a href="findPassword.pknu" >비밀번호 찾기</a>
-	<div class="divider"></div>
-	<a href="intro.pknu" >소개글</a>
-</div>
-
+	<header class="welcome-header">
+	    <a href="list.pknu">
+	    <h1 class="welcome-header__title">
+	    	<i class="fas fa-baseball-ball"></i>
+	    		BaseBall Park
+	    </h1>
+	    </a>
+	 </header>
+	
+	<form method="POST" action="loginCheck.pknu" class="login-form">
+		<input type="text" name="id" placeholder="아이디" required/>
+		<input type="password" name="password" placeholder="패스워드" required/>
+		<input type="submit" value="로그인"/>
+	</form>
+	
+	<div class="find-wrap">
+		<a href="signin.pknu" >회원가입</a>
+		<div class="divider"></div>
+		<a href="findPassword.pknu" >비밀번호 찾기</a>
+		<div class="divider"></div>
+		<a href="intro.pknu" >소개글</a>
+	</div>
 </body>
 </html>

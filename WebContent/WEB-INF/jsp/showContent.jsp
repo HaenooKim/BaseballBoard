@@ -4,8 +4,7 @@
     List<BoardAndReplyVO> vo = (List<BoardAndReplyVO>)request.getAttribute("content");
     BoardDAO dao = new BoardDAO_MariaImpl();	
     
-    // 페이네이션
-    
+    // ----------------댓글 페이지네이션-----------------------
     int totalReplyRows = dao.getRelpyCount(vo.get(0).getNo()); //총 레코드 수
     int ArticlesPerPage = 10; //페이지당 글 수
     int pageCount = ((totalReplyRows-1) / ArticlesPerPage + 1);
@@ -123,13 +122,10 @@
 				if (vo.get(0).getOfn() != null && vo.get(0).getFsn() != null ){
 					%><img class="content_image" src="image.jsp?fname=<%=vo.get(0).getFsn() %>"/><%
 							//http://pukyung21.cafe24.com/image.jsp?fname=pknu
-								//http://pukyung21.cafe24.com/image.jsp?fname=ce758223-c92a-42f2-8a4a-30935a74f317
 								//루트아래에 있는 거 외엔 가져올 수 없으니 image.jsp를 root아래에 놓고 돌려야한다.
-							
 				}
 			%>
 		</div>
-		 
 		
 		<!-- 첨부된 파일이 있으면 파일이름이 들어간 a태그 생성 -->
 		<div class="showContent_information_footer">
@@ -148,24 +144,22 @@
 				<span style="color:#3266a8;"><i class="fas fa-share"></i></span>
 				&nbsp;<span style="color:#ebeb23;"><i class="far fa-clone"></i></span>
 			</div>
-		
 		</div>
-		
 	</div>
-		
 </section>
-<div class="board_update">
-<a><button onclick="window.history.back();" class="delete_btn">목록</button></a>
-<%if(vo.get(0).getAuthor().equals(name) ) {
-	%>
-		<a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button class="modify_btn">수정</button></a>
-		<a onclick="return confirm('정말 삭제하시겠습니까?');" href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button class="delete_btn">삭제</button></a>
-	<% 
-}
-%>
-</div>
 
-	
+	<!------------- 목록, 수정, 삭제 버튼 ------------->
+	<div class="board_update">
+		<a><button onclick="window.history.back();" class="delete_btn">목록</button></a>
+		<%if(vo.get(0).getAuthor().equals(name) ) {
+			%>
+				<a href="showUpdate.pknu?no=<%=vo.get(0).getNo()%>"><button class="modify_btn">수정</button></a>
+				<a onclick="return confirm('정말 삭제하시겠습니까?');" href="deleteBoard.pknu?no=<%=vo.get(0).getNo()%>"><button class="delete_btn">삭제</button></a>
+			<% 
+		}
+		%>
+	</div>
+
 <!------------- 댓글 테이블 ------------->
 
 <h3 class="reply_title">전체 댓글 <span style="color:tomato;"><%=dao.getRelpyCount(vo.get(0).getNo()) %></span></h3>
@@ -201,31 +195,29 @@
 		</div>
 	</div>
 
-<!-- 페이지네이션 -->
-<ul class="pagination">
-<% 
-if (blockBegin != 1) {
-	%><li><a href="showContent.pknu?currentPage=<%=blockBegin-1 %>&no=<%=vo.get(0).getNo()%>">이전</a></li><%
-}
-  for (int i=blockBegin; i<=blockEnd; i++) {
-	  if (currentPage == i) {
-		  %><li class="active"><a href="javascript:void(0);"><%=i%></a><li><%
-	  }
-	  else {
-		  
-		  %><li><a href="showContent.pknu?currentPage=<%=i%>&no=<%=vo.get(0).getNo()%>"><%=i%></a><li><%
-	  }
-	  	  
-  }
-  if (blockEnd != pageCount) {
-		%><li><a href="showContent.pknu?currentPage=<%=blockEnd+1%>&no=<%=vo.get(0).getNo()%>">다음</a></li><%
+	<!------ 페이지네이션 ------>
+	<ul class="pagination">
+	<% 
+	if (blockBegin != 1) {
+		%><li><a href="showContent.pknu?currentPage=<%=blockBegin-1 %>&no=<%=vo.get(0).getNo()%>">이전</a></li><%
 	}
-  %>
-</ul>
+	  for (int i=blockBegin; i<=blockEnd; i++) {
+		  if (currentPage == i) {
+			  %><li class="active"><a href="javascript:void(0);"><%=i%></a><li><%
+		  }
+		  else {
+			  
+			  %><li><a href="showContent.pknu?currentPage=<%=i%>&no=<%=vo.get(0).getNo()%>"><%=i%></a><li><%
+		  }
+		  	  
+	  }
+	  if (blockEnd != pageCount) {
+			%><li><a href="showContent.pknu?currentPage=<%=blockEnd+1%>&no=<%=vo.get(0).getNo()%>">다음</a></li><%
+		}
+	  %>
+	</ul>
 
-
-
-<!------------- 댓글 등록 ------------->
+	<!------------- 댓글 등록 ------------->
 
 	<section class="write_reply">
 		<form action="writeReply.pknu" method="GET" class="wrtie_reply_form">
@@ -242,8 +234,7 @@ if (blockBegin != 1) {
 		</form>
 	</section>
 	
-	
-	
+	<!------------- footer ------------->
 	<footer>
 	    <nav>
 	        <a href='https://www.instagram.com/haenoo._/' target='_blank'>Instagram</a> |

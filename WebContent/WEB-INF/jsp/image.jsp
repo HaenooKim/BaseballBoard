@@ -1,5 +1,3 @@
-
-
 <%@ page pageEncoding="euc-kr" 
 	import="java.io.*, banana.Util"%><%
 
@@ -7,7 +5,6 @@
 	if( fname == null ) {
 		fname = "1643001348093";
 	}
-
 	response.setContentType("image/jpeg");
 	
 	InputStream in2 = new FileInputStream( Util.uploadDir() + fname);
@@ -23,5 +20,4 @@
 
 	out2.close();
 	in2.close();
-
 %>

@@ -95,7 +95,6 @@
 	display : none;
 }
 
-
 @media screen and (max-width:768px) {
 	.back_btn {
 		margin-top : 65px;
@@ -177,7 +176,5 @@
 	.board-table .th-view {
 		width : 20px;
 	}
-	
-	
 }
 

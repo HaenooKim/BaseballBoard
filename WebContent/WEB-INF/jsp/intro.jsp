@@ -110,17 +110,7 @@
   }
 }
 
-
-@media screen and (max-width:768px) {
-	.intro {
-		
-	}
-}
-
-
-
 </style>
-
 
 <title>Baseball Park</title>
 </head>
@@ -174,9 +164,7 @@
 	  			<p>이미지와 게시판이 결합된 커뮤니티 서비스입니다. </p>
 	  		</div>
 	  	</div>
-	  	
-	  	
-	  	
+
 	  	<div class="intro_service">
 	  		<div class="intro_servie_mobile">
 		  		<i class="fas fa-mobile-alt"></i>

@@ -41,9 +41,6 @@
   				System.out.println(totalRows);
     		}
     		
-    		
-    		
-    	
     	//-------테이블 페이지네이션을 몇번까지 만들지 정하는 코드--------	
     
     	int ArticlesPerPage = 40; //페이지당 글 수 (한페이지당 10개씩 보여줄거임) -> 변경하고 싶으면 BoardDAO_MariaImpl에 가서 showingNumber도 같은 숫자로 바꿔줘야 함
@@ -84,7 +81,6 @@
         		[블럭끝] = [블럭시작] + [BS] - 1 과 [EP] 중 작은값
 				5 와 14 중 작은 값이니까 5 (6)
         	*/
-    	
     	
     	//------------- 세션 관리 (로그인) -----------------------------
     	String name = (String)session.getAttribute("name"); //세션에 저장된 이름 값 가져오기
@@ -209,7 +205,6 @@
 								else {
 									%><td><%=t.getTime().substring(0, 16) %></td><%
 								}
-							
 							%>
 							
 							<td><%=t.getView() %>
@@ -233,7 +228,7 @@
 	  <!------------- 페이지네이션 ------------->
 	<ul class="pagination my">
 	<%
-	if (checkSearch) {//검색한 경우
+	if (checkSearch) {//검색창에 검색한 경우
 		
 		if (blockBegin != 1) {
 			%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockBegin-1%>&target=<%=target%>&search=<%=search%>">이전</a></li><%
@@ -253,9 +248,7 @@
 			}
 	}
 	
-	
-	
-	else if (checkCategory) { //카테고리 검색을 한 경우 여기다앗
+	else if (checkCategory) { //카테고리 검색(클릭)을 한 경우
 		if (blockBegin != 1) {
 			%><li><a href="categorySearch.pknu?categoryCurrentPage=<%=blockBegin-1%>&category=<%=category%>">이전</a></li><%
 		}
@@ -273,7 +266,6 @@
 				%><li><a href="categorySearch.pknu?categoryCurrentPage=<%=blockEnd+1%>&category=<%=category%>">다음</a></li><%
 			}
 	}
-	
 	
 	else { //검색이 아닌 그냥 리스트를 불러올 경우
 		if (blockBegin != 1) {
@@ -350,30 +342,24 @@
 	
 		
 		/*-------arrow up버튼 스크롤할 때 보이게 하기 ----*/
-		const header = document.querySelector(".header");
 		
-		const headerHeight = header.getBoundingClientRect().height;
+		const html = document.querySelector("html"); //맨 위로 이동할 것이기 때문에 html을 가져옴
+		const htmlHeight = html.getBoundingClientRect().height;
 		const arrowUp = document.querySelector(".arrow-up");
 		
 		document.addEventListener('scroll', ()=> {
-			if (window.scrollY > headerHeight / 2) {
+			if (window.scrollY > htmlHeight / 4) {
 				arrowUp.classList.add("visible");
 			}
 			else {
 				arrowUp.classList.remove("visible");
 			}
-		});
-		
+		})
 		
 		arrowUp.addEventListener('click', ()=> {
-			scrollIntoView('.header');
-		});
-		
-		function scrollIntoView(selector) {
-			const scrollTo = document.querySelector(selector);
+			const scrollTo = document.querySelector("html");
 			scrollTo.scrollIntoView({behavior:'smooth'});
-		}
-		
+		})
 		
 	</script>
 

@@ -8,30 +8,25 @@
  <link rel="icon" type = "images/jpg" href="images/pknu.jpg">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <link rel="stylesheet" href="css/findPassword.css" />
-
 </head>
 <body>
-
-<header class="welcome-header">
-    <a href="list.pknu">
-    <h1 class="welcome-header__title">
-    	<i class="fas fa-baseball-ball"></i>
-    		BaseBall Park
-    </h1>
-    </a>
-    
-    <h3>비밀번호 찾기</h3>
- </header>
-
-
-<form method="POST" action="pwdResult.pknu" class="findPassword-form">
-	<input type="text" name="id" placeholder="아이디를 입력해주세요" required/>
-	<input type="text" name="phone" placeholder="전화번호를 입력해주세요" required/>
-	<input type="submit" value="비밀번호 찾기"/>
-</form>
- <div class="back-to-login">
-	<a href="login.pknu">로그인 화면으로 돌아가기</a>
-</div>
-
+	<header class="welcome-header">
+	    <a href="list.pknu">
+	    <h1 class="welcome-header__title">
+	    	<i class="fas fa-baseball-ball"></i>
+	    		BaseBall Park
+	    </h1>
+	    </a>
+	    <h3>비밀번호 찾기</h3>
+	 </header>
+	
+	<form method="POST" action="pwdResult.pknu" class="findPassword-form">
+		<input type="text" name="id" placeholder="아이디를 입력해주세요" required/>
+		<input type="text" name="phone" placeholder="전화번호를 입력해주세요" required/>
+		<input type="submit" value="비밀번호 찾기"/>
+	</form>
+	 <div class="back-to-login">
+		<a href="login.pknu">로그인 화면으로 돌아가기</a>
+	</div>
 </body>
 </html>
