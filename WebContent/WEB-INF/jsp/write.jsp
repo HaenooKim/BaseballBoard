@@ -119,6 +119,19 @@
 	</section>
 	
 	
+<footer>
+	    <nav>
+	        <a href='https://www.instagram.com/haenoo._/' target='_blank'>Instagram</a> |
+	        <a href='https://github.com/HaenooKim' target='_blank'>Github</a>
+	    </nav>
+	    <p>
+	        <span>만든이 : 김현우</span><br/>
+	        <span>이메일 : hwom6@naver.com</span><br/>
+	        <span> &copy; Copyright 2022. BaseBall Park. All Rights Reserved.</span>
+	    </p>
+	</footer>
+	
+	
 	<script>
 		const toggleBtn = document.querySelector(".header__toggleBtn");
 		const menu = document.querySelector(".header__menu");

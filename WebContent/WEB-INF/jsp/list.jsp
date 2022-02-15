@@ -289,8 +289,6 @@
 					%><li><a href="list.pknu?currentPage=<%=i%>"><%=i%></a></li>
 					<%		
 				}
-				
-			
 			}
 			if (blockEnd != pageCount) {
 				%><li><a href="list.pknu?currentPage=<%=blockEnd+1%>">다음</a></li><%
@@ -298,7 +296,6 @@
 		}
 		%>
 	</ul>
-	
 	
 	  <!------------- 검색창 ------------->
 	<section class="search">
@@ -315,6 +312,18 @@
 	    	  </button>
 		</form>
 	</section>
+	
+	<footer>
+	    <nav>
+	        <a href='https://www.instagram.com/haenoo._/' target='_blank'>Instagram</a> |
+	        <a href='https://github.com/HaenooKim' target='_blank'>Github</a>
+	    </nav>
+	    <p>
+	        <span>만든이 : 김현우</span><br/>
+	        <span>이메일 : hwom6@naver.com</span><br/>
+	        <span> &copy; Copyright 2022. BaseBall Park. All Rights Reserved.</span>
+	    </p>
+	</footer>
 	
 	<!-- Arrow up -->
 	<button class="arrow-up">
