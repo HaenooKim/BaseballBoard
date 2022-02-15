@@ -26,6 +26,24 @@
     		totalRows=dao.getTotalRows(search, target); //만약 검색한 결과를 가져오는 거라면 여기서 찾아야 한다!!
     	}
     	
+    	
+    //--------만약 카테고리를 눌려서 값을 받아온거라면??-------------------
+    		String categoryCurrentPage = request.getParameter("categoryCurrentPage");
+    		//System.out.println(categoryCurrentPage + "zz");	
+    		String category = null;
+    		
+    		Boolean checkCategory = false;
+    		if (categoryCurrentPage != null) {
+    			checkCategory = true;
+    			category = request.getParameter("category");
+  				//System.out.println(category);
+  				totalRows = dao.getTotalRows(category);
+  				System.out.println(totalRows);
+    		}
+    		
+    		
+    		
+    	
     	//-------테이블 페이지네이션을 몇번까지 만들지 정하는 코드--------	
     
     	int ArticlesPerPage = 40; //페이지당 글 수 (한페이지당 10개씩 보여줄거임) -> 변경하고 싶으면 BoardDAO_MariaImpl에 가서 showingNumber도 같은 숫자로 바꿔줘야 함
@@ -38,6 +56,10 @@
      		if (checkSearch) {
      			CP = searchCurrentPage;
      		}
+     		else if(checkCategory) {
+     			CP = categoryCurrentPage;
+     		}
+     		
      		else {     			
      			CP = request.getParameter("currentPage"); 
      		}
@@ -164,14 +186,14 @@
 							<td><%=t.getNo() %></td>
 							<td style="text-align:left">
 							<%
-								if (t.getOfn() !=null) {
+								if (t.getOfn() !=null) { //글쓴이가 사진게시 유무에 따라 아이콘 변경!
 									%><span style="color:#418f33;)"><i class="fas fa-image"></i></span><%
 								}
 								else if (t.getOfn() == null) {
 									%><span style="color:rgba(0, 0, 0, 0.4);)"><i class="far fa-comment-dots"></i></span><%
 								}
 							%>
-							<a style="color:#4a3dff" href="categorySearch.pknu?category=<%=t.getCategory()%>&currentPage=<%=currentPage%>"><%=t.getCategory() %></a>
+							<a style="color:#4a3dff" href="categorySearch.pknu?category=<%=t.getCategory()%>&categoryCurrentPage=1"><%=t.getCategory() %></a>
 							<a href="showContent.pknu?no=<%=t.getNo()%>"><%=t.getTitle() %></a>
 							<%
 								if(dao.getRelpyCount(t.getNo()) !=0) {
@@ -230,6 +252,28 @@
 				%><li><a href="listSearch.pknu?searchCurrentPage=<%=blockEnd+1%>&target=<%=target%>&search=<%=search%>">다음</a></li><%
 			}
 	}
+	
+	
+	
+	else if (checkCategory) { //카테고리 검색을 한 경우 여기다앗
+		if (blockBegin != 1) {
+			%><li><a href="categorySearch.pknu?categoryCurrentPage=<%=blockBegin-1%>&category=<%=category%>">이전</a></li><%
+		}
+	%><%
+			for (int i=blockBegin; i<=blockEnd; i++) {
+				if (currentPage == i) {
+					%><li class="active"><a href="javascript:void(0);"><%=i%></a></li><%
+				}
+				else {
+					%><li><a href="categorySearch.pknu?categoryCurrentPage=<%=i%>&category=<%=category%>"><%=i%></a></li>	<%
+				}
+			}
+		%><%
+			if (blockEnd != pageCount) {
+				%><li><a href="categorySearch.pknu?categoryCurrentPage=<%=blockEnd+1%>&category=<%=category%>">다음</a></li><%
+			}
+	}
+	
 	
 	else { //검색이 아닌 그냥 리스트를 불러올 경우
 		if (blockBegin != 1) {

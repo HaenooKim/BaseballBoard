@@ -3,7 +3,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import "navbar.css";
 
-
 section.showContent {
 	padding-top:80px;
 	display : flex;
@@ -47,7 +46,6 @@ section.showContent {
 	color:rgba(0, 0, 0, 0.5)
 }
 
-
 .showContent_information_content {
 	display:flex;
 	flex-direction:column;
@@ -64,8 +62,6 @@ section.showContent {
 	font-size:20px;
 }
 
-
-
 .reply_title {
 	width : 45%;
 	text-align : center;
@@ -74,13 +70,10 @@ section.showContent {
 	margin-top : 40px;
 }
 
-
-
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
 
 .board-table {
   font-size: 14px;
@@ -100,7 +93,6 @@ table {
   text-decoration: underline;
 }
 
-
 .board-table th,
 .board-table td {
   padding: 14px 0;
@@ -113,8 +105,6 @@ table {
 .board-table tbody .replyTime {
 	text-align : right;
 }
-
-
 
 .board-table tbody th {
   padding-left: 28px;
@@ -239,8 +229,6 @@ ul.pagination {
 		height:300px;
 		margin-top:30px;
 	}
-	
-	
 }
 
 .back_btn button {
@@ -264,4 +252,3 @@ ul.pagination {
 	height:600px;
 	margin-top:30px;
 }
-

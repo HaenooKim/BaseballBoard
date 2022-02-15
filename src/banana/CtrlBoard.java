@@ -23,9 +23,7 @@ import orange.UserDAO_MariaImpl;
 import orange.UserVO;
 
 @Control
-public class CtrlBoard {
-	
-//
+public class CtrlBoard {	
 	
 	@RequestMapping("/intro.pknu") 
 	public ModelAndView intro(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -76,12 +74,8 @@ public class CtrlBoard {
 		po.setPhone(phone);
 		dao.add(po);
 		
-		return "redirect:login.pknu";
-		
+		return "redirect:login.pknu";	
 	}
-	
-	
-
 	
 	//-----------------로그인-----------------------------
 	
@@ -178,19 +172,6 @@ public class CtrlBoard {
 		return mnv;
 	}
 	
-	/*
-	 * @RequestMapping("/list.pknu")
-	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		BoardDAO dao = new BoardDAO_MariaImpl();
-		List<BoardAndReplyVO> rl = dao.findAll();
-		
-		ModelAndView mnv = new ModelAndView();
-		mnv.setViewName("list");
-		mnv.addObject("rList", rl);
-		return mnv;
-	}
-	 */
-	
 	@RequestMapping("/showContent.pknu")
 	public ModelAndView showContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String no = request.getParameter("no");
@@ -267,14 +248,14 @@ public class CtrlBoard {
 	public ModelAndView categorySearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String category = request.getParameter("category");
 		
-		String searchCurrentPage = request.getParameter("searchCurrentPage"); //현재 페이지 (string)
+		String categoryCurrentPage = request.getParameter("categoryCurrentPage"); //현재 페이지 (string)
 		int currentPage2 = 0; //현재 페이지(int)
 		
-		if (searchCurrentPage==null || searchCurrentPage.equals("")) {
+		if (categoryCurrentPage==null || categoryCurrentPage.equals("")) {
 			currentPage2 = 1;
 		}
 		else {
-			currentPage2 = Integer.parseInt(searchCurrentPage);
+			currentPage2 = Integer.parseInt(categoryCurrentPage);
 		}
 		
 		ModelAndView mnv = new ModelAndView();
@@ -448,7 +429,6 @@ public class CtrlBoard {
 		dao.update(po); 
 		mnv.setViewName("redirect:list.pknu");
 		return mnv;
-		
 	}
 	
 	//----------------댓글달기

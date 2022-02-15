@@ -21,8 +21,9 @@ public interface BoardDAO {
 	public List<BoardAndReplyVO> findByCategory(BoardVO pvo, int currentPage) throws Exception;
 	public List<BoardAndReplyVO> findByPK3(BoardAndReplyVO pvo, int currentPage) throws Exception;
 	
-	//----갯수 출력 기능 count(*)-----------------
-	public int getTotalRows() throws Exception;
-	public int getTotalRows(String search, String target) throws Exception;
+	//----레코드 갯수 출력 기능 count(*)-----------------
+	public int getTotalRows() throws Exception; //전체 리스트 보여줄때 전체 레코드 갯수 찾을 때 사용
+	public int getTotalRows(String search, String target) throws Exception; //검색했을 때 레코드 갯수 찾을때 사용
+	public int getTotalRows(String category) throws Exception;
 	public int getRelpyCount(int boardNo) throws Exception;
 }

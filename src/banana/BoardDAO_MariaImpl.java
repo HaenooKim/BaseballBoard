@@ -663,4 +663,40 @@ public class BoardDAO_MariaImpl implements BoardDAO{
 		
 		return count;
 	}
+
+	@Override
+	public int getTotalRows(String category) throws Exception {
+		int count = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection(
+				"jdbc:mariadb://183.111.242.21:3306/pukyung21",
+				"pukyung21","pukyung00!!1");
+			
+			stmt = conn.prepareStatement("SELECT count(*) FROM board WHERE category = ?");
+			stmt.setString( 1, category);
+			
+			rs = stmt.executeQuery();
+			
+			int index=0;
+			if (rs.next()) {
+				count = rs.getInt(++index);
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if( rs != null ) rs.close();
+			if( stmt != null ) stmt.close();
+			if( conn != null ) conn.close();
+		}
+		
+		return count;
+	}
 }
