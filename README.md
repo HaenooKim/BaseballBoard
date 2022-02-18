@@ -37,8 +37,5 @@
 ![홈페이지상단](https://user-images.githubusercontent.com/68438969/154717760-97d5645a-2eec-4235-9584-78af81400dd0.png)
 ![홈페이지 하단](https://user-images.githubusercontent.com/68438969/154716527-e0df31cc-134c-48df-9389-df146b54df21.png)
 ![글보기 상단](https://user-images.githubusercontent.com/68438969/154716537-9fe64f70-9e01-4f3e-adc3-a5151c9eb5fb.png)
-38969/154716513-95fb221a-ebd0-4804-8694-9f8b1e2fbf3c.png)
 ![글보기 하단](https://user-images.githubusercontent.com/68438969/154716545-23eb00ba-83c3-40a4-a86e-a72ccdb4a752.png)
-.png)
 ![글쓰기](https://user-images.githubusercontent.com/68438969/154716551-93406980-b9fe-4cf2-8312-d84e3a8c509a.png)
-e
